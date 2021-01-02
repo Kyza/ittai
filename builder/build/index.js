@@ -116,7 +116,7 @@ const build = (fromPath, toPath, callback) => {
 				"let plugin"
 			);
 
-			callback(builtCode);
+			builtCode = callback(builtCode);
 
 			builtCode = beautify(builtCode, {
 				indent_with_tabs: true,
