@@ -116,14 +116,25 @@ const build = (fromPath, toPath, callback) => {
 				"let plugin"
 			);
 
+			// Add clientmod-specific code.
 			builtCode = callback(builtCode);
 
-			builtCode += "module.exports = plugin";
+			builtCode += "module.exports = plugin;";
+
+			// Generate BD meta.
+			const manifest = fs.readJSONSync(path.join(fromPath, "manifest.json"));
+			let meta = "/**";
+			for (const key in manifest) {
+				meta += `\n * @${key} ${manifest[key]}`;
+			}
+			meta += "\n */";
+			builtCode = `${meta}\n${builtCode}`;
 
 			builtCode = beautify(builtCode, {
 				indent_with_tabs: true,
 			});
 
+			// Get rid of ugly blank lines.
 			builtCode = builtCode.replace(/\n{2,}/g, "\n");
 
 			fs.writeFileSync(outputPath, builtCode);

@@ -1,3 +1,10 @@
+/**
+ * @name Text React
+ * @description Adds a command & button to react on message with regional indicators.
+ * @author Juby210#0577 & Куza
+ * @version 2.1.5
+ * @license MIT
+ */
 let plugin =
 	/******/
 	(() => { // webpackBootstrap
@@ -620,4 +627,4 @@ plugin.prototype.startPlugin = plugin.prototype.start;
 plugin.prototype.pluginWillUnload = plugin.prototype.stop;
 plugin.prototype.onStart = plugin.prototype.start;
 plugin.prototype.onStop = plugin.prototype.stop;
-module.exports = plugin
+module.exports = plugin;
