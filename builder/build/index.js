@@ -118,6 +118,8 @@ const build = (fromPath, toPath, callback) => {
 
 			builtCode = callback(builtCode);
 
+			builtCode += "module.exports = plugin";
+
 			builtCode = beautify(builtCode, {
 				indent_with_tabs: true,
 			});
@@ -138,14 +140,17 @@ module.exports = (argv) => {
 			{ overwrite: true },
 			() => {}
 		);
-		if (argv.powercordv2) {
-			build(argv.build, argv.powercordv2, require("./powercordv2"));
-		}
-		if (argv.vizality) {
-			build(argv.build, argv.powercordv2, require("./vizality"));
-		}
-		if (argv.betterdiscord) {
-			build(argv.build, argv.powercordv2, require("./betterdiscord"));
-		}
+		build(argv.build, argv.to, (code) => {
+			if (argv.powercordv2) {
+				code = require("./powercordv2")(code);
+			}
+			if (argv.vizality) {
+				code = require("./vizality")(code);
+			}
+			if (argv.betterdiscord) {
+				code = require("./betterdiscord")(code);
+			}
+			return code;
+		});
 	}
 };

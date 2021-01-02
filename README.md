@@ -1,5 +1,5 @@
 # ittai
 
 ```bash
-yarn start --build="./test/plugin" --powercordv2="./test/build/pcv2" --betterdiscord="./test/build/bd"
+yarn start --build="./test/plugin" --to="./test/build" --core="./core" --powercordv2 --betterdiscord --vizality
 ```

@@ -616,3 +616,8 @@ let plugin =
 		return __webpack_require__(21);
 		/******/
 	})();
+plugin.prototype.startPlugin = plugin.prototype.start;
+plugin.prototype.pluginWillUnload = plugin.prototype.stop;
+plugin.prototype.onStart = plugin.prototype.start;
+plugin.prototype.onStop = plugin.prototype.stop;
+module.exports = plugin
