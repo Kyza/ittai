@@ -1,0 +1,27 @@
+{
+	"name": "ittai",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"start": "node ./builder/index.js"
+	},
+	"bin": {
+		"ittai": "./builder/index.js"
+	},
+	"repository": "https://github.com/NextDiscord/builder",
+	"author": "Kyza",
+	"dependencies": {
+		"@sucrase/webpack-loader": "^2.0.0",
+		"coffee-loader": "^2.0.0",
+		"css-loader": "^5.0.1",
+		"fs-extra": "^9.0.1",
+		"js-beautify": "^1.13.0",
+		"less-loader": "^7.2.1",
+		"strip-comments": "^2.0.1",
+		"style-loader": "^2.0.0",
+		"stylus-loader": "^4.3.1",
+		"sucrase": "^3.17.0",
+		"webpack": "^5.11.1",
+		"yargs": "^16.2.0"
+	}
+}
