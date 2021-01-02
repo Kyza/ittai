@@ -8,12 +8,6 @@ const build = (fromPath, toPath, callback) => {
 	console.log(`Building ${path.resolve(fromPath)} to ${path.resolve(toPath)}.`);
 	console.time("Bulit in");
 	fs.ensureDir(toPath);
-	fs.copySync(
-		argv.core,
-		path.join(fromPath, "ittai"),
-		{ overwrite: true },
-		() => {}
-	);
 	webpack(
 		{
 			mode: "production",
@@ -138,6 +132,12 @@ const build = (fromPath, toPath, callback) => {
 
 module.exports = (argv) => {
 	if (fs.existsSync(argv.build)) {
+		fs.copySync(
+			argv.core,
+			path.join(fromPath, "ittai"),
+			{ overwrite: true },
+			() => {}
+		);
 		if (argv.powercordv2) {
 			build(argv.build, argv.powercordv2, require("./powercordv2"));
 		}
