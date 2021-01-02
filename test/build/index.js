@@ -1,9 +1,10 @@
 /**
- * @name Text React
- * @description Adds a command & button to react on message with regional indicators.
- * @author Juby210#0577 & Куza
- * @version 2.1.5
- * @license MIT
+ * @name testbundle
+ * @version 1.0.0
+ * @description Shaky Shalky audi fjvhdbksfdvgbhjk
+ * @author Kyza
+ * @icon icon/icon.png
+ * @license None
  */
 let plugin =
 	/******/
@@ -61,7 +62,20 @@ let plugin =
 								case "vizality":
 									return __webpack_require__(604).Plugin;
 								default:
-									return class Plugin {};
+									return class Plugin {
+										log() {
+											console.log(...arguments);
+										}
+										debug() {
+											console.debug(...arguments);
+										}
+										warn() {
+											console.warn(...arguments);
+										}
+										error() {
+											console.error(...arguments);
+										}
+									};
 							}
 						},
 					};
@@ -109,12 +123,26 @@ let plugin =
 					var _utils = __webpack_require__(984);
 					exports.default = {
 						getModule(...args) {
-							console.log(_utils.getClientMod.call(void 0, ));
 							switch (_utils.getClientMod.call(void 0, )) {
 								case "powercord":
 									return __webpack_require__(691).getModule(args, false);
 								case "vizality":
 									return __webpack_require__(827).getModule(...args);
+								case "betterdiscord":
+									if (typeof args[0] === "function") {
+										return BdApi.findModule(args[0]);
+									}
+									return BdApi.findModuleByProps(...args);
+							}
+						},
+						getModuleByDisplayName(args) {
+							switch (_utils.getClientMod.call(void 0, )) {
+								case "powercord":
+									return __webpack_require__(691).getModuleByDisplayName(args, false);
+								case "vizality":
+									return __webpack_require__(827).getModuleByDisplayName(args);
+								case "betterdiscord":
+									return BdApi.findModuleByDisplayName(args);
 							}
 						},
 					};

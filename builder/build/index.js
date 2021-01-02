@@ -125,7 +125,9 @@ const build = (fromPath, toPath, callback) => {
 			const manifest = fs.readJSONSync(path.join(fromPath, "manifest.json"));
 			let meta = "/**";
 			for (const key in manifest) {
-				meta += `\n * @${key} ${manifest[key]}`;
+				meta += `\n * @${key} ${
+					key === "name" ? manifest[key].replace(/ /g, "") : manifest[key]
+				}`;
 			}
 			meta += "\n */";
 			builtCode = `${meta}\n${builtCode}`;
