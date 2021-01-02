@@ -134,7 +134,7 @@ module.exports = (argv) => {
 	if (fs.existsSync(argv.build)) {
 		fs.copySync(
 			argv.core,
-			path.join(fromPath, "ittai"),
+			path.join(argv.build, "ittai"),
 			{ overwrite: true },
 			() => {}
 		);
