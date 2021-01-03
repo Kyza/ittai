@@ -1,22 +1,28 @@
 <p align="center">
-  <h1>Ittai</h1>
-
-  <a href="#features">Features</a>
-
-  <a href="#installation">Installation</a>
-
+  Ittai
+</p>
+  
+<p align="center">
+  <a href="#features">Features</a> |
+  <a href="#installation">Installation</a> |
   <a href="#how-to-build">How to Build</a>
+</p>
 
+<p align="center">
   <blockquote>
     <strong>What the heck</strong>?! I only need to use <strong>one style</strong> for my plugin?
   </blockquote>
   <blockquote>
     <strong>Ittai</strong>?! I only need to use <strong>Ittai</strong> for my plugin?
   </blockquote>
+</p>
   
+<p align="center">
   <img src="https://github.com/Kyza/ittai/blob/master/media/3c9fa5fed87bcdd0.png">
+</p>
 
-  Ittai is a plugin builder for Discord client mods. Which ones? Yes.
+<p align="center">
+  <i>Ittai is a plugin builder for Discord client mods. Which ones? Yes.</i>
 </p>
 
 ## Features
