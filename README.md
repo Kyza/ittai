@@ -26,6 +26,8 @@
   <i>Ittai is a plugin builder for Discord client mods. Which ones? Yes.</i>
 </p>
 
+<hr>
+
 ## Features
 
  - Build even single-file BD plugins from multi-file projects.
