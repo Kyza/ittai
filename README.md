@@ -1,6 +1,4 @@
-<p align="center">
-  <h1>Ittai</h1>
-</p>
+<h1 align="center">Ittai</h1>
   
 <p align="center">
   <a href="#features">Features</a> |
