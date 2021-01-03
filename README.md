@@ -1,3 +1,5 @@
+<hr>
+
 <h1 align="center">Ittai</h1>
   
 <p align="center">
