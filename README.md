@@ -1,5 +1,5 @@
 <p align="center">
-  Ittai
+  <h1>Ittai</h1>
 </p>
   
 <p align="center">
@@ -9,12 +9,15 @@
 </p>
 
 <p align="center">
-  <blockquote>
+  <i>
     <strong>What the heck</strong>?! I only need to use <strong>one style</strong> for my plugin?
-  </blockquote>
-  <blockquote>
+  </i>
+</p>
+  
+<p align="center">
+  <i>
     <strong>Ittai</strong>?! I only need to use <strong>Ittai</strong> for my plugin?
-  </blockquote>
+  </i>
 </p>
   
 <p align="center">
