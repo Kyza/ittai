@@ -43,6 +43,11 @@
    - [SASS (SCSS)](https://sass-lang.com/)
    - [Stylus](https://stylus-lang.com/)
    - [LESS](http://lesscss.org/)
+ - Build to almost any client mod.
+   - [x] BetterDiscord
+   - [ ] EnhancedDiscord
+   - [x] Powercord **v2**
+   - [x] Vizality
 
 ## Installation
 
