@@ -35,18 +35,18 @@
  - Build even single-file BD plugins from multi-file projects.
  - Write one codebase, distribute one product.
  - Use various flavors of JS to create your plugins.
-   - [JSX](https://reactjs.org/docs/introducing-jsx.html)
-   - [TypeScript](https://www.typescriptlang.org/) (and TSX!)
-   - [ES6 Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) (both `require("module");` and `import module from "module";`)
-   - [CoffeeScript](https://coffeescript.org/)
+   - [x] [JSX](https://reactjs.org/docs/introducing-jsx.html)
+   - [ ] [TypeScript](https://www.typescriptlang.org/) (and TSX!)
+   - [x] [ES6 Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) (both `require("module");` and `import module from "module";`)
+   - [ ] [CoffeeScript](https://coffeescript.org/)
  - I didn't forget about CSS!
-   - Load your stylesheets easily.
+   - [x] Load your stylesheets easily.
      - `import style from "./style.css";`
      - `start() {style.use();}`
      - `stop() {style.unuse();}`
-   - [SASS (SCSS)](https://sass-lang.com/)
-   - [Stylus](https://stylus-lang.com/)
-   - [LESS](http://lesscss.org/)
+   - [x] [SASS (SCSS)](https://sass-lang.com/)
+   - [x] [Stylus](https://stylus-lang.com/)
+   - [x] [LESS](http://lesscss.org/)
  - Build to almost any client mod.
    - [x] BetterDiscord
    - [ ] EnhancedDiscord
