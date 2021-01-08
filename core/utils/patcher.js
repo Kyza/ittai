@@ -32,7 +32,7 @@ export default {
 		};
 		object.__ittaiPatches__.push(patchData);
 
-		object[name] = (...args) => {
+		object[name] = function (...args) {
 			const befores = object.__ittaiPatches__.filter(
 				(p) => p.type === "before"
 			);
