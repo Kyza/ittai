@@ -121,17 +121,6 @@ const build = (fromPath, toPath, callback) => {
 
 			builtCode += "module.exports = plugin;";
 
-			// Generate BD meta.
-			const manifest = fs.readJSONSync(path.join(fromPath, "manifest.json"));
-			let meta = "/**";
-			for (const key in manifest) {
-				meta += `\n * @${key} ${
-					key === "name" ? manifest[key].replace(/ /g, "") : manifest[key]
-				}`;
-			}
-			meta += "\n */";
-			builtCode = `${meta}\n${builtCode}`;
-
 			builtCode = beautify(builtCode, {
 				indent_with_tabs: true,
 			});
@@ -147,12 +136,15 @@ const build = (fromPath, toPath, callback) => {
 
 module.exports = (argv) => {
 	if (fs.existsSync(argv.build)) {
-		fs.copySync(
-			argv.core,
-			path.join(argv.build, "ittai"),
-			{ overwrite: true },
-			() => {}
-		);
+		if (argv.core && fs.existsSync(argv.core)) {
+			fs.copySync(
+				argv.core,
+				path.join(argv.build, "ittai"),
+				{ overwrite: true },
+				() => {}
+			);
+		}
+
 		build(argv.build, argv.to, (code) => {
 			if (argv.powercordv2) {
 				code = require("./powercordv2")(code);
