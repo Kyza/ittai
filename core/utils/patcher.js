@@ -62,7 +62,11 @@ export default {
 				// Bad, fix later.
 				for (const instead of insteads) {
 					// Do trash merge with Lodash.
-					res = globalThis._.merge(res, instead.patch(args));
+					try {
+						res = globalThis._.merge(res, instead.patch(args));
+					} catch (e) {
+						logger.error("Error running instead patch.", e);
+					}
 				}
 			}
 
