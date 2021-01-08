@@ -1,6 +1,12 @@
+import Logger from "../utils/logger";
 import { getClientMod } from "../utils";
 
 export default {
+	/**
+	 * Get the Plugin class.
+	 *
+	 * @return {class} Plugin class.
+	 */
 	get Plugin() {
 		switch (getClientMod()) {
 			case "powercord":
@@ -10,16 +16,16 @@ export default {
 			default:
 				return class Plugin {
 					log() {
-						console.log(...arguments);
+						Logger.log(...arguments);
 					}
 					debug() {
-						console.debug(...arguments);
+						Logger.debug(...arguments);
 					}
 					warn() {
-						console.warn(...arguments);
+						Logger.warn(...arguments);
 					}
 					error() {
-						console.error(...arguments);
+						Logger.error(...arguments);
 					}
 				};
 		}

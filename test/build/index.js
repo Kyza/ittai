@@ -27,6 +27,8 @@ let plugin =
 					}
 					var _entities = __webpack_require__(706);
 					var _webpack = __webpack_require__(384);
+					var _logger = __webpack_require__(365);
+					var _logger2 = _interopRequireDefault(_logger);
 					var _stylecss = __webpack_require__(247);
 					var _stylecss2 = _interopRequireDefault(_stylecss);
 					const {
@@ -36,6 +38,7 @@ let plugin =
 						start() {
 							this.log("Starting.", getChannelId());
 							_stylecss2.default.use();
+							_logger2.default.log("Test");
 						}
 						stop() {
 							this.log("Stopping.");
@@ -53,8 +56,20 @@ let plugin =
 					Object.defineProperty(exports, "__esModule", ({
 						value: true
 					}));
+					function _interopRequireDefault(obj) {
+						return obj && obj.__esModule ? obj : {
+							default: obj
+						};
+					}
+					var _logger = __webpack_require__(365);
+					var _logger2 = _interopRequireDefault(_logger);
 					var _utils = __webpack_require__(984);
 					exports.default = {
+						/**
+						 * Get the Plugin class.
+						 *
+						 * @return {class} Plugin class.
+						 */
 						get Plugin() {
 							switch (_utils.getClientMod.call(void 0, )) {
 								case "powercord":
@@ -64,16 +79,16 @@ let plugin =
 								default:
 									return class Plugin {
 										log() {
-											console.log(...arguments);
+											_logger2.default.log(...arguments);
 										}
 										debug() {
-											console.debug(...arguments);
+											_logger2.default.debug(...arguments);
 										}
 										warn() {
-											console.warn(...arguments);
+											_logger2.default.warn(...arguments);
 										}
 										error() {
-											console.error(...arguments);
+											_logger2.default.error(...arguments);
 										}
 									};
 							}
@@ -85,29 +100,178 @@ let plugin =
 			/***/
 			984:
 				/***/
+				((__unused_webpack_module, exports, __webpack_require__) => {
+					Object.defineProperty(exports, "__esModule", ({
+						value: true
+					}));
+					function _interopRequireWildcard(obj) {
+						if (obj && obj.__esModule) {
+							return obj;
+						} else {
+							var newObj = {};
+							if (obj != null) {
+								for (var key in obj) {
+									if (Object.prototype.hasOwnProperty.call(obj, key)) {
+										newObj[key] = obj[key];
+									}
+								}
+							}
+							newObj.default = obj;
+							return newObj;
+						}
+					}
+					function _interopRequireDefault(obj) {
+						return obj && obj.__esModule ? obj : {
+							default: obj
+						};
+					}
+					var _patcher = __webpack_require__(363);
+					var _patcher2 = _interopRequireWildcard(_patcher);
+					exports.patcher = _patcher2;
+					var _logger = __webpack_require__(365);
+					var _logger2 = _interopRequireWildcard(_logger);
+					exports.logger = _logger2;
+					// Know it will work on this client mod or it's detecting the wrong one?
+					// Set this variable.
+					let clientMod;
+					function getClientMod() {
+						if (clientMod) return clientMod;
+						if (globalThis.BdApi) {
+							return (clientMod = "betterdiscord");
+						} else if (globalThis.EdApi) {
+							return (clientMod = "enhanceddiscord");
+						} else if (globalThis.powercord) {
+							return (clientMod = "powercord");
+						} else if (globalThis.vizality) {
+							return (clientMod = "vizality");
+						} else if (globalThis.untitled) {
+							throw Error("Untitled is not supported yet.");
+						} else if (globalThis.nxt) {
+							throw Error("How the hell did you get this client mod.");
+						}
+						throw Error("Unknown client mod.");
+					}
+					exports.getClientMod = getClientMod;
+					/***/
+				}),
+			/***/
+			365:
+				/***/
 				((module, exports) => {
 					Object.defineProperty(exports, "__esModule", ({
 						value: true
-					})); // Know it will work on this client mod or it's detecting the wrong one?
-					// Set this variable.
-					let clientMod;
+					}));
+					function createArguments(...args) {
+						return [
+							"%cITTAI",
+							"color: #000; background-color: #42ffa7; font-family: default; padding: 3px; border-radius: 2px;",
+							...args,
+						];
+					}
 					exports.default = {
-						getClientMod() {
-							if (clientMod) return clientMod;
-							if (globalThis.BdApi) {
-								return (clientMod = "betterdiscord");
-							} else if (globalThis.EdApi) {
-								return (clientMod = "enhanceddiscord");
-							} else if (globalThis.powercord) {
-								return (clientMod = "powercord");
-							} else if (globalThis.vizality) {
-								return (clientMod = "vizality");
-							} else if (globalThis.untitled) {
-								throw Error("Untitled is not supported yet.");
-							} else if (globalThis.nxt) {
-								throw Error("How the hell did you get this client mod.");
-							}
-							throw Error("Unknown client mod.");
+						log: (...args) => {
+							console.log(...createArguments(...args));
+						},
+						debug: (...args) => {
+							console.debug(...createArguments(...args));
+						},
+						warn: (...args) => {
+							console.warn(...createArguments(...args));
+						},
+						error: (...args) => {
+							console.error(...createArguments(...args));
+						},
+					};
+					module.exports = exports.default;
+					/***/
+				}),
+			/***/
+			363:
+				/***/
+				((module, exports, __webpack_require__) => {
+					Object.defineProperty(exports, "__esModule", ({
+						value: true
+					}));
+					function _interopRequireDefault(obj) {
+						return obj && obj.__esModule ? obj : {
+							default: obj
+						};
+					}
+					var _logger = __webpack_require__(365);
+					var _logger2 = _interopRequireDefault(_logger);
+					function dirtyObject(object) {
+						if (!object.__ittaiPatches__) object.__ittaiPatches__ = [];
+					}
+					function cleanObject(object) {
+						if (object.__ittaiPatches__) delete object.__ittaiPatches__;
+					}
+					exports.default = {
+						patch: function(object, name, type, patch) {
+							dirtyObject(object);
+							const patchData = {
+								type,
+								name,
+								patch,
+								original: {
+									...object
+								} [name],
+								unpatch: function() {
+									try {
+										if (object.__ittaiPatches__.indexOf(this) === -1)
+											throw "Couldn't find the patch. This probably happened because the object was tampered with. Don't do that.";
+										object.__ittaiPatches__.splice(
+											object.__ittaiPatches__.indexOf(this),
+											1
+										);
+										if (object.__ittaiPatches__.length === 0) cleanObject(object);
+									} catch (e) {
+										_logger2.default.error("Failed to unpatch.", e);
+									}
+								},
+							};
+							object.__ittaiPatches__.push(patchData);
+							object[name] = (...args) => {
+								const befores = object.__ittaiPatches__.filter(
+									(p) => p.type === "before"
+								);
+								const insteads = object.__ittaiPatches__.filter(
+									(p) => p.type === "instead"
+								);
+								const afters = object.__ittaiPatches__.filter((p) => p.type === "after");
+								// Before patches.
+								for (const before of befores) {
+									try {
+										args = before.patch(args);
+									} catch (e) {
+										_logger2.default.error("Error running before patch.", e);
+									}
+								}
+								// Instead patches.
+								let res = {};
+								if (insteads.length === 0) {
+									try {
+										res = patchData.original(...args);
+									} catch (e) {
+										_logger2.default.error("Error running instead patch.", e);
+									}
+								} else {
+									// Bad, fix later.
+									for (const instead of insteads) {
+										// Do trash merge with Lodash.
+										res = globalThis._.merge(res, instead.patch(args));
+									}
+								}
+								// After patches.
+								for (const after of afters) {
+									try {
+										res = after.patch(args, res);
+									} catch (e) {
+										_logger2.default.error("Error running after patch.", e);
+									}
+								}
+								return res;
+							};
+							return patchData;
 						},
 					};
 					module.exports = exports.default;

@@ -12,6 +12,7 @@
 	"author": "Kyza",
 	"dependencies": {
 		"@sucrase/webpack-loader": "^2.0.0",
+		"@types/css": "^0.0.31",
 		"coffee-loader": "^2.0.0",
 		"css-loader": "^5.0.1",
 		"fs-extra": "^9.0.1",
