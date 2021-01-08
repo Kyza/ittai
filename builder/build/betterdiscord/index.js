@@ -1,4 +1,6 @@
-module.exports = (code) => {
+const fs = require("fs-extra");
+
+module.exports = (code, fromPath) => {
 	// Generate BD meta.
 	const manifest = fs.readJSONSync(path.join(fromPath, "manifest.json"));
 	let meta = "/**";

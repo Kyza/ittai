@@ -153,7 +153,7 @@ module.exports = (argv) => {
 				code = require("./vizality")(code);
 			}
 			if (argv.betterdiscord) {
-				code = require("./betterdiscord")(code);
+				code = require("./betterdiscord")(code, argv.build);
 			}
 			return code;
 		});
