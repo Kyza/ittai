@@ -18,12 +18,15 @@ export default {
 			original: { ...object }[name],
 			unpatch: function () {
 				try {
-					if (object.__ittaiPatches__.indexOf(this) === -1)
+					const patchIndex = object.__ittaiPatches__.indexOf(this);
+					if (patchIndex === -1)
 						throw "Couldn't find the patch. This probably happened because the object was tampered with. Don't do that.";
-					object.__ittaiPatches__.splice(
-						object.__ittaiPatches__.indexOf(this),
-						1
-					);
+					const currentPatch = object.__ittaiPatches__[patchIndex];
+					// Restore original function.
+					object[name] = currentPatch.original;
+					// Delete patch.
+					object.__ittaiPatches__.splice(patchIndex, 1);
+					// Clean up the object if there are no patches left.
 					if (object.__ittaiPatches__.length === 0) cleanObject(object);
 				} catch (e) {
 					logger.error("Failed to unpatch.", e);
@@ -32,7 +35,7 @@ export default {
 		};
 		object.__ittaiPatches__.push(patchData);
 
-		object[name] = (...args) => {
+		object[name] = function (...args) {
 			const befores = object.__ittaiPatches__.filter(
 				(p) => p.type === "before"
 			);
@@ -54,7 +57,7 @@ export default {
 			let res = {};
 			if (insteads.length === 0) {
 				try {
-					res = patchData.original(...args);
+					res = patchData.original.call(this, ...args);
 				} catch (e) {
 					logger.error("Error running instead patch.", e);
 				}
