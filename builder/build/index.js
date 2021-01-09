@@ -9,7 +9,9 @@ const build = (fromPath, toPath, callback) => {
 	console.time("Bulit in");
 	fs.ensureDir(toPath);
 
-	const cssLoader = path.resolve(path.join(__dirname, "cssLoader.js"));
+	const stylesheetLoader = path.resolve(
+		path.join(__dirname, "stylesheetLoader.js")
+	);
 	webpack(
 		{
 			mode: "production",
@@ -42,19 +44,19 @@ const build = (fromPath, toPath, callback) => {
 				rules: [
 					{
 						test: /\.css$/i,
-						use: [cssLoader, "css-loader"],
+						use: [stylesheetLoader, "css-loader"],
 					},
 					{
 						test: /\.scss$/i,
-						use: [cssLoader, "css-loader", "sass-loader"],
+						use: [stylesheetLoader, "css-loader", "sass-loader"],
 					},
 					{
 						test: /\.styl$/i,
-						use: [cssLoader, "css-loader", "stylus-loader"],
+						use: [stylesheetLoader, "css-loader", "stylus-loader"],
 					},
 					{
 						test: /\.less$/i,
-						use: [cssLoader, "css-loader", "less-loader"],
+						use: [stylesheetLoader, "css-loader", "less-loader"],
 					},
 					{
 						test: /\.m?(j|t)sx?$/i,
