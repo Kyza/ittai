@@ -5,9 +5,13 @@ const TerserPlugin = require("terser-webpack-plugin");
 const beautify = require("js-beautify").js;
 const chokidar = require("chokidar");
 
-const build = (fromPath, toPath, core, callback) => {
-	console.log(`Building ${path.resolve(fromPath)} to ${path.resolve(toPath)}.`);
-	fs.ensureDir(toPath);
+const core = path.resolve(path.join("./core"));
+
+const build = (argv, callback) => {
+	console.log(`Building ${path.resolve(argv.plugin)}.`);
+
+	fs.ensureDirSync("./temp");
+	const temp = path.resolve("./temp");
 
 	const stylesheetLoader = path.resolve(
 		path.join(__dirname, "stylesheetLoader.js")
@@ -16,12 +20,12 @@ const build = (fromPath, toPath, core, callback) => {
 		{
 			mode: "production",
 			target: "node",
-			entry: path.resolve(fromPath),
+			entry: path.resolve(argv.plugin),
 			output: {
 				library: "LibraryPluginHack",
 				libraryTarget: "commonjs2",
 				filename: "index.js",
-				path: path.resolve(toPath),
+				path: temp,
 			},
 			externals: [
 				function ({ context, request }, callback) {
@@ -134,7 +138,7 @@ const build = (fromPath, toPath, core, callback) => {
 				return console.error("Build failed.", err);
 			}
 
-			const outputPath = path.join(path.resolve(toPath), "index.js");
+			const outputPath = path.join(path.resolve("./temp"), "index.js");
 			let builtCode = fs.readFileSync(outputPath, "utf-8");
 
 			builtCode = builtCode.replace(
@@ -155,26 +159,57 @@ const build = (fromPath, toPath, core, callback) => {
 			builtCode = builtCode.replace(/\n{2,}/g, "\n");
 
 			fs.writeFileSync(outputPath, builtCode);
+
+			if (fs.existsSync(argv.vizality)) {
+				fs.copy(temp, argv.vizality);
+			}
+			if (fs.existsSync(argv.powercordv2)) {
+				fs.copy(temp, argv.powercordv2);
+			}
+			if (fs.existsSync(argv.betterdiscord)) {
+				fs.copyFile(
+					path.resolve(path.join(temp, "index.js")),
+					path.join(
+						argv.betterdiscord,
+						`${
+							fs.readJSONSync(path.join(temp, "manifest.json")).name
+						}.plugin.js`
+					)
+				);
+			}
 		}
 	);
 };
 
+const clearAndEnsure = (p) => {
+	fs.ensureDirSync(p);
+};
+
 const beginBuild = (argv) => {
-	if (fs.existsSync(argv.build) && fs.existsSync(argv.core)) {
-		if (fs.existsSync(path.join(argv.to, "index.js"))) {
-			fs.unlinkSync(path.join(argv.to, "index.js"));
-		}
-		if (fs.existsSync(path.join(argv.to, "manifest.json"))) {
-			fs.unlinkSync(path.join(argv.to, "manifest.json"));
-		}
-		if (fs.existsSync(path.join(argv.build, "manifest.json"))) {
+	if (fs.existsSync(argv.plugin) && fs.existsSync(core)) {
+		if (fs.existsSync(argv.vizality)) {
+			clearAndEnsure(argv.vizality);
 			fs.copyFileSync(
-				path.join(argv.build, "manifest.json"),
-				path.join(argv.to, "manifest.json")
+				path.join(argv.plugin, "manifest.json"),
+				path.join(argv.vizality, "manifest.json")
+			);
+		}
+		if (fs.existsSync(argv.powercordv2)) {
+			clearAndEnsure(argv.powercordv2);
+			fs.copyFileSync(
+				path.join(argv.plugin, "manifest.json"),
+				path.join(argv.powercordv2, "manifest.json")
+			);
+		}
+		if (fs.existsSync(argv.betterdiscord)) {
+			clearAndEnsure(argv.betterdiscord);
+			fs.copyFileSync(
+				path.join(argv.plugin, "manifest.json"),
+				path.join(argv.betterdiscord, "manifest.json")
 			);
 		}
 
-		build(argv.build, argv.to, argv.core, (code) => {
+		build(argv, (code) => {
 			if (argv.powercordv2) {
 				code = require("./powercordv2")(code);
 			}
@@ -182,7 +217,7 @@ const beginBuild = (argv) => {
 				code = require("./vizality")(code);
 			}
 			if (argv.betterdiscord) {
-				code = require("./betterdiscord")(code, argv.build);
+				code = require("./betterdiscord")(code, argv.plugin);
 			}
 			return code;
 		});
@@ -193,7 +228,7 @@ module.exports = (argv) => {
 	if (argv.watch) {
 		beginBuild(argv);
 		chokidar
-			.watch([argv.build, argv.core], {
+			.watch([argv.plugin, core], {
 				persistent: true,
 				ignoreInitial: true,
 			})

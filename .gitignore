@@ -1,5 +1,6 @@
 test/build/
 test/plugin/ittai/
+temp/
 
 # Logs
 logs

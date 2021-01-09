@@ -5,9 +5,7 @@ const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 
 if (
-	argv.build &&
-	argv.to &&
-	argv.core &&
+	argv.plugin &&
 	(argv.powercordv2 ||
 		argv.betterdiscord ||
 		argv.enhanceddiscord ||
