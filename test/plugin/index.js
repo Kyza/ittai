@@ -2,7 +2,7 @@ import { Plugin } from "ittai/entities";
 import { getModule } from "ittai/webpack";
 import { patcher, logger } from "ittai/utils";
 
-import style from "./style.css";
+import style from "./style.less";
 
 const FluxDispatcher = getModule("dirtyDispatch");
 

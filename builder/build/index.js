@@ -3,6 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const beautify = require("js-beautify").js;
+const escapeRegExp = require("escape-string-regexp");
 
 const build = (fromPath, toPath, core, callback) => {
 	console.log(`Building ${path.resolve(fromPath)} to ${path.resolve(toPath)}.`);
@@ -25,7 +26,7 @@ const build = (fromPath, toPath, core, callback) => {
 			},
 			externals: [
 				function ({ context, request }, callback) {
-					if (/^(electron|fs|path|powercord.*|@vizality.*)$/.test(request)) {
+					if (/^(electron|powercord.*|@vizality.*)$/.test(request)) {
 						// Externalize to a commonjs module using the request path
 						return callback(null, "commonjs2 " + request);
 					}
@@ -69,16 +70,43 @@ const build = (fromPath, toPath, core, callback) => {
 						use: [stylesheetLoader, "css-loader"],
 					},
 					{
-						test: /\.scss$/i,
-						use: [stylesheetLoader, "css-loader", "sass-loader"],
+						test: /\.s[ac]ss$/i,
+						use: [
+							stylesheetLoader,
+							{
+								loader: "css-loader",
+								options: {
+									modules: true,
+								},
+							},
+							"sass-loader",
+						],
 					},
 					{
 						test: /\.styl$/i,
-						use: [stylesheetLoader, "css-loader", "stylus-loader"],
+						use: [
+							stylesheetLoader,
+							{
+								loader: "css-loader",
+								options: {
+									modules: true,
+								},
+							},
+							"stylus-loader",
+						],
 					},
 					{
 						test: /\.less$/i,
-						use: [stylesheetLoader, "css-loader", "less-loader"],
+						use: [
+							stylesheetLoader,
+							{
+								loader: "css-loader",
+								options: {
+									modules: true,
+								},
+							},
+							"less-loader",
+						],
 					},
 					{
 						test: /\.m?(j|t)sx?$/i,
@@ -104,7 +132,7 @@ const build = (fromPath, toPath, core, callback) => {
 		},
 		(err, stats) => {
 			if (err || stats.hasErrors()) {
-				console.error(err);
+				return console.error("Build failed.", err);
 			}
 
 			const outputPath = path.join(path.resolve(toPath), "index.js");
@@ -135,6 +163,9 @@ const build = (fromPath, toPath, core, callback) => {
 
 module.exports = (argv) => {
 	if (fs.existsSync(argv.build) && fs.existsSync(argv.core)) {
+		if (fs.existsSync(path.join(argv.to, "index.js")))
+			fs.unlinkSync(path.join(argv.to, "index.js"));
+
 		build(argv.build, argv.to, argv.core, (code) => {
 			if (argv.powercordv2) {
 				code = require("./powercordv2")(code);
