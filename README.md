@@ -34,6 +34,7 @@
 
 - Build even single-file BD plugins from multi-file projects.
 - Write one codebase, distribute one product.
+- Hot rebuild your plugins.
 - Use various flavors of JS to create your plugins.
   - [x] [JSX](https://reactjs.org/docs/introducing-jsx.html)
   - [ ] [TypeScript](https://www.typescriptlang.org/) (and TSX!)
@@ -49,7 +50,6 @@
   - [x] [LESS](http://lesscss.org/)
 - Build to almost any client mod.
   - [x] BetterDiscord
-  - [ ] EnhancedDiscord
   - [x] Powercord **v2**
   - [x] Vizality
 
@@ -72,18 +72,23 @@ yarn
 
 ### Command Options
 
-- `--build="path/to/your/plugin"`
-- `--to="path/to/build/to"`
-- `--core="path/to/git/cloned/ittai/core"`
-- `--powercordv2` (optional)
-  - Builds for Powercord v2.
+- `--plugin="path/to/your/plugin"`
 - `--betterdiscord` (optional)
+  - Specify `="path/to/plugin/folder"` to copy the built file to the folder.
   - Builds for BetterDiscord.
+- `--powercordv2` (optional)
+  - Specify `="path/to/plugin/folder"` to copy the built files to the folder.
+  - Builds for Powercord v2.
 - `--vizality` (optional)
+  - Specify `="path/to/plugin/folder"` to copy the built files to the folder.
   - Builds for Vizality.
+- `--watch` (optional)
+  - Will watch for changes in your plugin's unbuilt files and automatically run the command again for you.
 
 ### Build Command
 
+This command will build your plugin for BetterDiscord, Powercord v2, and Vizality, but will only copy it to the Vizality plugin's folder. It will also hot rebuild your plugin for you.
+
 ```bash
-yarn start --build="./test/plugin" --to="./test/build" --core="./core" --powercordv2 --betterdiscord --vizality
+yarn start --plugin="./test/plugin" --betterdiscord --powercordv2 --vizality="C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd" --watch
 ```
