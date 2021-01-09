@@ -1,10 +1,10 @@
 const fs = require("fs-extra");
 const path = require("path");
 const webpack = require("webpack");
-// const stripComments = require("strip-comments");
+const TerserPlugin = require("terser-webpack-plugin");
 const beautify = require("js-beautify").js;
 
-const build = (fromPath, toPath, callback) => {
+const build = (fromPath, toPath, core, callback) => {
 	console.log(`Building ${path.resolve(fromPath)} to ${path.resolve(toPath)}.`);
 	console.time("Bulit in");
 	fs.ensureDir(toPath);
@@ -36,9 +36,31 @@ const build = (fromPath, toPath, callback) => {
 			],
 			resolve: {
 				extensions: [".js"],
+				alias: {
+					ittai: path.resolve(core),
+				},
 			},
 			optimization: {
-				minimize: false,
+				minimize: true,
+				minimizer: [
+					new TerserPlugin({
+						terserOptions: {
+							module: true,
+							compress: {
+								defaults: false,
+							},
+							mangle: false,
+							parse: {},
+							rename: {},
+							format: {
+								comments: false,
+								max_line_len: true,
+								semicolons: false,
+								beautify: true,
+							},
+						},
+					}),
+				],
 			},
 			module: {
 				rules: [
@@ -112,17 +134,8 @@ const build = (fromPath, toPath, callback) => {
 };
 
 module.exports = (argv) => {
-	if (fs.existsSync(argv.build)) {
-		if (argv.core && fs.existsSync(argv.core)) {
-			fs.copySync(
-				argv.core,
-				path.join(argv.build, "ittai"),
-				{ overwrite: true },
-				() => {}
-			);
-		}
-
-		build(argv.build, argv.to, (code) => {
+	if (fs.existsSync(argv.build) && fs.existsSync(argv.core)) {
+		build(argv.build, argv.to, argv.core, (code) => {
 			if (argv.powercordv2) {
 				code = require("./powercordv2")(code);
 			}

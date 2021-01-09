@@ -7,6 +7,7 @@ const argv = yargs(hideBin(process.argv)).argv;
 if (
 	argv.build &&
 	argv.to &&
+	argv.core &&
 	(argv.powercordv2 ||
 		argv.betterdiscord ||
 		argv.enhanceddiscord ||

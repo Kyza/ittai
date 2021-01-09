@@ -1,5 +1,3 @@
-const fs = require("fs-extra");
-
 module.exports = function (code) {
 	return code.replace(
 		"export default ___CSS_LOADER_EXPORT___;",

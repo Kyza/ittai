@@ -1,7 +1,6 @@
-import { Plugin } from "./ittai/entities";
-import { getModule } from "./ittai/webpack";
-import logger from "./ittai/utils/logger";
-import patcher from "./ittai/utils/patcher";
+import { Plugin } from "ittai/entities";
+import { getModule } from "ittai/webpack";
+import { patcher, logger } from "ittai/utils";
 
 import style from "./style.css";
 
