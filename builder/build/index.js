@@ -171,9 +171,9 @@ const build = (argv, callback) => {
 					path.resolve(path.join(temp, "index.js")),
 					path.join(
 						argv.betterdiscord,
-						`${
-							fs.readJSONSync(path.join(temp, "manifest.json")).name
-						}.plugin.js`
+						`${fs
+							.readJSONSync(path.join(argv.plugin, "manifest.json"))
+							.name.replace(/ /g, "")}.plugin.js`
 					)
 				);
 			}
@@ -181,31 +181,20 @@ const build = (argv, callback) => {
 	);
 };
 
-const clearAndEnsure = (p) => {
-	fs.ensureDirSync(p);
-};
-
 const beginBuild = (argv) => {
 	if (fs.existsSync(argv.plugin) && fs.existsSync(core)) {
 		if (fs.existsSync(argv.vizality)) {
-			clearAndEnsure(argv.vizality);
+			fs.ensureDirSync(argv.vizality);
 			fs.copyFileSync(
 				path.join(argv.plugin, "manifest.json"),
 				path.join(argv.vizality, "manifest.json")
 			);
 		}
 		if (fs.existsSync(argv.powercordv2)) {
-			clearAndEnsure(argv.powercordv2);
+			fs.ensureDirSync(argv.powercordv2);
 			fs.copyFileSync(
 				path.join(argv.plugin, "manifest.json"),
 				path.join(argv.powercordv2, "manifest.json")
-			);
-		}
-		if (fs.existsSync(argv.betterdiscord)) {
-			clearAndEnsure(argv.betterdiscord);
-			fs.copyFileSync(
-				path.join(argv.plugin, "manifest.json"),
-				path.join(argv.betterdiscord, "manifest.json")
 			);
 		}
 
