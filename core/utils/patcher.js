@@ -9,13 +9,14 @@ function cleanObject(object) {
 }
 
 export default {
-	patch: function (object, name, type, patch) {
+	patch: function (name, object, functionName, type, patch) {
 		dirtyObject(object);
 		const patchData = {
-			type,
 			name,
+			type,
+			functionName,
 			patch,
-			original: { ...object }[name],
+			original: { ...object }[functionName],
 			unpatch: function () {
 				try {
 					const patchIndex = object.__ittaiPatches__.indexOf(this);
@@ -23,36 +24,36 @@ export default {
 						throw "Couldn't find the patch. This probably happened because the object was tampered with. Don't do that.";
 					const currentPatch = object.__ittaiPatches__[patchIndex];
 					// Restore original function.
-					object[name] = currentPatch.original;
+					object[functionName] = currentPatch.original;
 					// Delete patch.
 					object.__ittaiPatches__.splice(patchIndex, 1);
 					// Clean up the object if there are no patches left.
 					if (object.__ittaiPatches__.length === 0) cleanObject(object);
 				} catch (e) {
-					logger.error("Failed to unpatch.", e);
+					logger.error(`Failed to unpatch ${name}.`, e);
 				}
 			},
 		};
 		object.__ittaiPatches__.push(patchData);
 
-		// Test in the morning
-		const props = { ...object[name] };
+		if (object[functionName].__ittaiPatched__) return patchData;
 
-		object[name] = function (...args) {
-			const befores = object.__ittaiPatches__.filter(
-				(p) => p.type === "before"
+		const props = { ...object[functionName] };
+
+		object[functionName] = function (...args) {
+			const functionPatches = object.__ittaiPatches__.filter(
+				(p) => p.functionName === functionName
 			);
-			const insteads = object.__ittaiPatches__.filter(
-				(p) => p.type === "instead"
-			);
-			const afters = object.__ittaiPatches__.filter((p) => p.type === "after");
+			const befores = functionPatches.filter((p) => p.type === "before");
+			const insteads = functionPatches.filter((p) => p.type === "instead");
+			const afters = functionPatches.filter((p) => p.type === "after");
 
 			// Before patches.
 			for (const before of befores) {
 				try {
 					args = before.patch(args);
 				} catch (e) {
-					logger.error("Error running before patch.", e);
+					logger.error(`Error running before patch ${name}.`, e);
 				}
 			}
 
@@ -62,7 +63,7 @@ export default {
 				try {
 					res = patchData.original.call(this, ...args);
 				} catch (e) {
-					logger.error("Error running instead patch.", e);
+					logger.error(`Error running instead patch ${name}.`, e);
 				}
 			} else {
 				// Bad, fix later.
@@ -71,7 +72,7 @@ export default {
 					try {
 						res = globalThis._.merge(res, instead.patch(args));
 					} catch (e) {
-						logger.error("Error running instead patch.", e);
+						logger.error(`Error running instead patch ${name}.`, e);
 					}
 				}
 			}
@@ -81,17 +82,18 @@ export default {
 				try {
 					res = after.patch(args, res);
 				} catch (e) {
-					logger.error("Error running after patch.", e);
+					logger.error(`Error running after patch ${name}.`, e);
 				}
 			}
 
 			return res;
 		};
 
-		// Test in the morning
 		for (const key in props) {
-			object[name][key] = props[key];
+			object[functionName][key] = props[key];
 		}
+
+		object[functionName].__ittaiPatched__ = true;
 
 		return patchData;
 	},

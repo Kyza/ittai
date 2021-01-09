@@ -12,6 +12,7 @@ export default class TestPlugin extends Plugin {
 		style.add();
 
 		this.fluxPatch = patcher.patch(
+			"flux-patch",
 			FluxDispatcher,
 			"dispatch",
 			"before",
