@@ -35,6 +35,9 @@ export default {
 		};
 		object.__ittaiPatches__.push(patchData);
 
+		// Test in the morning
+		const props = { ...object[name] };
+
 		object[name] = function (...args) {
 			const befores = object.__ittaiPatches__.filter(
 				(p) => p.type === "before"
@@ -84,6 +87,11 @@ export default {
 
 			return res;
 		};
+
+		// Test in the morning
+		for (const key in props) {
+			object[name][key] = props[key];
+		}
 
 		return patchData;
 	},
