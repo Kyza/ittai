@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@sucrase/webpack-loader": "^2.0.0",
 		"@types/css": "^0.0.31",
+		"chokidar": "^3.5.0",
 		"coffee-loader": "^2.0.0",
 		"css-loader": "^5.0.1",
 		"escape-string-regexp": "^4.0.0",

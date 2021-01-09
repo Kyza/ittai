@@ -3,11 +3,10 @@ const path = require("path");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const beautify = require("js-beautify").js;
-const escapeRegExp = require("escape-string-regexp");
+const chokidar = require("chokidar");
 
 const build = (fromPath, toPath, core, callback) => {
 	console.log(`Building ${path.resolve(fromPath)} to ${path.resolve(toPath)}.`);
-	console.time("Bulit in");
 	fs.ensureDir(toPath);
 
 	const stylesheetLoader = path.resolve(
@@ -156,15 +155,24 @@ const build = (fromPath, toPath, core, callback) => {
 			builtCode = builtCode.replace(/\n{2,}/g, "\n");
 
 			fs.writeFileSync(outputPath, builtCode);
-			console.timeEnd("Bulit in");
 		}
 	);
 };
 
-module.exports = (argv) => {
+const beginBuild = (argv) => {
 	if (fs.existsSync(argv.build) && fs.existsSync(argv.core)) {
-		if (fs.existsSync(path.join(argv.to, "index.js")))
+		if (fs.existsSync(path.join(argv.to, "index.js"))) {
 			fs.unlinkSync(path.join(argv.to, "index.js"));
+		}
+		if (fs.existsSync(path.join(argv.to, "manifest.json"))) {
+			fs.unlinkSync(path.join(argv.to, "manifest.json"));
+		}
+		if (fs.existsSync(path.join(argv.build, "manifest.json"))) {
+			fs.copyFileSync(
+				path.join(argv.build, "manifest.json"),
+				path.join(argv.to, "manifest.json")
+			);
+		}
 
 		build(argv.build, argv.to, argv.core, (code) => {
 			if (argv.powercordv2) {
@@ -178,5 +186,21 @@ module.exports = (argv) => {
 			}
 			return code;
 		});
+	}
+};
+
+module.exports = (argv) => {
+	if (argv.watch) {
+		beginBuild(argv);
+		chokidar
+			.watch([argv.build, argv.core], {
+				persistent: true,
+				ignoreInitial: true,
+			})
+			.on("all", (event, path) => {
+				beginBuild(argv);
+			});
+	} else {
+		beginBuild(argv);
 	}
 };
