@@ -14,8 +14,6 @@ export default {
 					);
 					if (patchIndex === -1)
 						throw "Couldn't find the patch. This probably happened because the object was tampered with. Don't do that.";
-					const currentPatch =
-						object.__ittai__[functionName].patches[patchIndex];
 					// Restore original function.
 					object[functionName] = object.__ittai__[functionName].original;
 					// Delete patch.
