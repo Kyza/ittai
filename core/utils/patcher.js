@@ -83,10 +83,9 @@ export default {
 
 				return res;
 			};
-
-			for (const key in props) {
-				object[functionName][key] = props[key];
-			}
+			Object.assign(object[functionName], props);
+			object[functionName].toString = () =>
+				object.__ittai__[functionName].original.toString();
 		}
 		object.__ittai__[functionName].patches.push(patchData);
 
