@@ -1,15 +1,16 @@
 import { Plugin } from "./ittai/entities";
 import { getModule } from "./ittai/webpack";
 import logger from "./ittai/utils/logger";
-import style from "./style.css";
 import patcher from "./ittai/utils/patcher";
+
+import style from "./style.css";
 
 const FluxDispatcher = getModule("dirtyDispatch");
 
 export default class TestPlugin extends Plugin {
 	start() {
 		this.log("Starting.");
-		style.use();
+		style.add();
 
 		this.fluxPatch = patcher.patch(
 			FluxDispatcher,
@@ -24,7 +25,7 @@ export default class TestPlugin extends Plugin {
 
 	stop() {
 		this.log("Stopping.");
-		style.unuse();
+		style.remove();
 		this.fluxPatch.unpatch();
 	}
 }

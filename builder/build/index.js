@@ -8,6 +8,8 @@ const build = (fromPath, toPath, callback) => {
 	console.log(`Building ${path.resolve(fromPath)} to ${path.resolve(toPath)}.`);
 	console.time("Bulit in");
 	fs.ensureDir(toPath);
+
+	const cssLoader = path.resolve(path.join(__dirname, "cssLoader.js"));
 	webpack(
 		{
 			mode: "production",
@@ -40,46 +42,19 @@ const build = (fromPath, toPath, callback) => {
 				rules: [
 					{
 						test: /\.css$/i,
-						use: [
-							{
-								loader: "style-loader",
-								options: { injectType: "lazyStyleTag" },
-							},
-							"css-loader",
-						],
+						use: [cssLoader, "css-loader"],
 					},
 					{
 						test: /\.scss$/i,
-						use: [
-							{
-								loader: "style-loader",
-								options: { injectType: "lazyStyleTag" },
-							},
-							"css-loader",
-							"sass-loader",
-						],
+						use: [cssLoader, "css-loader", "sass-loader"],
 					},
 					{
 						test: /\.styl$/i,
-						use: [
-							{
-								loader: "style-loader",
-								options: { injectType: "lazyStyleTag" },
-							},
-							"css-loader",
-							"stylus-loader",
-						],
+						use: [cssLoader, "css-loader", "stylus-loader"],
 					},
 					{
 						test: /\.less$/i,
-						use: [
-							{
-								loader: "style-loader",
-								options: { injectType: "lazyStyleTag" },
-							},
-							"css-loader",
-							"less-loader",
-						],
+						use: [cssLoader, "css-loader", "less-loader"],
 					},
 					{
 						test: /\.m?(j|t)sx?$/i,
