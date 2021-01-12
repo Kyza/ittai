@@ -1,8 +1,8 @@
 {
-  "name": "test bundle",
-  "version": "1.0.0",
-  "description": "Shaky Shalky audi fjvhdbksfdvgbhjk",
-  "author": "Kyza",
-  "icon": "icon/icon.png",
-  "license": "None"
+	"name": "test bundle",
+	"version": "1.0.0",
+	"description": "Filtering, finally! Clean water made with discord.",
+	"author": "Kyza",
+	"icon": "icon/icon.png",
+	"license": "None"
 }

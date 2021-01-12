@@ -1,29 +1,16 @@
 import { Plugin } from "ittai/entities";
-import { getModule } from "ittai/webpack";
-import { patcher, logger } from "ittai/utils";
+import { React, getModuleByDisplayName } from "ittai/webpack";
 
-const ApplicationCommandDiscoverySectionList = getModule(
-	(m) => m.default?.displayName === "ApplicationCommandDiscoverySectionList"
-);
+const Text = getModuleByDisplayName("Text");
 
 export default class TestPlugin extends Plugin {
 	start() {
 		this.log("Starting.");
-
-		this.ACDSL = patcher.patch(
-			"categories",
-			ApplicationCommandDiscoverySectionList,
-			"default",
-			"after",
-			(args, res) => {
-				logger.log(args, res);
-				return res;
-			}
-		);
+		this.setSettingsPanel("Test Plugin", <Text>Test settings panel.</Text>);
 	}
 
 	stop() {
+		this.removeSettingsPanel();
 		this.log("Stopping.");
-		this.ACDSL.unpatch();
 	}
 }

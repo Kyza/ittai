@@ -4,6 +4,8 @@ const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const beautify = require("js-beautify").js;
 const chokidar = require("chokidar");
+const isValid = require("is-valid-path");
+const isValidPath = require("is-valid-path");
 
 const core = path.resolve(path.join("./core"));
 
@@ -160,10 +162,17 @@ const build = (argv, callback) => {
 
 			fs.writeFileSync(outputPath, builtCode);
 
-			if (fs.existsSync(argv.vizality)) {
+			fs.copyFileSync(
+				path.join(argv.plugin, "manifest.json"),
+				path.join(temp, "manifest.json")
+			);
+
+			if (isValidPath(argv.vizality)) {
+				fs.ensureDirSync(argv.vizality);
 				fs.copy(temp, argv.vizality);
 			}
-			if (fs.existsSync(argv.powercordv2)) {
+			if (isValidPath(argv.powercordv2)) {
+				fs.ensureDirSync(argv.powercordv2);
 				fs.copy(temp, argv.powercordv2);
 			}
 			if (fs.existsSync(argv.betterdiscord)) {
@@ -183,21 +192,6 @@ const build = (argv, callback) => {
 
 const beginBuild = (argv) => {
 	if (fs.existsSync(argv.plugin) && fs.existsSync(core)) {
-		if (fs.existsSync(argv.vizality)) {
-			fs.ensureDirSync(argv.vizality);
-			fs.copyFileSync(
-				path.join(argv.plugin, "manifest.json"),
-				path.join(argv.vizality, "manifest.json")
-			);
-		}
-		if (fs.existsSync(argv.powercordv2)) {
-			fs.ensureDirSync(argv.powercordv2);
-			fs.copyFileSync(
-				path.join(argv.plugin, "manifest.json"),
-				path.join(argv.powercordv2, "manifest.json")
-			);
-		}
-
 		build(argv, (code) => {
 			if (argv.powercordv2) {
 				code = require("./powercordv2")(code);

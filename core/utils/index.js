@@ -9,15 +9,13 @@ let clientMod;
 
 export function getClientMod() {
 	if (clientMod) return clientMod;
-	if (globalThis.BdApi) {
+	if (globalThis.BdApi && !window.powercord?.pluginManager.get("bdCompat")) {
 		return (clientMod = "betterdiscord");
-	} else if (globalThis.EdApi) {
-		return (clientMod = "enhanceddiscord");
 	} else if (globalThis.powercord) {
-		return (clientMod = "powercord");
+		return (clientMod = "powercordv2");
 	} else if (globalThis.vizality) {
 		return (clientMod = "vizality");
-	} else if (globalThis.untitled) {
+	} else if (globalThis.Untitled) {
 		throw Error("Untitled is not supported yet.");
 	} else if (globalThis.nxt) {
 		throw Error("How the hell did you get this client mod.");
