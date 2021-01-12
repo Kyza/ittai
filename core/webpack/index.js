@@ -1,6 +1,7 @@
 import { getClientMod } from "../utils";
 
 export const React = getModule("useState");
+export const ReactDOM = getModule("render", "unmountComponentAtNode");
 
 export function getModule(...args) {
 	switch (getClientMod()) {

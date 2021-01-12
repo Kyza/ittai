@@ -1,7 +1,7 @@
 {
-	"name": "test bundle",
+	"name": "Test Bundle",
 	"version": "1.0.0",
-	"description": "Filtering, finally! Clean water made with discord.",
+	"description": "Filtering, finally! Clean water made with Discord.",
 	"author": "Kyza",
 	"icon": "icon/icon.png",
 	"license": "None"
