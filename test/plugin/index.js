@@ -1,9 +1,11 @@
+import * as ittai from "ittai";
+globalThis.ittai = ittai;
+
 import { React } from "ittai/libraries";
 import { Plugin } from "ittai/entities";
-import { classes } from "ittai/webpack";
+import { modules, classes } from "ittai/webpack";
 import { all as components } from "ittai/webpack/components";
 import { multiBenchmark } from "ittai/utils";
-import { modules } from "../../core/webpack";
 
 const Text = components.Text;
 const SwitchItem = components.SwitchItem;
@@ -13,7 +15,14 @@ export default class TestPlugin extends Plugin {
 	start() {
 		this.log("Starting.");
 
-		const pcw = require("powercord/webpack");
+		let vzw, pcw;
+
+		try {
+			vzw = require("@vizality/webpack");
+		} catch {}
+		try {
+			pcw = require("powercord/webpack");
+		} catch {}
 
 		multiBenchmark(
 			[
@@ -35,6 +44,11 @@ export default class TestPlugin extends Plugin {
 				{
 					PowercordModule: () => {
 						return pcw.getModule(["message", "scroller"], false);
+					},
+				},
+				{
+					VizalityModule: () => {
+						return vzw.getModule("message", "scroller");
 					},
 				},
 				{
@@ -67,7 +81,12 @@ export default class TestPlugin extends Plugin {
 				},
 				{
 					PowercordComponent: () => {
-						return pcw.getModuleByDisplayName("Text", false);
+						return pcw.getModuleByDisplayName("Text");
+					},
+				},
+				{
+					VizalityComponent: () => {
+						return vzw.getModuleByDisplayName("Text");
 					},
 				},
 				{
@@ -77,7 +96,6 @@ export default class TestPlugin extends Plugin {
 				},
 				{
 					pre: () => {
-						// resets cache, no fair
 						BDFDB.Cache.modules = {};
 					},
 					BDFDBComponent: () => {
@@ -90,7 +108,6 @@ export default class TestPlugin extends Plugin {
 
 		this.setSettingsPanel(() => {
 			const [on, setOn] = React.useState(this.getSetting("on", false));
-
 			return (
 				<>
 					<Tooltip color="black" postion="top" text="Tooltip Test">

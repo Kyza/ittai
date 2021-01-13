@@ -1,6 +1,4 @@
 import getClientMod from "./getClientMod";
-import { lodash } from "../libraries";
-import { all as components } from "../webpack/components";
 import * as logger from "./logger";
 
 export * as patcher from "./patcher";
@@ -33,8 +31,6 @@ export function nanoseconds() {
 
 export function benchmark(codeblock, times) {
 	return new Promise((resolve) => {
-		let finalTimes = [];
-
 		const pre = codeblock.pre ?? (() => {});
 		delete codeblock.pre;
 		const post = codeblock.post ?? (() => {});
@@ -44,31 +40,35 @@ export function benchmark(codeblock, times) {
 
 		codeblock = codeblock[Object.keys(codeblock)[0]];
 
-		let error = false;
-		let returns;
+		let promises = [];
 
 		for (let i = 0; i < times; i++) {
-			let start;
-			let end;
-			try {
-				pre();
-				start = nanoseconds();
-				returns = codeblock();
-				end = nanoseconds();
-				post();
-			} catch (e) {
-				error = e;
-				break;
-			}
-			finalTimes.push(end - start);
+			promises.push(
+				new Promise((resolve) => {
+					let returns, start, end;
+					try {
+						pre();
+						start = nanoseconds();
+						returns = codeblock();
+						end = nanoseconds();
+						post();
+					} catch (e) {
+						resolve({ returns, time: 0, error: e });
+					}
+					resolve({ returns, time: end - start, error: false });
+				})
+			);
 		}
 
-		resolve({
-			name,
-			average: average(finalTimes),
-			median: median(finalTimes),
-			error,
-			returns,
+		Promise.all(promises).then((allReturns) => {
+			const finalTimes = allReturns.map((r) => r.time);
+			resolve({
+				name,
+				average: average(finalTimes),
+				median: median(finalTimes),
+				error: allReturns[0].error,
+				returns: allReturns[0].returns,
+			});
 		});
 	});
 }
@@ -80,30 +80,38 @@ export function multiBenchmark(codeblocks, times) {
 			codeblocks.map((codeblock) => benchmark(codeblock, times))
 		).then((results) => {
 			const end = nanoseconds();
-			const groupName = `Benchmarked ${
-				codeblocks.length
-			} functions ${times} times over ${(end - start).toLocaleString()}ns.`;
+			const groupName = `Benchmarked ${codeblocks.length.toLocaleString()} functions ${times.toLocaleString()} times over ${(
+				end - start
+			).toLocaleString()}ns.`;
 			logger.group(groupName);
-			console.table(
-				Object.values(results)
-					.map((result) => {
-						return {
-							Name: result.name,
-							"Median Time": `${result.median.toLocaleString()}ns`,
-							"Average Time": `${result.average.toLocaleString()}ns`,
-							Returns: result.returns,
-							Error: result.error,
-							"(Median Time)": result.median,
-							"(Average Time)": result.average,
-						};
-					})
-					.sort((result1, result2) => {
-						if (result1["(Median Time)"] > result2["(Median Time)"]) return 1;
-						if (result1["(Median Time)"] < result2["(Median Time)"]) return -1;
-						return 0;
-					}),
-				["Name", "Median Time", "Average Time", "Returns", "Error"]
+			const mappedResults = Object.values(results).map((result) => {
+				return {
+					Name: result.name,
+					"Median Time": `${result.median.toLocaleString()}ns`,
+					"Average Time": `${result.average.toLocaleString()}ns`,
+					Returns: result.returns,
+					Error: result.error,
+					"(Median Time)": result.median,
+					"(Average Time)": result.average,
+				};
+			});
+			const successfulResults = mappedResults.filter(
+				(result) => result.Error === false
 			);
+			const erroredResults = mappedResults.filter((result) => !!result.Error);
+
+			console.table(
+				successfulResults.sort((result1, result2) => {
+					if (result1["(Median Time)"] > result2["(Median Time)"]) return 1;
+					if (result1["(Median Time)"] < result2["(Median Time)"]) return -1;
+					return 0;
+				}),
+				["Name", "Median Time", "Average Time", "Returns"]
+			);
+			if (erroredResults.length > 0) {
+				console.table(erroredResults, ["Name", "Error"]);
+			}
+
 			logger.groupEnd(groupName);
 			resolve(results);
 		});
