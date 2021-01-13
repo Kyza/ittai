@@ -1,12 +1,14 @@
 import { logger } from "../utils";
-import { React, ReactDOM, getModule } from "../webpack";
+import { React, ReactDOM } from "../libraries";
+import { modules } from "../webpack";
+import { all as components } from "../webpack/components";
 
-const LayerProvider = getModule("AppReferencePositionLayer").AppLayerProvider()
-	.props.layerContext.Provider;
-const AccessibilityProvider = getModule("AccessibilityPreferencesContext")
-	.AccessibilityPreferencesContext.Provider;
+const LayerProvider = components.AppLayerProvider().props.layerContext.Provider;
+const AccessibilityProvider = modules.getByProps(
+	"AccessibilityPreferencesContext"
+).AccessibilityPreferencesContext.Provider;
 
-const layerClass = getModule("LayerClassName").LayerClassName;
+const layerClass = modules.getByProps("LayerClassName").LayerClassName;
 
 export default class Plugin {
 	getSettings() {

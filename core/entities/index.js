@@ -1,5 +1,4 @@
-import { getClientMod, logger } from "../utils";
-import { React, ReactDOM } from "../webpack";
+import { getClientMod } from "../utils";
 
 export const Plugin = (() => {
 	switch (getClientMod()) {

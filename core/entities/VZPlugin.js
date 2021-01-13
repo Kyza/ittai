@@ -1,4 +1,4 @@
-import { React } from "../webpack";
+import { React } from "../libraries";
 
 export default class Plugin extends require("@vizality/entities").Plugin {
 	setSettingsPanel(component) {

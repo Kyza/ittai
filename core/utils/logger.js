@@ -20,3 +20,9 @@ export function warn(...args) {
 export function error(...args) {
 	cc.error(...createArguments(...args));
 }
+export function group(...args) {
+	cc.group(...createArguments(...args));
+}
+export function groupEnd(...args) {
+	cc.groupEnd(...createArguments(...args));
+}
