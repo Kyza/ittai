@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai components</title>
+  <title>Ittai webpack/modules</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -91,7 +91,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>components</h1>
+                    <h1>webpack/modules</h1>
                 </header>
                 
 
@@ -138,8 +138,8 @@
 
 
     
-    <h4 class="name" id=".FontAwesome">
-        <a class="href-link" href="#.FontAwesome">#</a>
+    <h4 class="name" id=".all">
+        <a class="href-link" href="#.all">#</a>
         
             
                 <span class='tag'>static</span>
@@ -147,7 +147,7 @@
         
         <span class="code-name">
             
-                FontAwesome<span class="signature">(props)</span><span class="type-signature"></span>
+                all<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span>
             
         </span>
     </h4>
@@ -156,7 +156,234 @@
     
     
     <div class="description">
-        <p>Render any <a href="https://fontawesome.com/">FontAwesome</a> icon. This includes FontAwesome Pro icons.</p>
+        <p>Gets all modules in Discord's Webpack modules.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <span>
+                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line35">line 35</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The module cache.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".cleanWebpackJsonp">
+        <a class="href-link" href="#.cleanWebpackJsonp">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                cleanWebpackJsonp<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Removes Ittai from <code>webpackJsonp</code>.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <span>
+                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line70">line 70</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".getByProps">
+        <a class="href-link" href="#.getByProps">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                getByProps<span class="signature">(&hellip;names)</span><span class="type-signature"> &rarr; {Object}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Gets a Webpack module from Discord by its property names.</p>
     </div>
     
 
@@ -185,8 +412,6 @@
             
 
             
-            <th>Default</th>
-            
 
             <th class="last">Description</th>
         </tr>
@@ -198,43 +423,7 @@
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>props</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">object</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>React properties.</p></td>
-</tr>
-
-  
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>type</code></td>
+      <td class="name"><code>names</code></td>
   
 
   <td class="type">
@@ -249,101 +438,19 @@
   
       <td class="attributes">
       
-          &lt;optional><br>
-      
 
       
 
+      
+          &lt;repeatable><br>
       
       </td>
   
 
   
-      <td class="default">
-      
-          "solid"
-      
-      </td>
-  
 
-  <td class="description last"><p>The FontAwesome icon type. <code>solid</code>, <code>regular</code>, <code>light</code>, <code>duotone</code>, <code>brand</code>.</p></td>
+  <td class="description last"></td>
 </tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>size</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">number</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The size of the icon in pixels. Don't include <code>px</code>.</p></td>
-</tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>className</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-          ""
-      
-      </td>
-  
-
-  <td class="description last"><p><a href="https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons">For extra class features that aren't directly supported.</a></p></td>
-</tr>
-
-  
 
 
         
@@ -388,9 +495,9 @@
 
     
         <p class="tag-source">
-            <a href="components_FontAwesome.js.html" class="button">View Source</a>
+            <a href="webpack_modules.js.html" class="button">View Source</a>
             <span>
-                <a href="components_FontAwesome.js.html">components/FontAwesome.js</a>, <a href="components_FontAwesome.js.html#line14">line 14</a>
+                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line17">line 17</a>
             </span>
         </p>
     
@@ -413,14 +520,163 @@
 
 
 
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
 
 
 
     <h5>Example</h5>
     
     
-        <pre class="prettyprint"><code>return (  &lt;FontAwesome type="brand" name="discord" size="22" />);</code></pre>
+        <pre class="prettyprint"><code>ittai.webpack.modules.getByProps("useState", "useRef");</code></pre>
     
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".updateModules">
+        <a class="href-link" href="#.updateModules">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                updateModules<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Updates the module cache.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <span>
+                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line44">line 44</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>The module cache.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
 
 
 </div>

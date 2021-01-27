@@ -85,7 +85,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li></ul></div><div class="category"><h2>reactComponents</h2><h3>Components</h3><ul><li><a href="FontAwesome.html">FontAwesome</a></li></ul></div><div class="category"><h2>utils</h2><h3>Modules</h3><ul><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li></ul></div><div class="category"><h2>utils.patcher.patch</h2><h3>Namespaces</h3><ul><li><a href="module-patcher.patch-patchData.html">patchData</a></li></ul></div><div class="category"><h2>webpack</h2><h3>Modules</h3><ul><li><a href="module-classes.html">classes</a></li><li><a href="module-components.html">components</a></li><li><a href="module-modules.html">modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
                 
             </nav>
         </div>
@@ -104,18 +104,18 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { React } from "../webpack/libraries";
 
-/**
- * Render any {@link https://fontawesome.com/|FontAwesome} icon.
- * @component
- * @example
- * &lt;FontAwesome type="brand" name="discord" size="22" />
+export /**
+ * Render any {@link https://fontawesome.com/|FontAwesome} icon. This includes FontAwesome Pro icons.
  * @param {object} props React properties.
  * @param {string} [props.type="solid"] The FontAwesome icon type. `solid`, `regular`, `light`, `duotone`, `brand`.
  * @param {number} props.size The size of the icon in pixels. Don't include `px`.
- * @param {string} props.className {@link https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons|For extra class features that aren't directly supported.}
- * @category reactComponents
- */
-export function FontAwesome(props) {
+ * @param {string} [props.className=""] {@link https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons|For extra class features that aren't directly supported.}
+ * @memberof module:reactComponents
+ * @example
+ * return (
+ *   &lt;FontAwesome type="brand" name="discord" size="22" />
+ * );
+ */ function FontAwesome(props) {
 	return (
 		&lt;i
 			className={`fa${props.type?.[0] ? props.type[0].toLowerCase() : "s"} fa-${

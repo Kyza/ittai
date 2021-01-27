@@ -1,6 +1,5 @@
 /**
- * @module components
- * @category webpack
+ * @module webpack/components
  */
 
 import { updateModules } from "./modules";

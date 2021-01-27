@@ -1,8 +1,5 @@
 /**
- * @module reactComponents
+ * @module components
  */
 
-/**
- * @see FontAwesome
- */
 export const FontAwesome = import("./FontAwesome");

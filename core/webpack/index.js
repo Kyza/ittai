@@ -3,14 +3,14 @@
  */
 
 /**
- * @see module:modules
+ * @see module:webpack/modules
  */
 export const modules = import("./modules");
 /**
- * @see module:components
+ * @see module:webpack/components
  */
 export const components = import("./components");
 /**
- * @see module:classes
+ * @see module:webpack/classes
  */
 export const classes = import("./classes");

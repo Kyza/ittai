@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai components</title>
+  <title>Ittai patchData</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -83,15 +83,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li></ul></div><div class="category"><h2>reactComponents</h2><h3>Components</h3><ul><li><a href="FontAwesome.html">FontAwesome</a></li></ul></div><div class="category"><h2>utils</h2><h3>Modules</h3><ul><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li></ul></div><div class="category"><h2>utils.patcher.patch</h2><h3>Namespaces</h3><ul><li><a href="module-patcher.patchData.html">patchData</a></li></ul></div><div class="category"><h2>webpack</h2><h3>Modules</h3><ul><li><a href="module-classes.html">classes</a></li><li><a href="module-components.html">components</a></li><li><a href="module-modules.html">modules</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>components</h1>
+                    <p>Namespace</p>
+                    <h1>patchData</h1>
                 </header>
                 
 
@@ -102,6 +102,8 @@
 
 <header>
     
+        <h2>
+            <span class="ancestors"><a href="module-patcher.html">patcher</a>.</span>patchData</h2>
         
     
 </header>
@@ -112,66 +114,13 @@
         
 
         
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
 
 
-    
-    <h4 class="name" id=".FontAwesome">
-        <a class="href-link" href="#.FontAwesome">#</a>
-        
-            
-                <span class='tag'>static</span>
-            
-        
-        <span class="code-name">
-            
-                FontAwesome<span class="signature">(props)</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
+    <h5 class="subsection-title">Properties:</h5>
 
-    
-    
-    <div class="description">
-        <p>Render any <a href="https://fontawesome.com/">FontAwesome</a> icon. This includes FontAwesome Pro icons.</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
     
 <div class="table-container">
-    <table class="params table">
+    <table class="props table">
         <thead>
         <tr>
             
@@ -181,11 +130,7 @@
             <th>Type</th>
 
             
-            <th>Attributes</th>
-            
 
-            
-            <th>Default</th>
             
 
             <th class="last">Description</th>
@@ -194,164 +139,101 @@
 
         <tbody>
         
-
             
 <tr class="deep-level-0">
-  
-      <td class="name"><code>props</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">object</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>React properties.</p></td>
-</tr>
-
-  
-  
     
-<tr class="deep-level-1">
-  
-      <td class="name"><code>type</code></td>
-  
+        <td class="name"><code>name</code></td>
+    
 
-  <td class="type">
-  
-      
+    <td class="type">
+    
+        
 <span class="param-type">string</span>
 
 
-  
-  </td>
+    
+    </td>
 
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
+    
 
-      
+    
 
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-          "solid"
-      
-      </td>
-  
-
-  <td class="description last"><p>The FontAwesome icon type. <code>solid</code>, <code>regular</code>, <code>light</code>, <code>duotone</code>, <code>brand</code>.</p></td>
+    <td class="description last"><p>The name of the function being patched.</p></td>
 </tr>
 
-  
+        
+            
+<tr class="deep-level-0">
     
-<tr class="deep-level-1">
-  
-      <td class="name"><code>size</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">number</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The size of the icon in pixels. Don't include <code>px</code>.</p></td>
-</tr>
-
-  
+        <td class="name"><code>type</code></td>
     
-<tr class="deep-level-1">
-  
-      <td class="name"><code>className</code></td>
-  
 
-  <td class="type">
-  
-      
+    <td class="type">
+    
+        
 <span class="param-type">string</span>
 
 
-  
-  </td>
+    
+    </td>
 
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
+    
 
-      
+    
 
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-          ""
-      
-      </td>
-  
-
-  <td class="description last"><p><a href="https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons">For extra class features that aren't directly supported.</a></p></td>
+    <td class="description last"><p>The type of the patch.</p></td>
 </tr>
 
-  
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>patchFunction</code></td>
+    
 
+    <td class="type">
+    
+        
+<span class="param-type">function</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The original function.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>unpatch</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">function</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The function to call to unpatch.</p></td>
+</tr>
 
         
         </tbody>
     </table>
 </div>
-
-
 
 
 
@@ -388,45 +270,33 @@
 
     
         <p class="tag-source">
-            <a href="components_FontAwesome.js.html" class="button">View Source</a>
+            <a href="utils_patcher.js.html" class="button">View Source</a>
             <span>
-                <a href="components_FontAwesome.js.html">components/FontAwesome.js</a>, <a href="components_FontAwesome.js.html#line14">line 14</a>
+                <a href="utils_patcher.js.html">utils/patcher.js</a>, <a href="utils_patcher.js.html#line78">line 78</a>
             </span>
         </p>
     
 </dl>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
+        
+    
+    </div>
     
     
-        <pre class="prettyprint"><code>return (  &lt;FontAwesome type="brand" name="discord" size="22" />);</code></pre>
+
     
 
+    
 
-</div>
-            
-            </div>
-        </div>
+    
+
+    
+
+    
+
+    
+
     
 
     

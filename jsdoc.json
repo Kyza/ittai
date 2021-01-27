@@ -7,11 +7,7 @@
 		"includePattern": ".js$",
 		"excludePattern": "(node_modules/|docs)"
 	},
-	"plugins": [
-		"plugins/markdown",
-		"node_modules/better-docs/category",
-		"node_modules/better-docs/component"
-	],
+	"plugins": ["plugins/markdown", "node_modules/better-docs/category"],
 	"opts": {
 		"encoding": "utf8",
 		"destination": "./docs",

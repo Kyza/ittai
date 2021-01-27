@@ -7,11 +7,11 @@
 let clientMod;
 
 /**
- * @see module:patcher
+ * @see module:utils/patcher
  */
 export const patcher = import("./patcher");
 /**
- * @see module:logger
+ * @see module:utils/logger
  */
 export const logger = import("./logger");
 

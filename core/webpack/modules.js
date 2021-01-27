@@ -1,6 +1,5 @@
 /**
- * @module modules
- * @category webpack
+ * @module webpack/modules
  */
 
 const webpackID = "_ittai";
@@ -12,6 +11,8 @@ updateModules();
  * Gets a Webpack module from Discord by its property names.
  * @param  {...string} names
  * @returns {Object}
+ * @example
+ * ittai.webpack.modules.getByProps("useState", "useRef");
  */
 export function getByProps(...props) {
 	for (const mod of all()) {

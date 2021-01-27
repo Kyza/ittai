@@ -1,6 +1,5 @@
 /**
- * @module classes
- * @category webpack
+ * @module webpack/classes
  */
 
 import { updateModules } from "./modules";
@@ -32,8 +31,10 @@ export function getAllClassesFromModule(module) {
 
 /**
  * Gets a Webpack module from Discord by the class names.
- * @param  {...string} names
+ * @param  {...string} names The names of the classes.
  * @returns {Object}
+ * @example
+ * ittai.webpack.classes.getByNames("message", "cozyMessage");
  */
 export function getByNames(...names) {
 	for (const mod of all()) {

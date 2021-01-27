@@ -83,7 +83,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-patcher.patch-patchData.html">patchData</a></li></ul><h3>Components</h3><ul><li><a href="module-reactComponents.FontAwesome.html">FontAwesome</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul><h3>Components</h3><ul><li><a href="module-reactComponents.FontAwesome.html">FontAwesome</a></li></ul></div>
                 
             </nav>
         </div>
@@ -137,7 +137,7 @@
     
     
     <div class="description">
-        <p>Render any <a href="https://fontawesome.com/">FontAwesome</a> icon.</p>
+        <p>Render any <a href="https://fontawesome.com/">FontAwesome</a> icon. This includes FontAwesome Pro icons.</p>
     </div>
     
 
@@ -164,7 +164,11 @@
             <th>Type</th>
 
             
+            <th>Attributes</th>
+            
 
+            
+            <th>Default</th>
             
 
             <th class="last">Description</th>
@@ -190,7 +194,19 @@
   </td>
 
   
+      <td class="attributes">
+      
 
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
   
 
   <td class="description last"><p>React properties.</p></td>
@@ -214,33 +230,26 @@
   </td>
 
   
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
 
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          "solid"
+      
+      </td>
   
 
   <td class="description last"><p>The FontAwesome icon type. <code>solid</code>, <code>regular</code>, <code>light</code>, <code>duotone</code>, <code>brand</code>.</p></td>
-</tr>
-
-  
-    
-<tr class="deep-level-1">
-  
-      <td class="name"><code>className</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p><a href="https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons">For extra class features that aren't directly supported.</a></p></td>
 </tr>
 
   
@@ -260,10 +269,57 @@
   </td>
 
   
+      <td class="attributes">
+      
 
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
   
 
   <td class="description last"><p>The size of the icon in pixels. Don't include <code>px</code>.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>className</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last"><p><a href="https://fontawesome.com/how-to-use/on-the-web/styling/duotone-icons">For extra class features that aren't directly supported.</a></p></td>
 </tr>
 
   
@@ -311,9 +367,9 @@
 
     
         <p class="tag-source">
-            <a href="reactComponents_index.js.html" class="button">View Source</a>
+            <a href="reactComponents_FontAwesome.js.html" class="button">View Source</a>
             <span>
-                <a href="reactComponents_index.js.html">reactComponents/index.js</a>, <a href="reactComponents_index.js.html#line17">line 17</a>
+                <a href="reactComponents_FontAwesome.js.html">reactComponents/FontAwesome.js</a>, <a href="reactComponents_FontAwesome.js.html#line3">line 3</a>
             </span>
         </p>
     
@@ -348,7 +404,7 @@
 
 <script>
   ReactDOM.render(ReactWrapper({
-    example: "return (\r  <FontAwesome type=\"solid\" name=\"sun\" size=\"22\" />\r);",
+    example: "test",
     uniqId: "component0",
   }), document.getElementById('component0'));
 </script>

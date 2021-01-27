@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai modules</title>
+  <title>Ittai webpack/classes</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -83,7 +83,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li></ul></div><div class="category"><h2>ReactComponents</h2><h3>Components</h3><ul><li><a href="FontAwesome.html">FontAwesome</a></li></ul></div><div class="category"><h2>webpack</h2><h3>Modules</h3><ul><li><a href="module-classes.html">classes</a></li><li><a href="module-components.html">components</a></li><li><a href="module-modules.html">modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
                 
             </nav>
         </div>
@@ -91,7 +91,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>modules</h1>
+                    <h1>webpack/classes</h1>
                 </header>
                 
 
@@ -156,7 +156,7 @@
     
     
     <div class="description">
-        <p>Gets all modules in Discord's Webpack modules.</p>
+        <p>Gets all classes in Discord's Webpack modules.</p>
     </div>
     
 
@@ -205,9 +205,9 @@
 
     
         <p class="tag-source">
-            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <a href="webpack_classes.js.html" class="button">View Source</a>
             <span>
-                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line34">line 34</a>
+                <a href="webpack_classes.js.html">webpack/classes.js</a>, <a href="webpack_classes.js.html#line68">line 68</a>
             </span>
         </p>
     
@@ -238,7 +238,7 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'><p>The module cache.</p></div>
+    <div class='param-desc column is-7'><p>The class cache.</p></div>
     
     
     <div class='column is-5 has-text-left'>
@@ -264,8 +264,8 @@
 
 
     
-    <h4 class="name" id=".cleanWebpackJsonp">
-        <a class="href-link" href="#.cleanWebpackJsonp">#</a>
+    <h4 class="name" id=".getAllClassesFromModule">
+        <a class="href-link" href="#.getAllClassesFromModule">#</a>
         
             
                 <span class='tag'>static</span>
@@ -273,7 +273,7 @@
         
         <span class="code-name">
             
-                cleanWebpackJsonp<span class="signature">()</span><span class="type-signature"></span>
+                getAllClassesFromModule<span class="signature">(module)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -282,7 +282,7 @@
     
     
     <div class="description">
-        <p>Removes Ittai from <code>webpackJsonp</code>.</p>
+        <p>Extracts all of the classes from a Webpack module.</p>
     </div>
     
 
@@ -293,6 +293,57 @@
 
 
 
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>module</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The module to search.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -331,9 +382,9 @@
 
     
         <p class="tag-source">
-            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <a href="webpack_classes.js.html" class="button">View Source</a>
             <span>
-                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line69">line 69</a>
+                <a href="webpack_classes.js.html">webpack/classes.js</a>, <a href="webpack_classes.js.html#line14">line 14</a>
             </span>
         </p>
     
@@ -365,8 +416,8 @@
 
 
     
-    <h4 class="name" id=".getByProps">
-        <a class="href-link" href="#.getByProps">#</a>
+    <h4 class="name" id=".getByNames">
+        <a class="href-link" href="#.getByNames">#</a>
         
             
                 <span class='tag'>static</span>
@@ -374,7 +425,7 @@
         
         <span class="code-name">
             
-                getByProps<span class="signature">(&hellip;names)</span><span class="type-signature"> &rarr; {Object}</span>
+                getByNames<span class="signature">(&hellip;names)</span><span class="type-signature"> &rarr; {Object}</span>
             
         </span>
     </h4>
@@ -383,7 +434,7 @@
     
     
     <div class="description">
-        <p>Gets a Webpack module from Discord by its property names.</p>
+        <p>Gets a Webpack module from Discord by the class names.</p>
     </div>
     
 
@@ -449,7 +500,7 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>The names of the classes.</p></td>
 </tr>
 
 
@@ -495,9 +546,9 @@
 
     
         <p class="tag-source">
-            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <a href="webpack_classes.js.html" class="button">View Source</a>
             <span>
-                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line16">line 16</a>
+                <a href="webpack_classes.js.html">webpack/classes.js</a>, <a href="webpack_classes.js.html#line39">line 39</a>
             </span>
         </p>
     
@@ -546,14 +597,21 @@
 
 
 
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>ittai.webpack.classes.getByNames("message", "cozyMessage");</code></pre>
+    
+
+
 </div>
             
                 <div class="member">
 
 
     
-    <h4 class="name" id=".updateModules">
-        <a class="href-link" href="#.updateModules">#</a>
+    <h4 class="name" id=".updateClasses">
+        <a class="href-link" href="#.updateClasses">#</a>
         
             
                 <span class='tag'>static</span>
@@ -561,7 +619,7 @@
         
         <span class="code-name">
             
-                updateModules<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span>
+                updateClasses<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span>
             
         </span>
     </h4>
@@ -570,7 +628,7 @@
     
     
     <div class="description">
-        <p>Updates the module cache.</p>
+        <p>Updates the class cache.</p>
     </div>
     
 
@@ -619,9 +677,9 @@
 
     
         <p class="tag-source">
-            <a href="webpack_modules.js.html" class="button">View Source</a>
+            <a href="webpack_classes.js.html" class="button">View Source</a>
             <span>
-                <a href="webpack_modules.js.html">webpack/modules.js</a>, <a href="webpack_modules.js.html#line43">line 43</a>
+                <a href="webpack_classes.js.html">webpack/classes.js</a>, <a href="webpack_classes.js.html#line53">line 53</a>
             </span>
         </p>
     
@@ -652,7 +710,7 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'><p>The module cache.</p></div>
+    <div class='param-desc column is-7'><p>The class cache.</p></div>
     
     
     <div class='column is-5 has-text-left'>

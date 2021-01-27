@@ -1,6 +1,5 @@
 /**
- * @module patcher
- * @category utils
+ * @module utils/patcher
  */
 
 import logger from "./logger";
@@ -62,17 +61,16 @@ export function unpatchAll(unpatches = patches) {
  * @param {string} functionName The name of the function to patch.
  * @param {string} type The type of patch to apply. `before`, `instead`, `after`.
  * @param {function} patchFunction The code to patch into the function.
- * @returns {object} {@link module:patcher.patch~patchData}
+ * @returns {object} {@link module:utils/patcher.patch~patchData}
  */
 export function patch(name, object, functionName, type, patchFunction) {
 	if (!object.__ittai__) object.__ittai__ = {};
 	/**
-	 * @namespace
+	 * @memberof module:utils/patcher
 	 * @prop {string} name The name of the function being patched.
 	 * @prop {string} type The type of the patch.
 	 * @prop {function} patchFunction The original function.
 	 * @prop {function} unpatch The function to call to unpatch.
-	 * @category utils.patcher.patch
 	 */
 	const patchData = {
 		name,

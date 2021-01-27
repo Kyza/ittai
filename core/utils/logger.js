@@ -1,6 +1,5 @@
 /**
- * @module logger
- * @category utils
+ * @module utils/logger
  */
 
 const cc = { ...console };
