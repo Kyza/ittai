@@ -2,7 +2,7 @@
  * @module entities
  */
 
-import { getClientMod } from "../utils";
+import { getClientMod, patcher } from "../utils";
 
 const faURL =
 	"https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css";
@@ -20,12 +20,20 @@ export const Plugin = (() => {
 		);
 	}
 
+	let pluginEntity;
 	switch (getClientMod()) {
 		case "powercordv2":
-			return require("./PCv2Plugin");
+			pluginEntity = require("./PCv2Plugin");
 		case "vizality":
-			return require("./VZPlugin");
+			pluginEntity = require("./VZPlugin");
 		case "betterdiscord":
-			return require("./BDPlugin");
+			pluginEntity = require("./BDPlugin");
 	}
+
+	// Unpatch all.
+	const oldStop = { ...pluginEntity }.stop;
+	pluginEntity.stop = () => {
+		oldStop();
+		patcher.unpatchAll();
+	};
 })();

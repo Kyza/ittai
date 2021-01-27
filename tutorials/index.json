@@ -1,0 +1,16 @@
+{
+	"patching": {
+		"title": "Patching Functions",
+		"children": {
+			"patchingBefore": {
+				"title": "Patching Before"
+			},
+			"patchingInstead": {
+				"title": "Patching Instead"
+			},
+			"patchingAfter": {
+				"title": "Patching After"
+			}
+		}
+	}
+}

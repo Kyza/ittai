@@ -14,7 +14,7 @@
 		"readme": "README.md",
 		"recurse": true,
 		"verbose": false,
-		// "tutorials": "./docs-src/tutorials",
+		"tutorials": "./tutorials",
 		"template": "node_modules/better-docs/"
 	},
 	"templates": {

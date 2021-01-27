@@ -56,6 +56,22 @@
                     API Documentation
                 </a>
                 
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-patching.html">
+                                Patching Functions
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
                  
                     
                         <a
@@ -181,11 +197,11 @@
 <ul>
 <li><a href="https://git-scm.com/">Git</a></li>
 <li><a href="https://nodejs.org/">NodeJS</a></li>
-<li><a href="https://yarnpkg.com/">Yarn</a> (optional)</li>
+<li><a href="https://pnpm.js.org/">pnpm</a> (optional)</li>
 </ul>
 <h3>Installation Steps</h3>
 <pre class="prettyprint source lang-bash"><code>git clone https://github.com/Kyza/ittai/
-yarn
+pnpm i
 </code></pre>
 <h2>How to Build</h2>
 <h3>Command Options</h3>
@@ -217,7 +233,7 @@ yarn
 </ul>
 <h3>Build Command</h3>
 <p>This command will build your plugin for BetterDiscord, Powercord v2, and Vizality, but will only copy it to the Vizality plugin's folder. It will also hot rebuild your plugin for you.</p>
-<pre class="prettyprint source lang-bash"><code>yarn start --plugin=&quot;./test/plugin&quot; --betterdiscord --powercordv2 --vizality=&quot;C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd&quot; --watch
+<pre class="prettyprint source lang-bash"><code>pnpm start --plugin=&quot;./test/plugin&quot; --betterdiscord --powercordv2 --vizality=&quot;C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd&quot; --watch
 </code></pre></article>
     </section>
 

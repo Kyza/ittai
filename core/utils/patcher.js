@@ -16,6 +16,7 @@ export let patches = [];
  * @param {string} functionName The name of the function to patch.
  * @param {function} patchFunction The code to patch into the function.
  * @returns {object} {@link module:patcher.patch~patchData}
+ * @tutorial patchingBefore
  */
 export function before(name, object, functionName, patchFunction) {
 	return patch(name, object, functionName, "before", patchFunction);
@@ -27,6 +28,7 @@ export function before(name, object, functionName, patchFunction) {
  * @param {string} functionName The name of the function to patch.
  * @param {function} patchFunction The code to patch into the function.
  * @returns {Object} {@link module:patcher.patch~patchData}
+ * @tutorial patchingInstead
  */
 export function instead(name, object, functionName, patchFunction) {
 	return patch(name, object, functionName, "instead", patchFunction);
@@ -38,6 +40,7 @@ export function instead(name, object, functionName, patchFunction) {
  * @param {string} functionName The name of the function to patch.
  * @param {function} patchFunction The code to patch into the function.
  * @returns {object} {@link module:patcher.patch~patchData}
+ * @tutorial patchingAfter
  */
 export function after(name, object, functionName, patchFunction) {
 	return patch(name, object, functionName, "after", patchFunction);
@@ -62,6 +65,7 @@ export function unpatchAll(unpatches = patches) {
  * @param {string} type The type of patch to apply. `before`, `instead`, `after`.
  * @param {function} patchFunction The code to patch into the function.
  * @returns {object} {@link module:utils/patcher.patch~patchData}
+ * @tutorial patching
  */
 export function patch(name, object, functionName, type, patchFunction) {
 	if (!object.__ittai__) object.__ittai__ = {};

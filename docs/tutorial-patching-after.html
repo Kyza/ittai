@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai entities/index.js</title>
+  <title>Ittai Patching After</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -91,7 +89,7 @@
 </div>
     <div id="main">
         <div
-            class="sidebar "
+            class="sidebar tutorials"
             id="sidebarNav"
         >
             
@@ -101,68 +99,23 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
+                    <div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-patching.html">Patching Functions</a><ul><li><a href="tutorial-patching-before.html">Patching Before</a></li><li><a href="tutorial-patching-instead.html">Patching Instead</a></li><li><a href="tutorial-patching-after.html">Patching After</a></li></ul></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>entities/index.js</h1>
+                    <p>Tutorial</p>
+                    <h1>Patching After</h1>
                 </header>
-                
+                <section>
 
+<article>
+    <p>bruh</p>
+</article>
 
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module entities
- */
-
-import { getClientMod, patcher } from "../utils";
-
-const faURL =
-	"https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css";
-
-/**
- * The plugin class for the running client mod.
- */
-export const Plugin = (() => {
-	if (!document.querySelector(`[href="${faURL}"]`)) {
-		document.head.appendChild(
-			Object.assign(document.createElement("link"), {
-				rel: "stylesheet",
-				href: faURL,
-			})
-		);
-	}
-
-	let pluginEntity;
-	switch (getClientMod()) {
-		case "powercordv2":
-			pluginEntity = require("./PCv2Plugin");
-		case "vizality":
-			pluginEntity = require("./VZPlugin");
-		case "betterdiscord":
-			pluginEntity = require("./BDPlugin");
-	}
-
-	// Unpatch all.
-	const oldStop = { ...pluginEntity }.stop;
-	pluginEntity.stop = () => {
-		oldStop();
-		patcher.unpatchAll();
-	};
-})();
-</code></pre>
-        </article>
-    </section>
-
-
-
+</section>
 
             </div>
             
