@@ -150,8 +150,6 @@ export function getClientMod() {
 		return (clientMod = "vizality");
 	} else if (globalThis.Untitled) {
 		throw Error("Untitled is not supported yet.");
-	} else if (globalThis.nxt) {
-		throw Error("How the hell did you get this client mod.");
 	}
 	throw Error("Unknown client mod.");
 }
