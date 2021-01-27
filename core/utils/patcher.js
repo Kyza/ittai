@@ -2,7 +2,7 @@
  * @module utils/patcher
  */
 
-import logger from "./logger";
+import * as logger from "./logger";
 
 /**
  * A list of the currently patched components.

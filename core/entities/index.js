@@ -20,21 +20,12 @@ export const Plugin = (() => {
 		);
 	}
 
-	let pluginEntity;
 	switch (getClientMod()) {
 		case "powercordv2":
-			pluginEntity = require("./PCv2Plugin");
+			return require("./PCv2Plugin");
 		case "vizality":
-			pluginEntity = require("./VZPlugin");
+			return require("./VZPlugin");
 		case "betterdiscord":
-			pluginEntity = require("./BDPlugin");
+			return require("./BDPlugin");
 	}
-	// Unpatch all on stop.
-	const oldStop = { ...pluginEntity }.stop;
-	pluginEntity.stop = function () {
-		oldStop();
-		this.removeSettingsPanel();
-		patcher.unpatchAll();
-	};
-	return pluginEntity;
 })();

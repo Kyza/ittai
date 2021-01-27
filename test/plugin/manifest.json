@@ -1,8 +1,7 @@
 {
-	"name": "Test Bundle",
+	"name": "Only Show Streams",
 	"version": "1.0.0",
-	"description": "Filtering, finally! Clean water made with Discord.",
+	"description": "Removes the giant user cards if someone is streaming.",
 	"author": "Kyza",
-	"icon": "icon/icon.png",
 	"license": "None"
 }

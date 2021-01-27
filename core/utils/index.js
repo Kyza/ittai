@@ -30,8 +30,6 @@ export function getClientMod() {
 		return (clientMod = "vizality");
 	} else if (globalThis.Untitled) {
 		throw Error("Untitled is not supported yet.");
-	} else if (globalThis.nxt) {
-		throw Error("How the hell did you get this client mod.");
 	}
 	throw Error("Unknown client mod.");
 }
@@ -42,6 +40,76 @@ export function getClientMod() {
 export function nanoseconds() {
 	const hrTime = process.hrtime();
 	return hrTime[0] * 1000000000 + hrTime[1];
+}
+
+/**
+ * Finds an object in a tree.
+ * @param {Object} tree The tree to search.
+ * @param {function} filter A filter function that should return true when it checks what you want to find.
+ * @param {Object} options
+ * @param {Object} [options.walkable=null] Which node names are walkable.
+ * @param {Object} [options.exclude=[]] Which node names to not walk.
+ */
+export function findInTree(
+	tree,
+	filter,
+	{ walkable = null, exclude = [] } = {}
+) {
+	if (!tree || typeof tree != "object") return;
+	let returnValue;
+	if (typeof filter == "string") return tree[filter];
+	try {
+		if (filter(tree)) return tree;
+	} catch {}
+	if (Array.isArray(tree))
+		for (const value of tree) {
+			returnValue = findInTree(value, filter, { walkable, exclude });
+			if (returnValue) return returnValue;
+		}
+	walkable = walkable || Object.keys(tree);
+	for (const key of walkable) {
+		if (!tree.hasOwnProperty(key) || exclude.includes(key)) continue;
+		returnValue = findInTree(tree[key], filter, {
+			walkable,
+			exclude,
+		});
+		if (returnValue) return returnValue;
+	}
+}
+// export function findInTree2(
+// 	tree,
+// 	filter,
+// 	{ walkable = null, reverse = false } = {}
+// ) {
+// 	const stack = [tree];
+// 	while (stack.length) {
+// 		const node = stack[reverse ? "pop" : "shift"]();
+// 		try {
+// 			if (filter(node)) return node;
+// 		} catch {}
+// 		if (typeof node === "object") {
+// 			if (walkable) {
+// 				stack.push(
+// 					...Object.entries(node)
+// 						.filter(([key, value]) => walkable.indexOf(key) !== -1)
+// 						.map(([key, value]) => value)
+// 				);
+// 			} else {
+// 				stack.push(...Object.values(node));
+// 			}
+// 		} else if (Array.isArray(node)) stack.push(...node);
+// 	}
+// 	return null;
+// }
+/**
+ * Finds an object in a React tree.
+ * @param {Object} tree The tree to search.
+ * @param {function} filter A filter function that should return true when it checks what you want to find.
+ */
+export function findInReactTree(tree, filter) {
+	return findInTree(tree, filter, {
+		walkable: ["props", "children", "child", "sibling"],
+	});
 }
 
 /**
