@@ -59,13 +59,13 @@
 
 - [Git](https://git-scm.com/)
 - [NodeJS](https://nodejs.org/)
-- [Yarn](https://yarnpkg.com/) (optional)
+- [pnpm](https://pnpm.js.org/) (optional)
 
 ### Installation Steps
 
 ```bash
 git clone https://github.com/Kyza/ittai/
-yarn
+pnpm i
 ```
 
 ## How to Build
@@ -90,5 +90,5 @@ yarn
 This command will build your plugin for BetterDiscord, Powercord v2, and Vizality, but will only copy it to the Vizality plugin's folder. It will also hot rebuild your plugin for you.
 
 ```bash
-yarn start --plugin="./test/plugin" --betterdiscord --powercordv2 --vizality="C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd" --watch
+pnpm start --plugin="./test/plugin" --betterdiscord --powercordv2 --vizality="C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd" --watch
 ```
