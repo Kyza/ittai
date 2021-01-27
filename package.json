@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"build-docs": "jsdoc ./core -d ./docs",
+		"build-docs": "jsdoc -c jsdoc.json",
 		"start": "node ./builder/index.js"
 	},
 	"bin": {
@@ -22,6 +22,7 @@
 		"is-valid-path": "^0.1.1",
 		"js-beautify": "^1.13.1",
 		"jsdoc": "^3.6.6",
+		"jsdoc-mermaid": "^1.0.0",
 		"less": "^4.0.0",
 		"less-loader": "^7.2.1",
 		"sass": "^1.32.2",
@@ -33,5 +34,8 @@
 		"terser-webpack-plugin": "^5.1.0",
 		"webpack": "^5.11.1",
 		"yargs": "^16.2.0"
+	},
+	"devDependencies": {
+		"better-docs": "^2.3.2"
 	}
 }

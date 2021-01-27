@@ -1,8 +1,18 @@
+/**
+ * @module modules
+ * @category webpack
+ */
+
 const webpackID = "_ittai";
 let _modules;
 let webpackCache;
 updateModules();
 
+/**
+ * Gets a Webpack module from Discord by its property names.
+ * @param  {...string} names
+ * @returns {Object}
+ */
 export function getByProps(...props) {
 	for (const mod of all()) {
 		if (props.every((prop) => mod[prop] !== undefined)) {
@@ -17,11 +27,19 @@ export function getByProps(...props) {
 	return null;
 }
 
+/**
+ * Gets all modules in Discord's Webpack modules.
+ * @returns {Object} The module cache.
+ */
 export function all() {
 	if (_modules) return _modules;
 	return updateModules();
 }
 
+/**
+ * Updates the module cache.
+ * @returns {Object} The module cache.
+ */
 export function updateModules() {
 	if (!webpackCache) {
 		let __webpack_require__ = globalThis.webpackJsonp.push([
@@ -45,6 +63,9 @@ export function updateModules() {
 		));
 }
 
+/**
+ * Removes Ittai from `webpackJsonp`.
+ */
 export function cleanWebpackJsonp() {
 	for (let i = globalThis.webpackJsonp.length - 1; i >= 0; i--) {
 		if (!globalThis.webpackJsonp.hasOwnProperty(i)) continue;

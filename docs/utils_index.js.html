@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ittai utils/index.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="jsdoc.css">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Ittai Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/Kyza/ittai"
+                        >
+                            GitHub
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-reactComponents.html">reactComponents</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li></ul></div><div class="category"><h2>reactComponents</h2><h3>Components</h3><ul><li><a href="FontAwesome.html">FontAwesome</a></li></ul></div><div class="category"><h2>utils</h2><h3>Modules</h3><ul><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li></ul></div><div class="category"><h2>utils.patcher.patch</h2><h3>Namespaces</h3><ul><li><a href="module-patcher.patch-patchData.html">patchData</a></li></ul></div><div class="category"><h2>webpack</h2><h3>Modules</h3><ul><li><a href="module-classes.html">classes</a></li><li><a href="module-components.html">components</a></li><li><a href="module-modules.html">modules</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>utils/index.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module utils
+ */
+
+// Know it will work on this client mod or it's detecting the wrong one?
+// Set this variable.
+let clientMod;
+
+/**
+ * @see module:patcher
+ */
+export const patcher = import("./patcher");
+/**
+ * @see module:logger
+ */
+export const logger = import("./logger");
+
+/**
+ * @returns {string} The name of the running client mod.
+ */
+export function getClientMod() {
+	if (clientMod) return clientMod;
+	if (globalThis.BdApi &amp;&amp; !window.powercord?.pluginManager.get("bdCompat")) {
+		return (clientMod = "betterdiscord");
+	} else if (globalThis.powercord) {
+		return (clientMod = "powercordv2");
+	} else if (globalThis.vizality) {
+		return (clientMod = "vizality");
+	} else if (globalThis.Untitled) {
+		throw Error("Untitled is not supported yet.");
+	} else if (globalThis.nxt) {
+		throw Error("How the hell did you get this client mod.");
+	}
+	throw Error("Unknown client mod.");
+}
+
+/**
+ * @returns {number} The current time in nanoseconds.
+ */
+export function nanoseconds() {
+	const hrTime = process.hrtime();
+	return hrTime[0] * 1000000000 + hrTime[1];
+}
+
+/**
+ * @param {function} codeblock The code to benchmark.
+ * @param {number} times The amount of times to run the benchmark.
+ * @returns {Promise} A Promise that resolves when the benchmark is completed.
+ */
+export function benchmark(codeblock, times) {
+	return new Promise((resolve) => {
+		const pre = codeblock.pre ?? (() => {});
+		delete codeblock.pre;
+		const post = codeblock.post ?? (() => {});
+		delete codeblock.post;
+
+		const name = Object.keys(codeblock)[0];
+
+		codeblock = codeblock[Object.keys(codeblock)[0]];
+
+		let promises = [];
+
+		for (let i = 0; i &lt; times; i++) {
+			promises.push(
+				new Promise((resolve) => {
+					let returns, start, end;
+					try {
+						pre();
+						start = nanoseconds();
+						returns = codeblock();
+						end = nanoseconds();
+						post();
+					} catch (e) {
+						resolve({ returns, time: 0, error: e });
+					}
+					resolve({ returns, time: end - start, error: false });
+				})
+			);
+		}
+
+		Promise.all(promises).then((allReturns) => {
+			const finalTimes = allReturns.map((r) => r.time);
+			resolve({
+				name,
+				average: average(finalTimes),
+				median: median(finalTimes),
+				error: allReturns[0].error,
+				returns: allReturns[0].returns,
+			});
+		});
+	});
+}
+
+/**
+ * Prints out the benchmark results for each code block.
+ * @param {function} codeblock The code to benchmark.
+ * @param {number} times The amount of times to run the benchmark.
+ */
+export function multiBenchmark(codeblocks, times) {
+	return new Promise((resolve) => {
+		const start = nanoseconds();
+		Promise.all(
+			codeblocks.map((codeblock) => benchmark(codeblock, times))
+		).then((results) => {
+			const end = nanoseconds();
+			const groupName = `Benchmarked ${codeblocks.length.toLocaleString()} functions ${times.toLocaleString()} times over ${(
+				end - start
+			).toLocaleString()}ns.`;
+			logger.group(groupName);
+			const mappedResults = Object.values(results).map((result) => {
+				return {
+					Name: result.name,
+					"Median Time": `${result.median.toLocaleString()}ns`,
+					"Average Time": `${result.average.toLocaleString()}ns`,
+					Returns: result.returns,
+					Error: result.error,
+					"(Median Time)": result.median,
+					"(Average Time)": result.average,
+				};
+			});
+			const successfulResults = mappedResults.filter(
+				(result) => result.Error === false
+			);
+			const erroredResults = mappedResults.filter((result) => !!result.Error);
+
+			console.table(
+				successfulResults.sort((result1, result2) => {
+					if (result1["(Median Time)"] > result2["(Median Time)"]) return 1;
+					if (result1["(Median Time)"] &lt; result2["(Median Time)"]) return -1;
+					return 0;
+				}),
+				["Name", "Median Time", "Average Time", "Returns"]
+			);
+			if (erroredResults.length > 0) {
+				console.table(erroredResults, ["Name", "Error"]);
+			}
+
+			logger.groupEnd(groupName);
+			resolve(results);
+		});
+	});
+}
+
+/**
+ * @param {number[]} array An array of numbers.
+ * @returns {number} The average of the numbers in the array.
+ */
+export function average(array) {
+	if (array.length === 0) return 0;
+	let total = 0;
+	for (let i = 0; i &lt; array.length; i++) {
+		total += array[i];
+	}
+	return total / array.length;
+}
+
+/**
+ * @param {number[]} array An array of numbers.
+ * @returns {number} The median of the numbers in the array.
+ */
+export function median(array) {
+	if (array.length === 0) return 0;
+	array.sort(function (a, b) {
+		return a - b;
+	});
+	let half = Math.floor(array.length / 2);
+	if (array.length % 2) return array[half];
+	return (array[half - 1] + array[half]) / 2.0;
+}
+
+/**
+ * @param {number} length The length of the string.
+ * @returns {string} A string of random characters.
+ */
+export function randomString(length) {
+	let string = "";
+	while (string.length &lt; length) {
+		string += Math.random().toString(36).substring(2);
+	}
+	return string.slice(0, length);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

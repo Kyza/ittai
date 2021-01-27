@@ -1,8 +1,17 @@
+/**
+ * @module components
+ * @category webpack
+ */
+
 import { updateModules } from "./modules";
 
 let _components = {};
 updateComponents();
 
+/**
+ * Extracts all of the React components from a Webpack module.
+ * @param {Object} module The module to search.
+ */
 export function getAllComponentsFromModule(module) {
 	let components = {};
 	if (typeof module === "function" && module.displayName != undefined)
@@ -32,6 +41,10 @@ const componentsHandler = {
 	},
 };
 
+/**
+ * Updates the React component cache.
+ * @returns {Object} The React component cache.
+ */
 export function updateComponents() {
 	let components = {};
 
@@ -51,4 +64,10 @@ export function updateComponents() {
 	return (_components = components);
 }
 
+/**
+ * A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/|Proxy} of all React components in Discord's Webpack modules.
+ * @type {Proxy}
+ * @example
+ * const {MiniPopover, Text} = ittai.webpack.components.all;
+ */
 export const all = new Proxy(_components, componentsHandler);

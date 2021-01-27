@@ -1,8 +1,15 @@
+/**
+ * @module entities
+ */
+
 import { getClientMod } from "../utils";
 
 const faURL =
 	"https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css";
 
+/**
+ * The plugin class for the running client mod.
+ */
 export const Plugin = (() => {
 	if (!document.querySelector(`[href="${faURL}"]`)) {
 		document.head.appendChild(

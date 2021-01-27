@@ -1,4 +1,4 @@
-export * as components from "./components";
+export * as reactComponents from "./reactComponents";
 export * as entities from "./entities";
 export * as libraries from "./libraries";
 export * as settings from "./settings";

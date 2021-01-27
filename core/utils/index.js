@@ -1,13 +1,23 @@
-import getClientMod from "./getClientMod";
-import * as logger from "./logger";
-
-export * as patcher from "./patcher";
-export * as logger from "./logger";
+/**
+ * @module utils
+ */
 
 // Know it will work on this client mod or it's detecting the wrong one?
 // Set this variable.
 let clientMod;
 
+/**
+ * @see module:patcher
+ */
+export const patcher = import("./patcher");
+/**
+ * @see module:logger
+ */
+export const logger = import("./logger");
+
+/**
+ * @returns {string} The name of the running client mod.
+ */
 export function getClientMod() {
 	if (clientMod) return clientMod;
 	if (globalThis.BdApi && !window.powercord?.pluginManager.get("bdCompat")) {
@@ -24,11 +34,19 @@ export function getClientMod() {
 	throw Error("Unknown client mod.");
 }
 
+/**
+ * @returns {number} The current time in nanoseconds.
+ */
 export function nanoseconds() {
 	const hrTime = process.hrtime();
 	return hrTime[0] * 1000000000 + hrTime[1];
 }
 
+/**
+ * @param {function} codeblock The code to benchmark.
+ * @param {number} times The amount of times to run the benchmark.
+ * @returns {Promise} A Promise that resolves when the benchmark is completed.
+ */
 export function benchmark(codeblock, times) {
 	return new Promise((resolve) => {
 		const pre = codeblock.pre ?? (() => {});
@@ -73,6 +91,11 @@ export function benchmark(codeblock, times) {
 	});
 }
 
+/**
+ * Prints out the benchmark results for each code block.
+ * @param {function} codeblock The code to benchmark.
+ * @param {number} times The amount of times to run the benchmark.
+ */
 export function multiBenchmark(codeblocks, times) {
 	return new Promise((resolve) => {
 		const start = nanoseconds();
@@ -118,6 +141,10 @@ export function multiBenchmark(codeblocks, times) {
 	});
 }
 
+/**
+ * @param {number[]} array An array of numbers.
+ * @returns {number} The average of the numbers in the array.
+ */
 export function average(array) {
 	if (array.length === 0) return 0;
 	let total = 0;
@@ -127,6 +154,10 @@ export function average(array) {
 	return total / array.length;
 }
 
+/**
+ * @param {number[]} array An array of numbers.
+ * @returns {number} The median of the numbers in the array.
+ */
 export function median(array) {
 	if (array.length === 0) return 0;
 	array.sort(function (a, b) {
@@ -137,34 +168,14 @@ export function median(array) {
 	return (array[half - 1] + array[half]) / 2.0;
 }
 
+/**
+ * @param {number} length The length of the string.
+ * @returns {string} A string of random characters.
+ */
 export function randomString(length) {
 	let string = "";
 	while (string.length < length) {
 		string += Math.random().toString(36).substring(2);
 	}
 	return string.slice(0, length);
-}
-
-export function* searchTree(tree, value, key, reverse = false) {
-	const stack = [tree[0]];
-	while (stack.length) {
-		const node = stack[reverse ? "pop" : "shift"]();
-		if (node[key] === value) yield node;
-		node.children && stack.push(...node.children);
-	}
-}
-export function* searchTreeKey(tree, key, reverse = false) {
-	const stack = Object.keys(tree).map((t) => ({ key: t, value: tree[t] }));
-	while (stack.length) {
-		const node = stack[reverse ? "pop" : "shift"]();
-		if (node.key === key) yield node.value;
-		if (node.value ?? false) {
-			stack.push(
-				...Object.keys(node.value).map((t) => ({
-					key: t,
-					value: node.value[t],
-				}))
-			);
-		}
-	}
 }

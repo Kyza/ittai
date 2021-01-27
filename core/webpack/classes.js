@@ -1,8 +1,17 @@
+/**
+ * @module classes
+ * @category webpack
+ */
+
 import { updateModules } from "./modules";
 
 let _classes = [];
 updateClasses();
 
+/**
+ * Extracts all of the classes from a Webpack module.
+ * @param {Object} module The module to search.
+ */
 export function getAllClassesFromModule(module) {
 	let classes = {};
 	for (const prop of Object.keys(module).map((key) => ({
@@ -21,6 +30,11 @@ export function getAllClassesFromModule(module) {
 	return classes;
 }
 
+/**
+ * Gets a Webpack module from Discord by the class names.
+ * @param  {...string} names
+ * @returns {Object}
+ */
 export function getByNames(...names) {
 	for (const mod of all()) {
 		if (names.every((name) => mod[name] !== undefined)) {
@@ -31,6 +45,10 @@ export function getByNames(...names) {
 	return null;
 }
 
+/**
+ * Updates the class cache.
+ * @returns {Object} The class cache.
+ */
 export function updateClasses() {
 	let classes = [];
 
@@ -42,6 +60,10 @@ export function updateClasses() {
 	return (_classes = classes);
 }
 
+/**
+ * Gets all classes in Discord's Webpack modules.
+ * @returns {Object} The class cache.
+ */
 export function all() {
 	if (_classes) return _classes;
 	return updateClasses();

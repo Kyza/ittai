@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai Home</title>
+  <title>Ittai libraries</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,138 +90,285 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Module</p>
+                    <h1>libraries</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+    
     
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
+    
 
     
 
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id=".Lodash">
+    <a class="href-link" href="#.Lodash">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        Lodash
+    </span>
+    
+</h4>
 
 
 
-    <section>
-        <article><hr>
-<h1 align="center">Ittai</h1>
-<p align="center">
-  <a href="#features">Features</a> |
-  <a href="#installation">Installation</a> |
-  <a href="#how-to-build">How to Build</a>
-</p>
-<p align="center">
-  <i>
-    <strong>What the heck</strong>?! I only need to use <strong>one style</strong> for my plugin?
-  </i>
-</p>
-<p align="center">
-  <i>
-    <strong>Ittai</strong>?! I only need to use <strong>Ittai</strong> for my plugin?
-  </i>
-</p>
-<p align="center">
-  <img src="https://kyza.github.io/ittai/media/8deCFE7322dabFC9.png">
-</p>
-<p align="center">
-  <i>Ittai is a plugin builder for Discord client mods. Which ones? Yes.</i>
-</p>
-<hr>
-<h2>Features</h2>
-<ul>
-<li>Build even single-file BD plugins from multi-file projects.</li>
-<li>Write one codebase, distribute one product.</li>
-<li>Hot rebuild your plugins.</li>
-<li>Use various flavors of JS to create your plugins.
-<ul>
-<li>[x] <a href="https://reactjs.org/docs/introducing-jsx.html">JSX</a></li>
-<li>[ ] <a href="https://www.typescriptlang.org/">TypeScript</a> (and TSX!)</li>
-<li>[x] <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">ES6 Modules</a> (both <code>require(&quot;module&quot;);</code> and <code>import module from &quot;module&quot;;</code>)</li>
-<li>[ ] <a href="https://coffeescript.org/">CoffeeScript</a></li>
-</ul>
-</li>
-<li>I didn't forget about CSS!
-<ul>
-<li>[x] Load your stylesheets easily.
-<ul>
-<li><code>import style from &quot;./style.css&quot;;</code></li>
-<li><code>start() {style.add();}</code></li>
-<li><code>stop() {style.remove();}</code></li>
-</ul>
-</li>
-<li>[x] <a href="https://sass-lang.com/">SASS (SCSS)</a></li>
-<li>[x] <a href="https://stylus-lang.com/">Stylus</a></li>
-<li>[x] <a href="http://lesscss.org/">LESS</a></li>
-</ul>
-</li>
-<li>Build to almost any client mod.
-<ul>
-<li>[x] BetterDiscord</li>
-<li>[x] Powercord <strong>v2</strong></li>
-<li>[x] Vizality</li>
-</ul>
-</li>
-</ul>
-<h2>Installation</h2>
-<h3>Requirements</h3>
-<ul>
-<li><a href="https://git-scm.com/">Git</a></li>
-<li><a href="https://nodejs.org/">NodeJS</a></li>
-<li><a href="https://yarnpkg.com/">Yarn</a> (optional)</li>
-</ul>
-<h3>Installation Steps</h3>
-<pre class="prettyprint source lang-bash"><code>git clone https://github.com/Kyza/ittai/
-yarn
-</code></pre>
-<h2>How to Build</h2>
-<h3>Command Options</h3>
-<ul>
-<li><code>--plugin=&quot;path/to/your/plugin&quot;</code></li>
-<li><code>--betterdiscord</code> (optional)
-<ul>
-<li>Specify <code>=&quot;path/to/plugin/folder&quot;</code> to copy the built file to the folder.</li>
-<li>Builds for BetterDiscord.</li>
-</ul>
-</li>
-<li><code>--powercordv2</code> (optional)
-<ul>
-<li>Specify <code>=&quot;path/to/plugin/folder&quot;</code> to copy the built files to the folder.</li>
-<li>Builds for Powercord v2.</li>
-</ul>
-</li>
-<li><code>--vizality</code> (optional)
-<ul>
-<li>Specify <code>=&quot;path/to/plugin/folder&quot;</code> to copy the built files to the folder.</li>
-<li>Builds for Vizality.</li>
-</ul>
-</li>
-<li><code>--watch</code> (optional)
-<ul>
-<li>Will watch for changes in your plugin's unbuilt files and automatically run the command again for you.</li>
-</ul>
-</li>
-</ul>
-<h3>Build Command</h3>
-<p>This command will build your plugin for BetterDiscord, Powercord v2, and Vizality, but will only copy it to the Vizality plugin's folder. It will also hot rebuild your plugin for you.</p>
-<pre class="prettyprint source lang-bash"><code>yarn start --plugin=&quot;./test/plugin&quot; --betterdiscord --powercordv2 --vizality=&quot;C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd&quot; --watch
-</code></pre></article>
-    </section>
+
+<div class="description">
+    <p>Discord's <a href="https://lodash.com/">Lodash</a> instance.</p>
+</div>
 
 
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="libraries_index.js.html" class="button">View Source</a>
+            <span>
+                <a href="libraries_index.js.html">libraries/index.js</a>, <a href="libraries_index.js.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".React">
+    <a class="href-link" href="#.React">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        React
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Discord's <a href="https://reactjs.org/">React</a> instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="libraries_index.js.html" class="button">View Source</a>
+            <span>
+                <a href="libraries_index.js.html">libraries/index.js</a>, <a href="libraries_index.js.html#line8">line 8</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".ReactDOM">
+    <a class="href-link" href="#.ReactDOM">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        ReactDOM
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Discord's <a href="https://reactjs.org/docs/react-dom.html">ReactDOM</a> instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="libraries_index.js.html" class="button">View Source</a>
+            <span>
+                <a href="libraries_index.js.html">libraries/index.js</a>, <a href="libraries_index.js.html#line12">line 12</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
