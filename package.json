@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"build-docs": "jsdoc ./core",
+		"build-docs": "jsdoc ./core -d ./docs",
 		"start": "node ./builder/index.js"
 	},
 	"bin": {
