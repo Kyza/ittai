@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
+		"build-docs": "jsdoc ./core",
 		"start": "node ./builder/index.js"
 	},
 	"bin": {
@@ -20,6 +21,7 @@
 		"fs-extra": "^9.0.1",
 		"is-valid-path": "^0.1.1",
 		"js-beautify": "^1.13.1",
+		"jsdoc": "^3.6.6",
 		"less": "^4.0.0",
 		"less-loader": "^7.2.1",
 		"sass": "^1.32.2",
