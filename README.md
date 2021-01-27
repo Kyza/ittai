@@ -21,7 +21,7 @@
 </p>
   
 <p align="center">
-  <img src="https://ittai.kyza.net/media/8deCFE7322dabFC9.png">
+  <img src="https://raw.githubusercontent.com/Kyza/ittai/master/media/8deCFE7322dabFC9.png">
 </p>
 
 <p align="center">
