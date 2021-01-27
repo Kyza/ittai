@@ -2,4 +2,4 @@
  * @module components
  */
 
-export const FontAwesome = import("./FontAwesome");
+export { default as FontAwesome } from "./FontAwesome";

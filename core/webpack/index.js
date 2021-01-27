@@ -5,12 +5,12 @@
 /**
  * @see module:webpack/modules
  */
-export const modules = import("./modules");
+export * as modules from "./modules";
 /**
  * @see module:webpack/components
  */
-export const components = import("./components");
+export * as components from "./components";
 /**
  * @see module:webpack/classes
  */
-export const classes = import("./classes");
+export * as classes from "./classes";

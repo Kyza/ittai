@@ -29,11 +29,12 @@ export const Plugin = (() => {
 		case "betterdiscord":
 			pluginEntity = require("./BDPlugin");
 	}
-
-	// Unpatch all.
+	// Unpatch all on stop.
 	const oldStop = { ...pluginEntity }.stop;
-	pluginEntity.stop = () => {
+	pluginEntity.stop = function () {
 		oldStop();
+		this.removeSettingsPanel();
 		patcher.unpatchAll();
 	};
+	return pluginEntity;
 })();

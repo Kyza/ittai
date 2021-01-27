@@ -2,6 +2,8 @@
  * @module utils
  */
 
+import * as logger from "./logger";
+
 // Know it will work on this client mod or it's detecting the wrong one?
 // Set this variable.
 let clientMod;
@@ -9,11 +11,11 @@ let clientMod;
 /**
  * @see module:utils/patcher
  */
-export const patcher = import("./patcher");
+export * as patcher from "./patcher";
 /**
  * @see module:utils/logger
  */
-export const logger = import("./logger");
+export * as logger from "./logger";
 
 /**
  * @returns {string} The name of the running client mod.
