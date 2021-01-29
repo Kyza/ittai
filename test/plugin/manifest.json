@@ -1,7 +1,7 @@
 {
-	"name": "Only Show Streams",
+	"name": "Personal Pins",
 	"version": "1.0.0",
-	"description": "Removes the giant user cards if someone is streaming.",
+	"description": "Pin messages, personally.",
 	"author": "Kyza",
 	"license": "None"
 }

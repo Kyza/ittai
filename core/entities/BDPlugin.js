@@ -1,4 +1,4 @@
-import { logger } from "../utils";
+import * as logger from "../logger";
 import { React, ReactDOM } from "../libraries";
 import { modules } from "../webpack";
 import { all as components } from "../webpack/components";
@@ -11,27 +11,63 @@ const AccessibilityProvider = modules.getByProps(
 const layerClass = modules.getByProps("LayerClassName").LayerClassName;
 
 export default class Plugin {
-	getSettings() {
-		return BdApi.loadData(this.constructor.name, "settings") ?? {};
-	}
-	getSetting(key, defaultValue) {
-		return this.getSettings()[key] ?? { [key]: defaultValue };
-	}
-	setSettings(newSettings) {
-		if (typeof newSettings !== "object") return;
-		BdApi.saveData(
-			this.constructor.name,
-			"settings",
-			Object.assign(this.getSettings(), newSettings)
-		);
-	}
-	setSetting(key, value) {
-		BdApi.saveData(
-			this.constructor.name,
-			"settings",
-			Object.assign(this.getSettings(), { [key]: value })
-		);
-	}
+	settings = {
+		get: (key, defaultValue) => {
+			return this.settings.all()[key] ?? { [key]: defaultValue };
+		},
+		all: () => {
+			return BdApi.loadData(this.constructor.name, "settings") ?? {};
+		},
+		set: (newSettings) => {
+			if (typeof newSettings !== "object") return;
+			BdApi.saveData(
+				this.constructor.name,
+				"settings",
+				Object.assign(this.settings.all(), newSettings)
+			);
+		},
+		setPanel: (component) => {
+			this.getSettingsPanel = () => {
+				if (typeof component === "function")
+					component = React.createElement(component);
+				const container = document.createElement("div");
+				try {
+					return (
+						ReactDOM.render(
+							React.createElement(
+								AccessibilityProvider,
+								{
+									value: {
+										reducedMotion: {
+											enabled: false,
+											rawValue: "no-preference",
+										},
+									},
+								},
+								React.createElement(
+									LayerProvider,
+									{
+										value: [
+											document.querySelector(`#app-mount > .${layerClass}`),
+										],
+									},
+									component
+								)
+							),
+							container
+						),
+						container
+					);
+				} catch (e) {
+					this.error("Failed to load settings panel.", e);
+				}
+				return null;
+			};
+		},
+		removePanel: () => {
+			delete this.getSettingsPanel;
+		},
+	};
 
 	log() {
 		logger.log(...arguments);
@@ -44,46 +80,5 @@ export default class Plugin {
 	}
 	error() {
 		logger.error(...arguments);
-	}
-	setSettingsPanel(component) {
-		this.getSettingsPanel = () => {
-			if (typeof component === "function")
-				component = React.createElement(component);
-			const container = document.createElement("div");
-			try {
-				return (
-					ReactDOM.render(
-						React.createElement(
-							AccessibilityProvider,
-							{
-								value: {
-									reducedMotion: {
-										enabled: false,
-										rawValue: "no-preference",
-									},
-								},
-							},
-							React.createElement(
-								LayerProvider,
-								{
-									value: [
-										document.querySelector(`#app-mount > .${layerClass}`),
-									],
-								},
-								component
-							)
-						),
-						container
-					),
-					container
-				);
-			} catch (e) {
-				this.error("Failed to load settings panel.", e);
-			}
-			return null;
-		};
-	}
-	removeSettingsPanel() {
-		delete this.getSettingsPanel;
 	}
 }

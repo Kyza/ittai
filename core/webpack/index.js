@@ -1,5 +1,8 @@
 /**
  * @module webpack
+ * @see module:webpack/modules
+ * @see module:webpack/components
+ * @see module:webpack/classes
  */
 
 /**

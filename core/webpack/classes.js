@@ -20,7 +20,7 @@ export function getAllClassesFromModule(module) {
 		try {
 			if (
 				typeof prop.value === "string" &&
-				new RegExp(`${prop.key}-([a-z]|[A-Z]|\\d){6}`, "gi").test(prop.value)
+				new RegExp(`${prop.key}-.+`, "gi").test(prop.value)
 			) {
 				classes[prop.key] = prop.value;
 			}

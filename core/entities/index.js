@@ -2,7 +2,7 @@
  * @module entities
  */
 
-import { getClientMod, patcher } from "../utils";
+import { getClientMod } from "../utils";
 
 const faURL =
 	"https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css";

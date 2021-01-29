@@ -1,5 +1,5 @@
 /**
- * @module utils/logger
+ * @module logger
  */
 
 const cc = { ...console };
@@ -47,4 +47,16 @@ export function group(...args) {
  */
 export function groupEnd(...args) {
 	cc.groupEnd(...createArguments(...args));
+}
+/**
+ * @param  {...any} args
+ */
+export function count(...args) {
+	cc.count(...args);
+}
+/**
+ * @param  {...any} args
+ */
+export function countReset(...args) {
+	cc.countReset(...args);
 }

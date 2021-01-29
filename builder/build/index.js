@@ -41,7 +41,7 @@ const build = (argv, callback) => {
 				},
 			],
 			resolve: {
-				extensions: [".js"],
+				extensions: [".js", ".jsx", ".ts", ".tsx"],
 				alias: {
 					ittai: path.resolve(core),
 				},

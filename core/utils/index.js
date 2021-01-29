@@ -2,20 +2,22 @@
  * @module utils
  */
 
-import * as logger from "./logger";
+import * as logger from "../logger";
+import { modules } from "../webpack";
+
+const { getMessage } = modules.getByProps("getMessages", "getMessage");
+const { getMessageByReference } = modules.getByProps("getMessageByReference");
+const { Endpoints } = modules.getByProps("Endpoints");
+const User = modules.getByFilter((m) => m.prototype.tag);
+const Timestamp = modules.getByFilter(
+	(m) => m.prototype.toDate && m.prototype.month
+);
+const Message = modules.getByFilter((m) => m.prototype.isEdited);
+const DiscordAPI = modules.getByProps("getAPIBaseURL");
 
 // Know it will work on this client mod or it's detecting the wrong one?
 // Set this variable.
 let clientMod;
-
-/**
- * @see module:utils/patcher
- */
-export * as patcher from "./patcher";
-/**
- * @see module:utils/logger
- */
-export * as logger from "./logger";
 
 /**
  * @returns {string} The name of the running client mod.
@@ -110,6 +112,42 @@ export function findInReactTree(tree, filter) {
 	return findInTree(tree, filter, {
 		walkable: ["props", "children", "child", "sibling"],
 	});
+}
+
+export function getReactInstance(node) {
+	if (typeof node === "string")
+		node = document.querySelector(
+			`${node}, .${node}, #${node}, [class*="${node}"]`
+		);
+	if (!node) return null;
+	return node[
+		Object.keys(node).find((e) => e.startsWith("__reactInternalInstance"))
+	];
+}
+export function getOwnerInstance(node) {
+	node = getReactInstance(node);
+	if (!node) return null;
+	for (let curr = node; curr; curr = curr.return) {
+		const owner = curr.stateNode;
+		if (owner && !(owner instanceof Element)) return owner;
+	}
+	return null;
+}
+
+/**
+ *
+ * @param {Object} object The object to path into.
+ * @param {string[]} path The path to take.
+ * @param {*} value The value to set the end node to.
+ */
+export function ensureTree(object, path, value) {
+	let obj = object;
+	for (let i = 0; i < path.length; i++) {
+		const node = path[i];
+		if (i === path.length - 1) return (obj[node] = value), undefined;
+		if (!obj[node]) obj[node] = {};
+		obj = obj[node];
+	}
 }
 
 /**
@@ -238,14 +276,72 @@ export function median(array) {
 	return (array[half - 1] + array[half]) / 2.0;
 }
 
+function throwTypeError(variable, name, type, ignoreNull = false) {
+	if (ignoreNull && (variable === null || variable === undefined)) return;
+	if (
+		(type.toLowerCase() === "array" && !Array.isArray(variable)) ||
+		typeof variable !== type
+	)
+		throw `"${name}" is not of type "${type}"`;
+}
+
 /**
  * @param {number} length The length of the string.
+ * @param {number} length The returned string will not match this.
  * @returns {string} A string of random characters.
  */
-export function randomString(length) {
+export function randomString(length, dontMatch = null) {
+	if (typeof length !== "number") return;
+	if (typeof dontMatch !== "string" && !Array.isArray(dontMatch)) return;
 	let string = "";
-	while (string.length < length) {
-		string += Math.random().toString(36).substring(2);
-	}
-	return string.slice(0, length);
+	do {
+		while (string.length < length) {
+			string += Math.random().toString(36).substring(2);
+		}
+		string = string.slice(0, length);
+	} while (
+		dontMatch &&
+		(string === dontMatch || dontMatch.some((m) => m === string))
+	);
+	return string;
+}
+
+let messageCache = {};
+
+export function fetchMessage(channelID, messageID) {
+	return new Promise((resolve, reject) => {
+		const message =
+			getMessage(channelID, messageID) ??
+			getMessageByReference({
+				message_id: messageID,
+				channel_id: channelID,
+			}).message ??
+			messageCache[channelID]?.[messageID];
+
+		if (message) return resolve(message);
+
+		DiscordAPI.get({
+			url: Endpoints.MESSAGES(channelID),
+			query: {
+				limit: 100,
+				around: messageID,
+			},
+		})
+			.then((res) => {
+				if (res.status != 200) return reject();
+				for (let m of res.body) {
+					m.author = new User(m.author);
+					m.timestamp = new Timestamp(m.timestamp);
+					m = new Message(m);
+					ensureTree(messageCache, [m.channel_id, m.id], m);
+				}
+				const foundMessage = messageCache[channelID]?.[messageID];
+				if (foundMessage) resolve(foundMessage);
+				reject();
+			})
+			.catch((res) => {
+				console.log(res);
+				if (res.status != 403) return reject();
+			});
+	});
 }

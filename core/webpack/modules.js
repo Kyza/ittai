@@ -27,6 +27,26 @@ export function getByProps(...props) {
 	}
 	return null;
 }
+
+function wrapFilter(filter) {
+	return (mod) => {
+		try {
+			return filter(mod);
+		} catch {}
+	};
+}
+
+export function getByFilter(filter) {
+	filter = wrapFilter(filter);
+	for (const mod of all()) {
+		if (filter(mod)) {
+			return mod;
+		} else if (mod.default && filter(mod.default)) {
+			return mod.default;
+		}
+	}
+	return null;
+}
 /**
  * Gets a Webpack module from Discord by its display name.
  * @param  {string} displayName

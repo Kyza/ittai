@@ -1,13 +1,14 @@
 /**
- * @module utils/patcher
+ * @module patcher
  */
 
-import * as logger from "./logger";
+import * as logger from "../logger";
+import { randomString } from "../utils";
 
 /**
  * A list of the currently patched components.
  */
-export let patches = [];
+export let patches = {};
 
 /**
  *
@@ -50,10 +51,14 @@ export function after(name, object, functionName, patchFunction) {
  * Unpatches all of the patches specified, or all of them if none are specified.
  * @param {string[]} [unpatches={@link module:patcher.patches}] An array patch names.
  */
-export function unpatchAll(unpatches = patches) {
-	if (!Array.isArray(unpatches)) throw "`patches` is not an array.";
-	for (const patch of unpatches) {
-		patch.unpatch();
+export function unpatchAll(unpatches) {
+	if (!Array.isArray(unpatches)) unpatches = patches;
+	for (const object of Object.values(unpatches)) {
+		for (const funct of Object.values(object)) {
+			for (const patch of funct.patches) {
+				patch.unpatch();
+			}
+		}
 	}
 }
 
@@ -68,7 +73,10 @@ export function unpatchAll(unpatches = patches) {
  * @tutorial patching
  */
 export function patch(name, object, functionName, type, patchFunction) {
-	if (!object.__ittai__) object.__ittai__ = {};
+	const id = object.__ittai__ ?? randomString(25, Object.keys(patches));
+	object.__ittai__ = object.__ittai__ ?? id;
+	if (!patches[id]) patches[id] = {};
+
 	/**
 	 * @memberof module:utils/patcher
 	 * @prop {string} name The name of the function being patched.
@@ -82,20 +90,19 @@ export function patch(name, object, functionName, type, patchFunction) {
 		patchFunction,
 		unpatch: function () {
 			try {
-				const patchIndex = object.__ittai__[functionName].patches.indexOf(this);
+				const patchIndex = patches[id][functionName].patches.indexOf(this);
 				if (patchIndex === -1)
 					throw "Couldn't find the patch. This probably happened because the object was tampered with. Don't do that.";
-				// Restore original function.
-				object[functionName] = object.__ittai__[functionName].original;
 				// Delete patch.
-				object.__ittai__[functionName].patches.splice(patchIndex, 1);
-				patches.splice(patchIndex, 1);
+				patches[id][functionName].patches.splice(patchIndex, 1);
 				// Clean up the object if there are no patches left.
-				if (!object.__ittai__[functionName].patches.length) {
-					delete object.__ittai__[functionName];
+				if (patches[id][functionName].patches.length === 0) {
+					// Restore original function.
+					object[functionName] = patches[id][functionName].original;
+					delete patches[id][functionName];
 				}
-				if (!Object.keys(object.__ittai__).length) {
-					delete object.__ittai__;
+				if (!Object.keys(patches[id]).length) {
+					delete patches[id];
 				}
 			} catch (e) {
 				logger.error(`Failed to unpatch ${name}.`, e);
@@ -103,8 +110,8 @@ export function patch(name, object, functionName, type, patchFunction) {
 		},
 	};
 
-	if (!object.__ittai__[functionName]) {
-		object.__ittai__[functionName] = {
+	if (!patches[id][functionName]) {
+		patches[id][functionName] = {
 			original: { ...object }[functionName],
 			patches: [],
 		};
@@ -112,7 +119,7 @@ export function patch(name, object, functionName, type, patchFunction) {
 		const props = { ...object[functionName] };
 
 		object[functionName] = function (...args) {
-			const functionData = object.__ittai__[functionName];
+			const functionData = patches[id][functionName];
 			const befores = functionData.patches.filter((p) => p.type === "before");
 			const insteads = functionData.patches.filter((p) => p.type === "instead");
 			const afters = functionData.patches.filter((p) => p.type === "after");
@@ -163,10 +170,10 @@ export function patch(name, object, functionName, type, patchFunction) {
 		};
 		Object.assign(object[functionName], props);
 		object[functionName].toString = () =>
-			object.__ittai__[functionName].original.toString();
+			patches[id][functionName].original.toString();
 	}
-	object.__ittai__[functionName].patches.push(patchData);
-	patches.push(patchData);
+	patches[id][functionName].patches.push(patchData);
+	// patches.push(patchData);
 
 	return patchData;
 }
