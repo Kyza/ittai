@@ -112,13 +112,13 @@
                 <section>
 
 <article>
-    <p><a href="module-utils_patcher.html#.patch"><code>Patch</code></a>ing functions is a common way to inject code into Discord. Ittai provides three types of patches.</p>
+    <p><code>Patch</code>ing functions is a common way to inject code into Discord. Ittai provides three types of patches.</p>
 <ul>
-<li><a href="module-utils_patcher.html#.before"><code>Before</code></a> runs your code before the function is executed.</li>
-<li><a href="module-utils_patcher.html#.instead"><code>Instead</code></a> Runs your code instead of the function.</li>
-<li><a href="module-utils_patcher.html#.after"><code>After</code></a> runs your code after the function is executed.</li>
+<li><code>Before</code> runs your code before the function is executed.</li>
+<li><code>Instead</code> Runs your code instead of the function.</li>
+<li><code>After</code> runs your code after the function is executed.</li>
 </ul>
-<p><a href="module-utils_patcher.html#.before"><code>module:utils/patcher.before</code></a>, <a href="module-utils_patcher.html#.instead"><code>utils/patcher.instead</code></a>, and <a href="module-utils_patcher.html#.after"><code>module:utils/patcher.after</code></a> are also shorthand functions available in the patcher.</p>
+<p><code>module:utils/patcher.before</code>, <code>utils/patcher.instead</code>, and <code>module:utils/patcher.after</code> are also shorthand functions available in the patcher.</p>
 <p>Ittai will automatically unpatch all of your functions when the plugin stops, so no need to worry about forgetting and leaving a patch hanging in the void.</p>
 <p>Here's a basic example of how to use Ittai's patcher.</p>
 <pre class="prettyprint source lang-js"><code>const obj = {

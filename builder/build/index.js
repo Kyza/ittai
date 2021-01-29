@@ -11,13 +11,45 @@ const core = path.resolve(path.join("./core"));
 
 const build = (argv, callback) => {
 	console.log(`Building ${path.resolve(argv.plugin)}.`);
+	console.time("Built in");
 
-	fs.ensureDirSync("./temp");
+	fs.ensureFileSync("./temp/index.js");
+	fs.ensureFileSync("./temp/manifest.json");
 	const temp = path.resolve("./temp");
 
 	const stylesheetLoader = path.resolve(
 		path.join(__dirname, "stylesheetLoader.js")
 	);
+	const jsBuilder = argv.production
+		? {
+				loader: "babel-loader",
+				options: {
+					presets: [
+						[
+							"@babel/preset-env",
+							{
+								targets: {
+									electron: "11",
+								},
+							},
+						],
+						"@babel/preset-react",
+						["@babel/preset-typescript", { esModuleInterop: true }],
+					],
+					plugins: [
+						"@babel/plugin-proposal-class-properties",
+						"minify-dead-code-elimination",
+					],
+				},
+		  }
+		: {
+				loader: "@sucrase/webpack-loader",
+				options: {
+					production: true,
+					// enableLegacyBabel5ModuleInterop: true,
+					transforms: ["jsx", "typescript", "imports"],
+				},
+		  };
 	webpack(
 		{
 			mode: "production",
@@ -41,7 +73,18 @@ const build = (argv, callback) => {
 				},
 			],
 			resolve: {
-				extensions: [".js", ".jsx", ".ts", ".tsx"],
+				extensions: [
+					".js",
+					".jsx",
+					".ts",
+					".tsx",
+					".coffee",
+					".css",
+					".scss",
+					".sass",
+					".less",
+					".styl",
+				],
 				alias: {
 					ittai: path.resolve(core),
 				},
@@ -116,14 +159,7 @@ const build = (argv, callback) => {
 					{
 						test: /\.m?(j|t)sx?$/i,
 						exclude: /node_modules/,
-						use: {
-							loader: "@sucrase/webpack-loader",
-							options: {
-								production: true,
-								enableLegacyBabel5ModuleInterop: true,
-								transforms: ["jsx", "typescript", "imports"],
-							},
-						},
+						use: jsBuilder,
 					},
 					{
 						test: /\.coffee?$/i,
@@ -161,6 +197,8 @@ const build = (argv, callback) => {
 				"module.exports.LibraryPluginHack",
 				"let plugin"
 			);
+
+			builtCode += "plugin = plugin.default;";
 
 			// Add clientmod-specific code.
 			builtCode = callback(builtCode);
@@ -200,6 +238,7 @@ const build = (argv, callback) => {
 					)
 				);
 			}
+			console.timeEnd("Built in");
 		}
 	);
 };

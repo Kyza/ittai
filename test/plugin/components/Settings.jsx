@@ -9,7 +9,7 @@ const { getChannel } = modules.getByProps("getChannel");
 export default function Settings() {
 	return (
 		<>
-			<Header size={Header.Sizes.SIZE_24}>Personal Pins</Header>
+			<Header size={Header.Sizes.SIZE_24}>Archive Messages</Header>
 			<ChannelMessage
 				message={getMessage("639664211592478720", "804450187522867231")}
 				channel={getChannel("639664211592478720")}

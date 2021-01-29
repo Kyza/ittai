@@ -22,10 +22,10 @@ export const Plugin = (() => {
 
 	switch (getClientMod()) {
 		case "powercordv2":
-			return require("./PCv2Plugin");
+			return require("./PCv2Plugin").default;
 		case "vizality":
-			return require("./VZPlugin");
+			return require("./VZPlugin").default;
 		case "betterdiscord":
-			return require("./BDPlugin");
+			return require("./BDPlugin").default;
 	}
 })();

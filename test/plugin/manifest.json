@@ -1,7 +1,7 @@
 {
-	"name": "Personal Pins",
+	"name": "Archive Messages",
 	"version": "1.0.0",
-	"description": "Pin messages, personally.",
+	"description": "Add messages to an easily searchable personal archive.",
 	"author": "Kyza",
 	"license": "None"
 }

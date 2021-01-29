@@ -3,8 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"build-docs": "jsdoc -c jsdoc.json",
-		"start": "node ./builder/index.js"
+		"build-docs": "jsdoc -c jsdoc.json"
 	},
 	"bin": {
 		"ittai": "./builder/index.js"
@@ -12,8 +11,18 @@
 	"repository": "https://github.com/NextDiscord/builder",
 	"author": "Kyza",
 	"dependencies": {
+		"@babel/cli": "^7.12.10",
+		"@babel/core": "^7.12.10",
+		"@babel/plugin-proposal-class-properties": "^7.12.1",
+		"@babel/plugin-transform-runtime": "^7.12.10",
+		"@babel/plugin-transform-typescript": "^7.12.1",
+		"@babel/preset-env": "^7.12.11",
+		"@babel/preset-react": "^7.12.10",
+		"@babel/preset-typescript": "^7.12.7",
 		"@sucrase/webpack-loader": "^2.0.0",
 		"@types/css": "^0.0.31",
+		"babel-loader": "^8.2.2",
+		"babel-plugin-minify-dead-code-elimination": "^0.5.1",
 		"chokidar": "^3.5.0",
 		"coffee-loader": "^2.0.0",
 		"css-loader": "^5.0.1",

@@ -5,70 +5,61 @@ import { React } from "ittai/libraries";
 import { Plugin } from "ittai/entities";
 import { components, modules } from "ittai/webpack";
 import * as patcher from "ittai/patcher";
-import { findInReactTree, fetchMessage } from "ittai/utils";
+import {
+	findInReactTree,
+	getOwnerInstance,
+	rerenderAllMessages,
+} from "ittai/utils";
 
-import PersonalPinsList from "./components/PersonalPinsList";
+import ArchiveMessagesList from "./components/ArchiveMessagesList";
 import Settings from "./components/Settings";
-import PinButton from "./components/PinButton";
-import PinsHeader from "./components/PinsHeader";
+import ArchiveButton from "./components/ArchiveButton";
+// import PinsHeader from "./components/PinsHeader";
 
 const MiniPopover = modules.getByDisplayName("MiniPopover");
-const MessagesPopout = modules.getByDisplayName("MessagesPopout");
+const HeaderBar = modules.getByDisplayName("HeaderBar");
 
-const { getChannel } = modules.getByProps("getChannel");
-
-export default class PersonalPins extends Plugin {
+export default class ArchiveMessages extends Plugin {
 	start() {
 		this.log("Starting.");
 
-		this.miniPopoverAfter = patcher.after(
-			"PersonalPins-MiniPopover-default",
+		patcher.after(
+			"ArchiveMessages-MiniPopover-default",
 			MiniPopover,
 			"default",
 			(that, args, res) => {
-				const props = findInReactTree(res, (n) => n.message);
+				const props = findInReactTree(res, (node) => node.message);
 				if (!props) return res;
-				const message = fetchMessage(props.channel.id, props.message.id);
-				const channel = getChannel(props.channel.id);
-
 				res.props.children.unshift(
-					<PinButton
+					<ArchiveButton
 						settings={this.settings}
-						message={message}
-						channel={channel}
+						message={props.message}
+						channel={props.channel}
 					/>
 				);
 				return res;
 			}
 		);
 
-		this.messagesPopoutAfter = patcher.after(
-			"PersonalPins-MessagesPopout-default",
-			MessagesPopout,
+		patcher.after(
+			"ArchiveMessages-HeaderBar-default",
+			HeaderBar,
 			"default",
 			(that, args, res) => {
-				delete res.props.children[0].props.title;
-				res.props.children[0].props.children = [
-					<PinsHeader settings={this.settings} />,
-				];
-
-				switch (this.settings.get("pinsTab")) {
-					case "personal":
-						res.props.children[1] = (
-							<PersonalPinsList settings={this.settings} />
-						);
-						res.props.children.splice(2, 1);
-						break;
-				}
+				console.log(res);
 				return res;
 			}
 		);
 
 		this.settings.setPanel(<Settings />);
+
+		getOwnerInstance("toolbar")?.forceUpdate();
+		rerenderAllMessages();
 	}
 	stop() {
 		this.log("Stopping.");
 		this.settings.removePanel();
 		patcher.unpatchAll();
+		rerenderAllMessages();
 	}
 }

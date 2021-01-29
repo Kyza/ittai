@@ -101,7 +101,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-utils_logger.html">utils/logger</a></li><li><a href="module-utils_patcher.html">utils/patcher</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
                 
             </nav>
         </div>
@@ -140,7 +140,7 @@ export function getAllClassesFromModule(module) {
 		try {
 			if (
 				typeof prop.value === "string" &amp;&amp;
-				new RegExp(`${prop.key}-([a-z]|[A-Z]|\\d){6}`, "gi").test(prop.value)
+				new RegExp(`${prop.key}-.+`, "gi").test(prop.value)
 			) {
 				classes[prop.key] = prop.value;
 			}
@@ -157,6 +157,23 @@ export function getAllClassesFromModule(module) {
  * ittai.webpack.classes.getByNames("message", "cozyMessage");
  */
 export function getByNames(...names) {
+	for (const mod of all()) {
+		if (names.every((name) => mod[name] !== undefined)) {
+			return mod;
+		}
+	}
+
+	return null;
+}
+
+/**
+ * Gets a Webpack module from Discord by the class name values.
+ * @param  {...string} nameValues The values of the class names.
+ * @returns {Object}
+ * @example
+ * ittai.webpack.classes.getByNameValues("message", "cozyMessage");
+ */
+export function getByNameValues(...nameValues) {
 	for (const mod of all()) {
 		if (names.every((name) => mod[name] !== undefined)) {
 			return mod;

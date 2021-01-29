@@ -13,7 +13,10 @@ const layerClass = modules.getByProps("LayerClassName").LayerClassName;
 export default class Plugin {
 	settings = {
 		get: (key, defaultValue) => {
-			return this.settings.all()[key] ?? { [key]: defaultValue };
+			return (
+				this.settings.all()[key] ??
+				(this.settings.set({ [key]: defaultValue }), defaultValue)
+			);
 		},
 		all: () => {
 			return BdApi.loadData(this.constructor.name, "settings") ?? {};

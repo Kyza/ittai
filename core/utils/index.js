@@ -3,10 +3,15 @@
  */
 
 import * as logger from "../logger";
+import { Lodash } from "../libraries";
 import { modules } from "../webpack";
 
-const { getMessage } = modules.getByProps("getMessages", "getMessage");
+const {
+	getMessages: discordGetMessages,
+	getMessage: discordGetMessage,
+} = modules.getByProps("getMessages", "getMessage");
 const { getMessageByReference } = modules.getByProps("getMessageByReference");
+const { getChannelId } = modules.getByProps("getChannelId");
 const { Endpoints } = modules.getByProps("Endpoints");
 const User = modules.getByFilter((m) => m.prototype.tag);
 const Timestamp = modules.getByFilter(
@@ -14,6 +19,7 @@ const Timestamp = modules.getByFilter(
 );
 const Message = modules.getByFilter((m) => m.prototype.isEdited);
 const DiscordAPI = modules.getByProps("getAPIBaseURL");
+const FluxDispatcher = modules.getByProps("dispatch", "dirtyDispatch");
 
 // Know it will work on this client mod or it's detecting the wrong one?
 // Set this variable.
@@ -78,31 +84,6 @@ export function findInTree(
 		if (returnValue) return returnValue;
 	}
 }
-// export function findInTree2(
-// 	tree,
-// 	filter,
-// 	{ walkable = null, reverse = false } = {}
-// ) {
-// 	const stack = [tree];
-// 	while (stack.length) {
-// 		const node = stack[reverse ? "pop" : "shift"]();
-// 		try {
-// 			if (filter(node)) return node;
-// 		} catch {}
-// 		if (typeof node === "object") {
-// 			if (walkable) {
-// 				stack.push(
-// 					...Object.entries(node)
-// 						.filter(([key, value]) => walkable.indexOf(key) !== -1)
-// 						.map(([key, value]) => value)
-// 				);
-// 			} else {
-// 				stack.push(...Object.values(node));
-// 			}
-// 		} else if (Array.isArray(node)) stack.push(...node);
-// 	}
-// 	return null;
-// }
 /**
  * Finds an object in a React tree.
  * @param {Object} tree The tree to search.
@@ -132,6 +113,43 @@ export function getOwnerInstance(node) {
 		if (owner && !(owner instanceof Element)) return owner;
 	}
 	return null;
+}
+
+/**
+ * Unstable.
+ * @param {*} nodes
+ */
+export function getAllReactInstances(nodes) {
+	if (typeof nodes === "string")
+		nodes = [
+			...document.querySelectorAll(
+				`${nodes}, .${nodes}, #${nodes}, [class*="${nodes}"]`
+			),
+		];
+	if (!nodes) return null;
+	return nodes.map(
+		(node) =>
+			node[
+				Object.keys(node).find((e) => e.startsWith("__reactInternalInstance"))
+			]
+	);
+}
+/**
+ * Unstable.
+ * @param {*} nodes
+ */
+export function getAllOwnerInstances(nodes) {
+	nodes = getAllReactInstances(nodes);
+	if (!nodes) return null;
+	nodes = nodes.map((node) => {
+		for (let curr = node; curr; curr = curr.return) {
+			const owner = curr.stateNode;
+			if (owner && !(owner instanceof Element)) {
+				return owner;
+			}
+		}
+	});
+	return nodes;
 }
 
 /**
@@ -308,15 +326,35 @@ export function randomString(length, dontMatch = null) {
 
 let messageCache = {};
 
-export function fetchMessage(channelID, messageID) {
-	return new Promise((resolve, reject) => {
-		const message =
-			getMessage(channelID, messageID) ??
+export function getMessages(channelID) {
+	const messages = Lodash.merge(
+		discordGetMessages(channelID)._array.reduce(
+			(obj, item) => ((obj[item.key] = item), obj),
+			{}
+		),
+		messageCache[channelID] ?? {}
+	);
+	messageCache[channelID] = messages;
+	return messageCache[channelID];
+}
+
+export function getMessage(channelID, messageID) {
+	ensureTree(
+		messageCache,
+		[channelID, messageID],
+		discordGetMessage(channelID, messageID) ??
 			getMessageByReference({
 				message_id: messageID,
 				channel_id: channelID,
 			}).message ??
-			messageCache[channelID]?.[messageID];
+			messageCache[channelID]?.[messageID]
+	);
+	return;
+}
+
+export function fetchMessage(channelID, messageID) {
+	return new Promise((resolve, reject) => {
+		const message = getMessage(channelID, messageID);
 
 		if (message) return resolve(message);
 
@@ -343,5 +381,36 @@ export function fetchMessage(channelID, messageID) {
 				console.log(res);
 				if (res.status != 403) return reject();
 			});
+	});
+}
+
+export function rerenderAllMessages(props = {}) {
+	// getMessages because they'd be loaded. Duh.
+	const messages = discordGetMessages(getChannelId())._array;
+	for (const message of messages) {
+		rerenderMessage(message, props);
+	}
+}
+
+export function rerenderMessage(idOrMessage, props = {}) {
+	// getMessage because they'd be loaded. Duh.
+	let message =
+		typeof idOrMessage === "string"
+			? discordGetMessage(idOrMessage)
+			: idOrMessage;
+	if (!message) return;
+	message = {
+		id: message.id,
+		channel_id: message.channel_id,
+		content: message.content,
+	};
+	updateMessage(message, props);
+}
+
+export function updateMessage(message, props = {}) {
+	FluxDispatcher.dirtyDispatch({
+		...props,
+		type: "MESSAGE_UPDATE",
+		message,
 	});
 }
