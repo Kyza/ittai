@@ -66,6 +66,7 @@
 ```bash
 git clone https://github.com/Kyza/ittai/
 pnpm i
+pnpm bin
 ```
 
 ## How to Build
@@ -90,5 +91,5 @@ pnpm i
 This command will build your plugin for BetterDiscord, Powercord v2, and Vizality, but will only copy it to the Vizality plugin's folder. It will also hot rebuild your plugin for you.
 
 ```bash
-pnpm start --plugin="./test/plugin" --betterdiscord --powercordv2 --vizality="C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd" --watch
+ittai --plugin="./test/plugin" --betterdiscord --powercordv2 --vizality="C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd" --watch
 ```
