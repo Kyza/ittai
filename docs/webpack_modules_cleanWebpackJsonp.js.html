@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/modules/cleanWebpackJsonp.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,36 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/modules/cleanWebpackJsonp.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { webpackID } from "../modules";
 
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Removes Ittai from `webpackJsonp`.
+ */
+export default function cleanWebpackJsonp() {
+	for (let i = globalThis.webpackJsonp.length - 1; i >= 0; i--) {
+		if (!globalThis.webpackJsonp.hasOwnProperty(i)) continue;
+		if (
+			globalThis.webpackJsonp[i][2] &amp;&amp;
+			globalThis.webpackJsonp[i][2][0] == webpackID
+		) {
+			globalThis.webpackJsonp.splice(i, 1);
+			i += 1;
+		}
+	}
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

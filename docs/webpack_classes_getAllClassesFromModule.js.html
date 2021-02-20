@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/classes/getAllClassesFromModule.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,40 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/classes/getAllClassesFromModule.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Extracts all of the classes from a Webpack module.
+ * @param {Object} module The module to search.
+ */
+export default function getAllClassesFromModule(module) {
+	let classes = {};
+	for (const prop of Object.keys(module).map((key) => ({
+		key,
+		value: module[key],
+	}))) {
+		try {
+			if (
+				typeof prop.value === "string" &amp;&amp;
+				new RegExp(`${prop.key}-.+`, "gi").test(prop.value)
+			) {
+				classes[prop.key] = prop.value;
+			}
+		} catch {}
+	}
+	return classes;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

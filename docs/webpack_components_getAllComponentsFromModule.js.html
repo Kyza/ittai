@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/components/getAllComponentsFromModule.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,41 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/components/getAllComponentsFromModule.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Extracts all of the React components from a Webpack module.
+ * @param {Object} module The module to search.
+ */
+export default function getAllComponentsFromModule(module) {
+	let components = {};
+	if (typeof module === "function" &amp;&amp; module.displayName != undefined)
+		return (components[module.displayName] = module);
+	for (const prop of [
+		...Object.values(module),
+		...(module.type ? Object.values(module.type) : []),
+		...(module.default ? Object.values(module.default) : []),
+		...(module.type &amp;&amp; module.type.default
+			? Object.values(module.type.default)
+			: []),
+	]) {
+		if (prop &amp;&amp; prop.displayName != undefined) {
+			components[prop.displayName] = prop;
+		}
+	}
+	return components;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

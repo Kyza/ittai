@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai utilities/index.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,43 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>utilities/index.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module utils
+ */
 
-<section>
+export { default as getClientMod } from "./getClientMod";
 
-<header>
-    
-        
-    
-</header>
+export { default as nanoseconds } from "./nanoseconds";
 
-<article>
-    <div class="container-overview">
-    
-        
+export { default as findInTree } from "./findInTree";
+export { default as findInReactTree } from "./findInReactTree";
 
-        
-    
-    </div>
-    
-    
+export { default as getReactInstance } from "./getReactInstance";
+export { default as getOwnerInstance } from "./getOwnerInstance";
 
-    
+export { default as benchmark } from "./benchmark";
+export { default as multiBenchmark } from "./multiBenchmark";
 
-    
+export { default as average } from "./average";
+export { default as median } from "./median";
 
-    
+export { default as randomNumber } from "./randomNumber";
+export { default as randomString } from "./randomString";
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+export * as messages from "./messages";
+</code></pre>
+        </article>
+    </section>
 
 
 

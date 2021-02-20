@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai utilities/median.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,32 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>utilities/median.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @param {number[]} array An array of numbers.
+ * @returns {number} The median of the numbers in the array.
+ */
+export default function median(array) {
+	if (array.length === 0) return 0;
+	array.sort(function (a, b) {
+		return a - b;
+	});
+	let half = Math.floor(array.length / 2);
+	if (array.length % 2) return array[half];
+	return (array[half - 1] + array[half]) / 2.0;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

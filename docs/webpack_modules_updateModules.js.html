@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/modules/updateModules.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,52 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/modules/updateModules.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+	_modules,
+	webpackCache,
+	webpackID,
+	cleanWebpackJsonp,
+} from "../modules";
 
-<section>
+/**
+ * Updates the module cache.
+ * @returns {Object} The module cache.
+ */
+export default function updateModules() {
+	if (!webpackCache) {
+		let __webpack_require__ = globalThis.webpackJsonp.push([
+			[],
+			{
+				[webpackID]: (module, exports, __webpack_require__) =>
+					(module.exports = __webpack_require__),
+			},
+			[[webpackID]],
+		]);
+		delete __webpack_require__.m[webpackID];
+		delete __webpack_require__.c[webpackID];
+		webpackCache = __webpack_require__.c;
+		cleanWebpackJsonp();
+	}
 
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+	return (_modules = Object.keys(webpackCache)
+		.map((m) => webpackCache[m].exports)
+		.filter(
+			(m) => ["object", "function"].indexOf(typeof m) !== -1 &amp;&amp; m !== globalThis
+		));
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

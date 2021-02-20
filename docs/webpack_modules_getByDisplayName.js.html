@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/modules/getByDisplayName.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,43 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/modules/getByDisplayName.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { all } from "../modules";
 
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Gets a Webpack module from Discord by its display name.
+ * @param  {string} displayName
+ * @returns {Object}
+ * @example
+ * ittai.webpack.modules.getByDisplayName("CallTile");
+ */
+export default function getByDisplayName(displayName) {
+	for (const mod of all()) {
+		if (
+			mod.displayName === displayName ||
+			(mod.default &amp;&amp; mod.default.displayName === displayName) ||
+			(mod.type &amp;&amp; mod.type.displayName === displayName) ||
+			(mod.type &amp;&amp;
+				mod.type.default &amp;&amp;
+				mod.type.default.displayName === displayName)
+		) {
+			return mod;
+		}
+	}
+	return null;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

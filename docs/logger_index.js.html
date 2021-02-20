@@ -122,64 +122,18 @@
  * @module logger
  */
 
-const cc = { ...console };
+export const consoleCopy = { ...console };
 
-function createArguments(...args) {
-	return [
-		"%cIttai",
-		"color: #000; background-color: #42ffa7; font-family: default; padding-left: 3px; padding-right: 3px; border-radius: 2px; font-weight: bold;",
-		...args,
-	];
-}
+export { default as createArguments } from "./createArguments";
 
-/**
- * @param  {...any} args
- */
-export function log(...args) {
-	cc.log(...createArguments(...args));
-}
-/**
- * @param  {...any} args
- */
-export function debug(...args) {
-	cc.debug(...createArguments(...args));
-}
-/**
- * @param  {...any} args
- */
-export function warn(...args) {
-	cc.warn(...createArguments(...args));
-}
-/**
- * @param  {...any} args
- */
-export function error(...args) {
-	cc.error(...createArguments(...args));
-}
-/**
- * @param  {...any} args
- */
-export function group(...args) {
-	cc.group(...createArguments(...args));
-}
-/**
- * @param  {...any} args
- */
-export function groupEnd(...args) {
-	cc.groupEnd(...createArguments(...args));
-}
-/**
- * @param  {...any} args
- */
-export function count(...args) {
-	cc.count(...args);
-}
-/**
- * @param  {...any} args
- */
-export function countReset(...args) {
-	cc.countReset(...args);
-}
+export { default as log } from "./log";
+export { default as debug } from "./debug";
+export { default as warn } from "./warn";
+export { default as error } from "./error";
+export { default as group } from "./group";
+export { default as groupEnd } from "./groupEnd";
+export { default as count } from "./count";
+export { default as countReset } from "./countReset";
 </code></pre>
         </article>
     </section>

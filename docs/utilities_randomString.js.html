@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai utilities/randomString.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,47 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>utilities/randomString.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { randomNumber } from "../utilities";
 
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * @param {number} length The length of the string.
+ * @param {string|array} dontMatch A string or an array of strings that will cause a regeneration if any are matched.
+ * @param {string|array} charset A list of the characters to use when generating the string.
+ * @returns {string} A string of random characters.
+ */
+export default function randomString(
+	length,
+	dontMatch = "",
+	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+) {
+	if (typeof length !== "number" &amp;&amp; length &lt;= 0) return;
+	if (typeof dontMatch !== "string" &amp;&amp; !Array.isArray(dontMatch)) return;
+	if (typeof charset !== "string" &amp;&amp; !Array.isArray(charset)) return;
+	let string = "";
+	do {
+		while (string.length &lt; length) {
+			string += charset[Math.round(randomNumber(0, charset.length - 1))];
+		}
+		string = string.slice(0, length);
+	} while (
+		dontMatch &amp;&amp;
+		(string === dontMatch || dontMatch.some((m) => m === string))
+	);
+	return string;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

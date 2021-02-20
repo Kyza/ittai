@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/components/updateComponents.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,44 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/components/updateComponents.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { updateModules } from "../modules";
+import { _components, getAllComponentsFromModule } from "../components";
 
-<section>
+/**
+ * Updates the React component cache.
+ * @returns {Object} The React component cache.
+ */
+export default function updateComponents() {
+	let components = {};
 
-<header>
-    
-        
-    
-</header>
+	for (const mod of updateModules()) {
+		const newComponents = getAllComponentsFromModule(mod);
+		for (const comp of Object.keys(newComponents).map((c) => ({
+			key: c,
+			value: newComponents[c],
+		}))) {
+			while (components[comp.key] &amp;&amp; components[comp.key] !== comp.value) {
+				comp.key = comp.key + "_";
+			}
+			components[comp.key] = comp.value;
+		}
+	}
 
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+	return (_components = components);
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

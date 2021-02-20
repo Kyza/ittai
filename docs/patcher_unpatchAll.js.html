@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai patcher/unpatchAll.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,35 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>patcher/unpatchAll.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { patches } from "../patcher";
 
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Unpatches all of the patches specified, or all of them if none are specified.
+ * @param {string[]} [unpatches={@link module:patcher.patches}] An array patch names.
+ */
+export default function unpatchAll(unpatches) {
+	if (!Array.isArray(unpatches)) unpatches = patches;
+	for (const object of Object.values(unpatches)) {
+		for (const funct of Object.values(object)) {
+			for (const patch of funct.patches) {
+				patch.unpatch();
+			}
+		}
+	}
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/classes/getByNameValues.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,37 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/classes/getByNameValues.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { all } from "../classes";
 
-<section>
+/**
+ * Gets a Webpack module from Discord by the class name values.
+ * @param  {...string} nameValues The values of the class names.
+ * @returns {Object}
+ * @example
+ * ittai.webpack.classes.getByNameValues("message", "cozyMessage");
+ */
+export default function getByNameValues(...nameValues) {
+	for (const mod of all()) {
+		if (names.every((name) => mod[name] !== undefined)) {
+			return mod;
+		}
+	}
 
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+	return null;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

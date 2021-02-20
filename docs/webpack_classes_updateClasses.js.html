@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai webpack/classes/updateClasses.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,36 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>webpack/classes/updateClasses.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { updateModules } from "../modules";
+import { _classes, getAllClassesFromModule } from "../classes";
 
-<section>
+/**
+ * Updates the class cache.
+ * @returns {Object} The class cache.
+ */
+export default function updateClasses() {
+	let classes = [];
 
-<header>
-    
-        
-    
-</header>
+	for (const mod of updateModules()) {
+		const newClasses = getAllClassesFromModule(mod);
+		if (Object.keys(newClasses).length) classes.push(newClasses);
+	}
 
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+	return (_classes = classes);
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

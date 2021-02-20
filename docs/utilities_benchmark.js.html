@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai utilities/benchmark.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,69 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>utilities/benchmark.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { average, median, nanoseconds } from "../utilities";
 
-<section>
+/**
+ * @param {function} codeblock The code to benchmark.
+ * @param {number} times The amount of times to run the benchmark.
+ * @returns {Promise} A Promise that resolves when the benchmark is completed.
+ */
+export default function benchmark(codeblock, times) {
+	return new Promise((resolve) => {
+		const pre = codeblock.pre ?? (() => {});
+		delete codeblock.pre;
+		const post = codeblock.post ?? (() => {});
+		delete codeblock.post;
 
-<header>
-    
-        
-    
-</header>
+		const name = Object.keys(codeblock)[0];
 
-<article>
-    <div class="container-overview">
-    
-        
+		codeblock = codeblock[Object.keys(codeblock)[0]];
 
-        
-    
-    </div>
-    
-    
+		let promises = [];
 
-    
+		for (let i = 0; i &lt; times; i++) {
+			promises.push(
+				new Promise((resolve) => {
+					let returns, start, end;
+					try {
+						pre();
+						start = nanoseconds();
+						returns = codeblock();
+						end = nanoseconds();
+						post();
+					} catch (e) {
+						resolve({ returns, time: 0, error: e });
+					}
+					resolve({ returns, time: end - start, error: false });
+				})
+			);
+		}
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+		Promise.all(promises).then((allReturns) => {
+			const finalTimes = allReturns.map((r) => r.time);
+			resolve({
+				name,
+				average: average(finalTimes),
+				median: median(finalTimes),
+				error: allReturns[0].error,
+				returns: allReturns[0].returns,
+			});
+		});
+	});
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

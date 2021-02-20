@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai utilities/findInReactTree.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,40 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>utilities/findInReactTree.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { findInTree } from "../utilities";
 
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Finds an object in a React tree.
+ * @param {Object} tree The tree to search.
+ * @param {function} filter A filter function that should return true when it checks what you want to find.
+ * @param {Object} [whileLoop=false] Whether or not to use a while loop instead of recursion. This is slower, but not prone to stack overflow.
+ */
+export default function findInReactTree(
+	tree,
+	filter,
+	{ whileLoop = false, maxDepth = 100, depth = 0 } = {}
+) {
+	return findInTree(tree, filter, {
+		walkable: ["props", "children", "child", "sibling"],
+		exclude: ["__reactInternalInstance$", "__reactInternalInstance"],
+		whileLoop,
+		maxDepth,
+		depth,
+	});
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

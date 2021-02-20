@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ittai utils</title>
+  <title>Ittai patcher/instead.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -106,53 +108,33 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>utils</h1>
+                    <p>Source</p>
+                    <h1>patcher/instead.js</h1>
                 </header>
                 
 
 
 
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { patch } from "../patcher";
 
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ *
+ * @param {string} name The name of the patch. For debugging.
+ * @param {any} object The object that the function is in.
+ * @param {string} functionName The name of the function to patch.
+ * @param {function} patchFunction The code to patch into the function.
+ * @returns {Object} {@link module:patcher.patch~patchData}
+ * @tutorial patchingInstead
+ */
+export default function instead(name, object, functionName, patchFunction) {
+	return patch(name, object, functionName, "instead", patchFunction);
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
