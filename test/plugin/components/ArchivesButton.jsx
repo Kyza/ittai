@@ -1,66 +1,85 @@
 import { React } from "ittai/libraries";
-import { components, modules } from "ittai/webpack";
+import { components, modules, classes } from "ittai/webpack";
 import * as logger from "ittai/logger";
-import { FontAwesome } from "ittai/components";
+import { DiscordProviders, FontAwesome, FluxWrapper } from "ittai/components";
+import ArchiveMessagesPopout from "./ArchiveMessagesPopout";
 
-const { Button } = modules.getByDisplayName("MiniPopover");
-const { Tooltip } = components.all;
+const { Popout, Tooltip } = components.all;
+
+const WindowStore = modules.getByProps("windowSize", "isFocused");
+const { connectStores } = modules.getByProps("connectStores");
+// const { useStateFromStores } = modules.getByProps("useStateFromStores");
+
+const iconClasses = classes.getByNames("clickable", "icon");
 
 export default function ArchivesButton(props) {
-	const [archived, setArchived] = React.useState(
-		props.settings
-			.get("messages", [])
-			.some(
-				(messages) =>
-					messages.messageID === props.message.id &&
-					messages.channelID === props.channel.id
-			)
-	);
+	const [popoutOpen, setPopoutOpen] = React.useState(false);
 
 	return (
-		<Tooltip
-			color={Tooltip.Colors.PRIMARY}
-			postion={Tooltip.Positions.TOP}
-			text={archived ? "Unarchive Message" : "Archive Message"}
+		<>
+			{connectStores([WindowStore], (all) => {
+				logger.log("bgfhjsbgf", all);
+				return all;
+			})(() => (
+				<DiscordProviders>
+					<Popout
+						renderPopout={(popoutProps) => (
+							<ArchiveMessagesPopout
+								{...popoutProps}
+								settings={props.settings}
+							/>
+						)}
+						nudgeAlignIntoViewport={true}
+						position={Popout.Positions.BOTTOM}
+						shouldShow={popoutOpen}
+						animation={Popout.Animation.FADE}
+					>
+						{(props) => (
+							<div
+								{...props.popoutProps}
+								className={`${iconClasses.iconWrapper} ${iconClasses.clickable}`}
+							>
+								{popoutOpen ? (
+									<Icon setPopoutOpen={setPopoutOpen} popoutOpen={popoutOpen} />
+								) : (
+									<Tooltip
+										color={Tooltip.Colors.PRIMARY}
+										position={Tooltip.Positions.BOTTOM}
+										text={"Message Archives"}
+									>
+										{({ onMouseLeave, onMouseEnter }) => (
+											<Icon
+												onMouseEnter={onMouseEnter}
+												onMouseLeave={onMouseLeave}
+												setPopoutOpen={setPopoutOpen}
+												popoutOpen={popoutOpen}
+											/>
+										)}
+									</Tooltip>
+								)}
+							</div>
+						)}
+					</Popout>
+				</DiscordProviders>
+			))}
+		</>
+	);
+}
+
+function Icon(props) {
+	return (
+		<div
+			{...props}
+			onClick={() => {
+				props.setPopoutOpen(!props.popoutOpen);
+			}}
 		>
-			{({ onMouseLeave, onMouseEnter }) => (
-				<Button
-					onClick={
-						archived
-							? () => {
-									let messages = props.settings.get("messages", []);
-									const messageIndex = messages.indexOf(
-										messages.filter(
-											(message) =>
-												message.messageID === props.message.id &&
-												message.channelID === props.channel.id
-										)
-									);
-									messages.splice(messageIndex, 1);
-									props.settings.set({ messages });
-									setArchived(false);
-							  }
-							: () => {
-									let messages = props.settings.get("messages", []);
-									messages.push({
-										archivedAt: new Date(),
-										messageID: props.message.id,
-										channelID: props.channel.id,
-									});
-									props.settings.set({ messages });
-									setArchived(true);
-							  }
-					}
-					onMouseEnter={onMouseEnter}
-					onMouseLeave={onMouseLeave}
-				>
-					<FontAwesome
-						type={archived ? "regular" : "solid"}
-						name="archive"
-						size="20"
-					/>
-				</Button>
-			)}
-		</Tooltip>
+			<FontAwesome
+				type="solid"
+				name="archive"
+				size="24"
+				className={iconClasses.icon}
+			/>
+		</div>
 	);
 }

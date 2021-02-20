@@ -2,30 +2,7 @@
  * @module entities
  */
 
-import { getClientMod } from "../utils";
-
-const faURL =
-	"https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css";
-
 /**
  * The plugin class for the running client mod.
  */
-export const Plugin = (() => {
-	if (!document.querySelector(`[href="${faURL}"]`)) {
-		document.head.appendChild(
-			Object.assign(document.createElement("link"), {
-				rel: "stylesheet",
-				href: faURL,
-			})
-		);
-	}
-
-	switch (getClientMod()) {
-		case "powercordv2":
-			return require("./PCv2Plugin").default;
-		case "vizality":
-			return require("./VZPlugin").default;
-		case "betterdiscord":
-			return require("./BDPlugin").default;
-	}
-})();
+export { default as Plugin } from "./Plugin";

@@ -4,6 +4,10 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 
+const build = require("./build");
+
+const { header } = require("./ui");
+
 if (
 	argv.plugin &&
 	(argv.powercordv2 ||
@@ -11,5 +15,6 @@ if (
 		argv.enhanceddiscord ||
 		argv.vizality)
 ) {
-	require("./build")(argv);
+	header(argv);
+	build(argv);
 }

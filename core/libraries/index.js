@@ -1,16 +1,17 @@
-/** @module libraries */
-
-import { getByProps } from "../webpack/modules";
+/**
+ * {@link https://reactjs.org/|Full list of libraries that Discord uses.}
+ * @module libraries
+ */
 
 /**
  * Discord's {@link https://reactjs.org/|React} instance.
  */
-export const React = getByProps("useState");
+export { default as React } from "./React";
 /**
  * Discord's {@link https://reactjs.org/docs/react-dom.html|ReactDOM} instance.
  */
-export const ReactDOM = getByProps("render", "unmountComponentAtNode");
+export { default as ReactDOM } from "./ReactDOM";
 /**
  * Discord's {@link https://lodash.com/|Lodash} instance.
  */
-export const Lodash = globalThis._;
+export { default as _ } from "./_";

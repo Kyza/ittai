@@ -1,9 +1,9 @@
 import * as logger from "../logger";
 import { React, ReactDOM } from "../libraries";
-import { modules } from "../webpack";
-import { all as components } from "../webpack/components";
+import { modules, components } from "../webpack";
 
-const LayerProvider = components.AppLayerProvider().props.layerContext.Provider;
+const LayerProvider = components.all.AppLayerProvider().props.layerContext
+	.Provider;
 const AccessibilityProvider = modules.getByProps(
 	"AccessibilityPreferencesContext"
 ).AccessibilityPreferencesContext.Provider;

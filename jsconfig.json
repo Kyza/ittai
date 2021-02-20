@@ -1,0 +1,7 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {"ittai/*": "./core/*"}
+	},
+	"exclude": ["./node_modules", "docs", "tutorials", "temp", "builder"],
+}

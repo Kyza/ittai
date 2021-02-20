@@ -2,7 +2,7 @@ import { React } from "ittai/libraries";
 import { components, modules, classes } from "ittai/webpack";
 import * as logger from "ittai/logger";
 import { FontAwesome } from "ittai/components";
-import { fetchMessage } from "ittai/utils";
+import { messages } from "iittai/utils";
 
 const { ChannelMessage } = components.all;
 
@@ -12,15 +12,21 @@ const { messageGroupWrapper } = classes.getByNames("messageGroupWrapper");
 
 export default React.memo(function ArchiveMessagesListMessage(props) {
 	const [message, setMessage] = React.useState("loading");
-	const channel = getChannel(props.message.channelID);
+	const channel = getChannel(props.channelID);
 
 	React.useEffect(() => {
-		fetchMessage(props.message.channelID, props.message.messageID)
+		messages
+			.fetchMessage(props.channelID, props.messageID)
 			.then((m) => {
 				setMessage(m);
 			})
 			.catch((e) => {
-				logger.error("Failed to get message.", e, channelID, messageID);
+				logger.error(
+					"Failed to get message.",
+					e,
+					props.channelID,
+					props.messageID
+				);
 				setMessage("error");
 			});
 	});

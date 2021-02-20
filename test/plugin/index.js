@@ -3,15 +3,11 @@ globalThis.ittai = ittai;
 
 import { React } from "ittai/libraries";
 import { Plugin } from "ittai/entities";
-import { components, modules } from "ittai/webpack";
+import { modules } from "ittai/webpack";
 import * as patcher from "ittai/patcher";
-import {
-	findInReactTree,
-	getOwnerInstance,
-	rerenderAllMessages,
-} from "ittai/utils";
+import { findInReactTree, getOwnerInstance, messages } from "ittai/utilities";
 
-import ArchiveMessagesList from "./components/ArchiveMessagesList";
+// import ArchiveMessagesList from "./components/ArchiveMessagesList";
 import Settings from "./components/Settings";
 import ArchiveButton from "./components/ArchiveButton";
 // import PinsHeader from "./components/PinsHeader";
@@ -46,7 +42,7 @@ export default class ArchiveMessages extends Plugin {
 			HeaderBar,
 			"default",
 			(that, args, res) => {
-				console.log(res);
+				this.log(res);
 				return res;
 			}
 		);
@@ -54,12 +50,12 @@ export default class ArchiveMessages extends Plugin {
 		this.settings.setPanel(<Settings />);
 
 		getOwnerInstance("toolbar")?.forceUpdate();
-		rerenderAllMessages();
+		// rerenderAllMessages();
 	}
 	stop() {
 		this.log("Stopping.");
 		this.settings.removePanel();
 		patcher.unpatchAll();
-		rerenderAllMessages();
+		// rerenderAllMessages();
 	}
 }

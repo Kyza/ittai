@@ -41,7 +41,6 @@ export default function ArchiveButton(props) {
 									setArchived(false);
 							  }
 							: () => {
-									console.log(1);
 									let messages = props.settings.get("messages", []);
 									messages.push({
 										archivedAt: new Date(),

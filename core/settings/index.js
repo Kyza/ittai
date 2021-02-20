@@ -1,1 +1,1 @@
-import { getClientMod } from "../utils/getClientMod";
+import { getClientMod } from "../utilities/getClientMod";
