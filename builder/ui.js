@@ -41,15 +41,18 @@ module.exports.header = (argv) => {
 	let argsTable = [];
 
 	argsTable.push(["Plugin Folder:", path.resolve(argv.plugin)]);
-	argsTable.push([
-		"BetterDiscord Plugin File:",
-		path.resolve(path.join(argv.betterdiscord, bdFileName)),
-	]);
-	argsTable.push([
-		"PowercordV2 Plugin Folder:",
-		path.resolve(argv.powercordv2),
-	]);
-	argsTable.push(["Vizality Plugin Folder:", path.resolve(argv.vizality)]);
+	if (argv.betterdiscord)
+		argsTable.push([
+			"BetterDiscord Plugin File:",
+			path.resolve(path.join(argv.betterdiscord, bdFileName)),
+		]);
+	if (argv.powercordv2)
+		argsTable.push([
+			"PowercordV2 Plugin Folder:",
+			path.resolve(argv.powercordv2),
+		]);
+	if (argv.vizality)
+		argsTable.push(["Vizality Plugin Folder:", path.resolve(argv.vizality)]);
 	argsTable.push(["Watching Files:", argv.watch ? "true" : "false"]);
 	argsTable.push(["Build for Production:", argv.production ? "true" : "false"]);
 	term.table(argsTable, {

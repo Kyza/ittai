@@ -101,7 +101,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utilities.html">utilities</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_common.html">webpack/common</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
                 
             </nav>
         </div>
@@ -121,12 +121,12 @@
             <pre class="prettyprint source linenums"><code>import { group, groupEnd } from "../logger";
 import { benchmark, nanoseconds } from "../utilities";
 
-/**
+export default /**
  * Prints out the benchmark results for each code block.
+ * @memberof module:utilities
  * @param {function} codeblock The code to benchmark.
  * @param {number} times The amount of times to run the benchmark.
- */
-export default function multiBenchmark(codeblocks, times) {
+ */ function multiBenchmark(codeblocks, times) {
 	return new Promise((resolve) => {
 		const start = nanoseconds();
 		Promise.all(

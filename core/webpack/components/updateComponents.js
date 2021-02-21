@@ -1,11 +1,11 @@
 import { updateModules } from "../modules";
 import { _components, getAllComponentsFromModule } from "../components";
 
-/**
+export default /**
  * Updates the React component cache.
+ * @memberof module:webpack/components
  * @returns {Object} The React component cache.
- */
-export default function updateComponents() {
+ */ function updateComponents() {
 	let components = {};
 
 	for (const mod of updateModules()) {

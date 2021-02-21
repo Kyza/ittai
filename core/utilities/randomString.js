@@ -1,12 +1,12 @@
 import { randomNumber } from "../utilities";
 
-/**
+export default /**
  * @param {number} length The length of the string.
  * @param {string|array} dontMatch A string or an array of strings that will cause a regeneration if any are matched.
  * @param {string|array} charset A list of the characters to use when generating the string.
+ * @memberof module:utilities
  * @returns {string} A string of random characters.
- */
-export default function randomString(
+ */ function randomString(
 	length,
 	dontMatch = "",
 	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

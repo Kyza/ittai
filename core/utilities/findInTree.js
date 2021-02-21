@@ -1,4 +1,14 @@
-/** * Finds an object in a tree. * @param {Object} tree The tree to search. * @param {function} filter A filter function that should return true when it checks what you want to find. * @param {Object} options * @param {string[]} [options.walkable=[]] Which node names are walkable. * @param {string[]} [options.exclude=[]] Which node names to not walk. * @param {boolean|string} [options.whileLoop=false] Whether or not to use a while loop instead of recursion. This is slower, but not prone to stack overflow. * @returns {object|null} */ export default function findInTree(
+export default /**
+ * Finds an object in a tree.
+ * @param {object} tree The tree to search.
+ * @param {function} filter A filter function that should return true when it checks what you want to find.
+ * @param {object} options
+ * @param {string[]} [options.walkable=[]] Which node names are walkable.
+ * @param {string[]} [options.exclude=[]] Which node names to not walk.
+ * @param {boolean|string} [options.whileLoop=false] Whether or not to use a while loop instead of recursion. This is slower, but not prone to stack overflow.
+ * @memberof module:utilities
+ * @returns {object|null}
+ */ function findInTree(
 	tree,
 	filter,
 	{

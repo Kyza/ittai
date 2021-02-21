@@ -1,4 +1,4 @@
-import { React } from "../libraries";
+import { React } from "../webpack/common";
 
 export default class Plugin extends require("powercord/entities").Plugin {
 	getSettings() {

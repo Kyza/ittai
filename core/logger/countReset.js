@@ -1,8 +1,8 @@
 import { consoleCopy } from "../logger";
 
-/**
+export default /**
+ * @memberof module:logger
  * @param  {...any} args
- */
-export default function countReset(...args) {
+ */ function countReset(...args) {
 	consoleCopy.countReset(...args);
 }

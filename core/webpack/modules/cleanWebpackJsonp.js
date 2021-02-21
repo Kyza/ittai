@@ -1,9 +1,9 @@
 import { webpackID } from "../modules";
 
-/**
+export default /**
  * Removes Ittai from `webpackJsonp`.
- */
-export default function cleanWebpackJsonp() {
+ * @memberof module:webpack/modules
+ */ function cleanWebpackJsonp() {
 	for (let i = globalThis.webpackJsonp.length - 1; i >= 0; i--) {
 		if (!globalThis.webpackJsonp.hasOwnProperty(i)) continue;
 		if (

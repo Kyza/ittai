@@ -1,8 +1,8 @@
 import { consoleCopy, createArguments } from "../logger";
 
-/**
+export default /**
+ * @memberof module:logger
  * @param  {...any} args
- */
-export default function group(...args) {
+ */ function group(...args) {
 	consoleCopy.group(...createArguments(...args));
 }

@@ -1,11 +1,11 @@
 import { updateModules } from "../modules";
 import { _classes, getAllClassesFromModule } from "../classes";
 
-/**
+export default /**
  * Updates the class cache.
+ * @memberof module:webpack/classes
  * @returns {Object} The class cache.
- */
-export default function updateClasses() {
+ */ function updateClasses() {
 	let classes = [];
 
 	for (const mod of updateModules()) {

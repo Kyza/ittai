@@ -1,8 +1,8 @@
-/**
+export default /**
  * Extracts all of the classes from a Webpack module.
+ * @memberof module:webpack/classes
  * @param {Object} module The module to search.
- */
-export default function getAllClassesFromModule(module) {
+ */ function getAllClassesFromModule(module) {
 	let classes = {};
 	for (const prop of Object.keys(module).map((key) => ({
 		key,
@@ -11,7 +11,7 @@ export default function getAllClassesFromModule(module) {
 		try {
 			if (
 				typeof prop.value === "string" &&
-				new RegExp(`${prop.key}-.+`, "gi").test(prop.value)
+				new RegExp(`${prop.key}-.+`, "i").test(prop.value)
 			) {
 				classes[prop.key] = prop.value;
 			}

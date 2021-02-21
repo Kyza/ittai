@@ -1,7 +1,7 @@
 import { React } from "ittai/libraries";
 import { components, modules } from "ittai/webpack";
 import * as logger from "ittai/logger";
-import { FontAwesome } from "ittai/components";
+import { FontAwesomeIcon } from "ittai/components";
 
 const { Button } = modules.getByDisplayName("MiniPopover");
 const { Tooltip } = components.all;
@@ -54,7 +54,7 @@ export default function ArchiveButton(props) {
 					onMouseEnter={onMouseEnter}
 					onMouseLeave={onMouseLeave}
 				>
-					<FontAwesome
+					<FontAwesomeIcon
 						type={archived ? "regular" : "solid"}
 						name="archive"
 						size="20"

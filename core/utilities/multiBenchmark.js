@@ -1,12 +1,12 @@
 import { group, groupEnd } from "../logger";
 import { benchmark, nanoseconds } from "../utilities";
 
-/**
+export default /**
  * Prints out the benchmark results for each code block.
+ * @memberof module:utilities
  * @param {function} codeblock The code to benchmark.
  * @param {number} times The amount of times to run the benchmark.
- */
-export default function multiBenchmark(codeblocks, times) {
+ */ function multiBenchmark(codeblocks, times) {
 	return new Promise((resolve) => {
 		const start = nanoseconds();
 		Promise.all(

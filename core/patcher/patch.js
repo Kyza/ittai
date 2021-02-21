@@ -2,23 +2,22 @@ import * as logger from "../logger";
 import { randomString } from "../utilities";
 import { patches } from "../patcher";
 
-/**
- *
+export default /**
  * @param {string} name The name of the patch. For debugging.
  * @param {any} object The object that the function is in.
  * @param {string} functionName The name of the function to patch.
  * @param {string} type The type of patch to apply. `before`, `instead`, `after`.
  * @param {function} patchFunction The code to patch into the function.
  * @returns {object} {@link module:utils/patcher.patch~patchData}
+ * @memberof module:patcher
  * @tutorial patching
- */
-export default function patch(name, object, functionName, type, patchFunction) {
+ */ function patch(name, object, functionName, type, patchFunction) {
 	const id = object.__ittai__ ?? randomString(25, Object.keys(patches));
 	object.__ittai__ = object.__ittai__ ?? id;
 	if (!patches[id]) patches[id] = {};
 
 	/**
-	 * @memberof module:utils/patcher
+	 * @memberof module:patcher
 	 * @prop {string} name The name of the function being patched.
 	 * @prop {string} type The type of the patch.
 	 * @prop {function} patchFunction The original function.

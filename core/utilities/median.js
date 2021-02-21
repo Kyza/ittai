@@ -1,8 +1,8 @@
-/**
+export default /**
  * @param {number[]} array An array of numbers.
+ * @memberof module:utilities
  * @returns {number} The median of the numbers in the array.
- */
-export default function median(array) {
+ */ function median(array) {
 	if (array.length === 0) return 0;
 	array.sort(function (a, b) {
 		return a - b;

@@ -1,8 +1,8 @@
-/**
+export default /**
  * Extracts all of the React components from a Webpack module.
+ * @memberof module:webpack/components
  * @param {Object} module The module to search.
- */
-export default function getAllComponentsFromModule(module) {
+ */ function getAllComponentsFromModule(module) {
 	let components = {};
 	if (typeof module === "function" && module.displayName != undefined)
 		return (components[module.displayName] = module);

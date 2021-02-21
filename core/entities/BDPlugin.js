@@ -1,5 +1,5 @@
 import * as logger from "../logger";
-import { React, ReactDOM } from "../libraries";
+import { React, ReactDOM } from "../webpack/common";
 import { modules, components } from "../webpack";
 
 const LayerProvider = components.all.AppLayerProvider().props.layerContext

@@ -1,4 +1,4 @@
-import { React } from "../libraries";
+import { React } from "../webpack/common";
 
 const faURL =
 	"https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css";
@@ -13,7 +13,7 @@ if (!document.querySelector(`[href*="kit-pro.fontawesome.com"]`)) {
 
 /**
  * Render any {@link https://fontawesome.com/|FontAwesome} icon. This includes FontAwesome Pro icons.
- * @name FontAwesome
+ * @name FontAwesomeIcon
  * @param {object} props React properties. All unlisted properties will be passed down to the component.
  * @param {string} [props.type="solid"] The FontAwesome icon type. `solid`, `regular`, `light`, `duotone`, `brand`.
  * @param {number} [props.size=48] The size of the icon in pixels. Don't include `px`.
@@ -21,10 +21,10 @@ if (!document.querySelector(`[href*="kit-pro.fontawesome.com"]`)) {
  * @memberof module:components
  * @example
  * return (
- *   <FontAwesome type="brand" name="discord" size="22" />
+ *   <FontAwesomeIcon type="brand" name="discord" size="22" />
  * );
  */
-export default function FontAwesome(props) {
+export default function FontAwesomeIcon(props) {
 	return (
 		<i
 			{...props}

@@ -1,11 +1,11 @@
 import { average, median, nanoseconds } from "../utilities";
 
-/**
+export default /**
  * @param {function} codeblock The code to benchmark.
  * @param {number} times The amount of times to run the benchmark.
+ * @memberof module:utilities
  * @returns {Promise} A Promise that resolves when the benchmark is completed.
- */
-export default function benchmark(codeblock, times) {
+ */ function benchmark(codeblock, times) {
 	return new Promise((resolve) => {
 		const pre = codeblock.pre ?? (() => {});
 		delete codeblock.pre;

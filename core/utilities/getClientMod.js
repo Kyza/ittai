@@ -2,10 +2,10 @@
 // Set this variable.
 let clientMod;
 
-/**
+export default /**
+ * @memberof module:utilities
  * @returns {string} The name of the running client mod.
- */
-export default function getClientMod() {
+ */ function getClientMod() {
 	if (clientMod) return clientMod;
 	if (
 		globalThis.BdApi &&

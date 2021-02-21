@@ -1,13 +1,13 @@
 import { all } from "../modules";
 
-/**
+export default /**
  * Gets a Webpack module from Discord by its display name.
- * @param  {string} displayName
+ * @memberof module:webpack/modules
+ * @param {string} displayName
  * @returns {Object}
  * @example
  * ittai.webpack.modules.getByDisplayName("CallTile");
- */
-export default function getByDisplayName(displayName) {
+ */ function getByDisplayName(displayName) {
 	for (const mod of all()) {
 		if (
 			mod.displayName === displayName ||

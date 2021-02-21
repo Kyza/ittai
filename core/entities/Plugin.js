@@ -1,10 +1,14 @@
 import { log, debug, warn, error } from "../logger";
-import { React, ReactDOM } from "../libraries";
+import { React, ReactDOM } from "../webpack/common";
 import { DiscordProviders } from "../components";
 import { modules, components } from "../webpack";
 import { getClientMod } from "../utilities";
 
-export default class Plugin extends (() => {
+export default /**
+ * The plugin class for the running client mod.
+ * @name Plugin
+ * @memberof module:entities
+ */ class Plugin extends (() => {
 	switch (getClientMod()) {
 		case "powercordv2":
 			return require("powercord/entities");

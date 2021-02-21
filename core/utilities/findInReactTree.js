@@ -1,12 +1,12 @@
 import { findInTree } from "../utilities";
 
-/**
+export default /**
  * Finds an object in a React tree.
- * @param {Object} tree The tree to search.
+ * @memberof module:utilities
+ * @param {object} tree The tree to search.
  * @param {function} filter A filter function that should return true when it checks what you want to find.
- * @param {Object} [whileLoop=false] Whether or not to use a while loop instead of recursion. This is slower, but not prone to stack overflow.
- */
-export default function findInReactTree(
+ * @param {object} [whileLoop=false] Whether or not to use a while loop instead of recursion. This is slower, but not prone to stack overflow.
+ */ function findInReactTree(
 	tree,
 	filter,
 	{ whileLoop = false, maxDepth = 100, depth = 0 } = {}

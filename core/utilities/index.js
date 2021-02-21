@@ -1,5 +1,5 @@
 /**
- * @module utils
+ * @module utilities
  */
 
 export { default as getClientMod } from "./getClientMod";

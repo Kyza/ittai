@@ -1,5 +1,5 @@
 import { modules } from "../../webpack";
-import { _ } from "../../libraries";
+import { _ } from "../../webpack/common";
 import { messageCache } from "../messages";
 
 const { getMessages: discordGetMessages } = modules.getByProps(

@@ -99,7 +99,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utilities.html">utilities</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_common.html">webpack/common</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
                 
             </nav>
         </div>
@@ -202,6 +202,7 @@
 <h3>Installation Steps</h3>
 <pre class="prettyprint source lang-bash"><code>git clone https://github.com/Kyza/ittai/
 pnpm i
+pnpm bin
 </code></pre>
 <h2>How to Build</h2>
 <h3>Command Options</h3>
@@ -233,7 +234,7 @@ pnpm i
 </ul>
 <h3>Build Command</h3>
 <p>This command will build your plugin for BetterDiscord, Powercord v2, and Vizality, but will only copy it to the Vizality plugin's folder. It will also hot rebuild your plugin for you.</p>
-<pre class="prettyprint source lang-bash"><code>pnpm start --plugin=&quot;./test/plugin&quot; --betterdiscord --powercordv2 --vizality=&quot;C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd&quot; --watch
+<pre class="prettyprint source lang-bash"><code>ittai --plugin=&quot;./test/plugin&quot; --betterdiscord --powercordv2 --vizality=&quot;C:/Users/Kyza/GitHub/vizality/addons/plugins/fgbd&quot; --watch
 </code></pre></article>
     </section>
 

@@ -1,13 +1,13 @@
 import { all } from "../modules";
 
-/**
+export default /**
  * Gets a Webpack module from Discord by its property names.
- * @param  {...string} names
+ * @memberof module:webpack/modules
+ * @param {...string} names
  * @returns {Object}
  * @example
  * ittai.webpack.modules.getByProps("useState", "useRef");
- */
-export default function getByProps(...props) {
+ */ function getByProps(...props) {
 	for (const mod of all()) {
 		if (props.every((prop) => mod[prop] !== undefined)) {
 			return mod;

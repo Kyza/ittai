@@ -1,8 +1,8 @@
-import { consoleCopy, createArguments } from "ittai/logger";
+import { consoleCopy, createArguments } from "../logger";
 
-/**
+export default /**
+ * @memberof module:logger
  * @param  {...any} args
- */
-export default function warn(...args) {
+ */ function warn(...args) {
 	consoleCopy.warn(...createArguments(...args));
 }

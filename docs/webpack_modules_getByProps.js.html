@@ -101,7 +101,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-libraries.html">libraries</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utils.html">utils</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components.html">components</a></li><li><a href="module-entities.html">entities</a></li><li><a href="module-logger.html">logger</a></li><li><a href="module-patcher.html">patcher</a></li><li><a href="module-utilities.html">utilities</a></li><li><a href="module-webpack.html">webpack</a></li><li><a href="module-webpack_classes.html">webpack/classes</a></li><li><a href="module-webpack_common.html">webpack/common</a></li><li><a href="module-webpack_components.html">webpack/components</a></li><li><a href="module-webpack_modules.html">webpack/modules</a></li></ul></div>
                 
             </nav>
         </div>
@@ -120,14 +120,14 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { all } from "../modules";
 
-/**
+export default /**
  * Gets a Webpack module from Discord by its property names.
- * @param  {...string} names
+ * @memberof module:webpack/modules
+ * @param {...string} names
  * @returns {Object}
  * @example
  * ittai.webpack.modules.getByProps("useState", "useRef");
- */
-export default function getByProps(...props) {
+ */ function getByProps(...props) {
 	for (const mod of all()) {
 		if (props.every((prop) => mod[prop] !== undefined)) {
 			return mod;

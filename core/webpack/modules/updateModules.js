@@ -5,11 +5,11 @@ import {
 	cleanWebpackJsonp,
 } from "../modules";
 
-/**
+export default /**
  * Updates the module cache.
+ * @memberof module:webpack/modules
  * @returns {Object} The module cache.
- */
-export default function updateModules() {
+ */ function updateModules() {
 	if (!webpackCache) {
 		let __webpack_require__ = globalThis.webpackJsonp.push([
 			[],

@@ -1,4 +1,4 @@
-import { React } from "../libraries";
+import { React } from "../webpack/common";
 import { modules } from "../webpack";
 import * as logger from "../logger";
 
