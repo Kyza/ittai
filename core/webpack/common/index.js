@@ -34,3 +34,19 @@ export /**
 	"pop",
 	"popWithKey"
 );
+
+/*
+	  "Flux": [
+    "Store",
+    "connectStores"
+  ],
+  "FluxDispatcher": [
+    "_currentDispatchActionType",
+    "_processingWaitQueue"
+  ], */
+
+export const Flux = modules.getByProps("Store", "connectStores");
+export const FluxDispatcher = modules.getByProps(
+	"_currentDispatchActionType",
+	"_processingWaitQueue"
+);

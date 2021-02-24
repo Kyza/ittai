@@ -8,6 +8,7 @@ export let webpackCache;
 
 export { default as wrapFilter } from "./wrapFilter";
 export { default as getByProps } from "./getByProps";
+export { default as getAllByPropKeyword } from "./getAllByPropKeyword";
 export { default as getByFilter } from "./getByFilter";
 export { default as getByDisplayName } from "./getByDisplayName";
 export { default as all } from "./all";

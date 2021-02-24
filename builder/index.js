@@ -8,13 +8,7 @@ const build = require("./build");
 
 const { header } = require("./ui");
 
-if (
-	argv.plugin &&
-	(argv.powercordv2 ||
-		argv.betterdiscord ||
-		argv.enhanceddiscord ||
-		argv.vizality)
-) {
+if (argv.plugin && (argv.powercordv2 || argv.betterdiscord || argv.vizality)) {
 	header(argv);
 	build(argv);
 }

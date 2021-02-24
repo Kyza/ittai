@@ -1,3 +1,5 @@
+import { error } from "../logger";
+
 export default /**
  * Finds an object in a tree.
  * @param {object} tree The tree to search.
@@ -22,10 +24,7 @@ export default /**
 	if (depth === maxDepth) return null;
 	if (tree === null || tree === undefined) return null;
 	if (!tree || typeof tree !== "object") {
-		return logger.error(
-			`The specified tree is not an object. Instead got:`,
-			tree
-		);
+		return error(`The specified tree is not an object. Instead got:`, tree);
 	}
 	if (typeof filter === "string") return tree[filter];
 	if (whileLoop) {

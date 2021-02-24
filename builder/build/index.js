@@ -6,9 +6,10 @@ const fs = require("fs-extra");
 const path = require("path");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
+const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
 const beautify = require("js-beautify").js;
 const isValidPath = require("is-valid-path");
-const core = path.resolve(path.join("./core"));
+const core = path.resolve(path.join(__dirname, "..", "..", "core"));
 const term = require("terminal-kit").terminal;
 
 const bdFileName = `${fs
@@ -25,22 +26,27 @@ const { header } = require("../ui");
 let startTime;
 let error = false;
 
+function getModule(mod) {
+	return path.resolve(path.join(__dirname, "..", "..", "node_modules", mod));
+}
+
+const temp = path.resolve(path.join("temp"));
+
 function build(argv, forceNoWatch = false) {
 	return new Promise((resolve) => {
 		if (fs.existsSync(argv.plugin) && fs.existsSync(core)) {
 			term.eraseDisplay();
 			header(argv);
 
-			fs.ensureFileSync("./temp/index.js");
-			fs.ensureFileSync("./temp/manifest.json");
-			const temp = path.resolve("./temp");
+			fs.ensureFileSync(path.join(temp, "index.js"));
+			fs.ensureFileSync(path.join(temp, "manifest.json"));
 
 			const stylesheetLoader = path.resolve(
 				path.join(__dirname, "stylesheetLoader.js")
 			);
 			const jsBuilder = argv.production
 				? {
-						loader: "babel-loader",
+						loader: getModule("babel-loader"),
 						options: {
 							presets: [
 								[
@@ -61,7 +67,7 @@ function build(argv, forceNoWatch = false) {
 						},
 				  }
 				: {
-						loader: "@sucrase/webpack-loader",
+						loader: getModule("@sucrase/webpack-loader"),
 						options: {
 							production: true,
 							// enableLegacyBabel5ModuleInterop: true,
@@ -92,15 +98,12 @@ function build(argv, forceNoWatch = false) {
 					watch: forceNoWatch ? false : argv.watch,
 					watchOptions: {
 						followSymlinks: true,
-						ignored: [
-							"/node_modules/",
-							"/builder/",
-							"/docs/",
-							"/media/",
-							"/tutorials/",
-						],
+						ignored: ["temp"],
 					},
 					plugins: [
+						new ExtraWatchWebpackPlugin({
+							dirs: [core],
+						}),
 						new webpack.ProgressPlugin((percentage, message, ...args) => {
 							if (percentage === 0) {
 								startTime = nanoseconds();
@@ -112,10 +115,18 @@ function build(argv, forceNoWatch = false) {
 								progress: percentage,
 							});
 							if (percentage === 1) {
+								fs.rmdir(temp, { recursive: true });
 								term.eraseLine();
 
 								if (error) {
 									errored = true;
+									if (err) {
+										term.red((err.stack || err) + "\n");
+										if (err.details) {
+											term.red(err.details + "\n");
+										}
+										return;
+									}
 									const info = error.stats.toJson();
 									if (error.stats.hasErrors()) {
 										for (const error of info.errors)
@@ -133,6 +144,7 @@ function build(argv, forceNoWatch = false) {
 										)
 										.styleReset("ms.\n");
 									term.hideCursor();
+
 									return resolve();
 								}
 

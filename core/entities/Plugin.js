@@ -4,6 +4,33 @@ import { DiscordProviders } from "../components";
 import { modules, components } from "../webpack";
 import { getClientMod } from "../utilities";
 
+import { Flux, FluxDispatcher } from "ittai/webpack/common";
+
+const settings = {};
+
+class SettingsStore extends Flux.Store {
+	getStore() {
+		return settings;
+	}
+
+	getSettings(guildId) {
+		return counts[guildId];
+	}
+}
+
+const store = {
+	store: new SettingsStore(FluxDispatcher, {
+		TOTAL_MEMBERS_UPDATE_COUNTS: ({ guildId, count }) =>
+			(counts[guildId] = count),
+	}),
+	set: (guildId, count) =>
+		FluxDispatcher.dirtyDispatch({
+			type: "TOTAL_MEMBERS_UPDATE_COUNTS",
+			guildId,
+			count,
+		}),
+};
+
 export default /**
  * The plugin class for the running client mod.
  * @name Plugin
