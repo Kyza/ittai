@@ -120,10 +120,10 @@ function build(argv, forceNoWatch = false) {
 
 								if (error) {
 									errored = true;
-									if (err) {
-										term.red((err.stack || err) + "\n");
+									if (error.err) {
+										term.red((error.err.stack || error.err) + "\n");
 										if (err.details) {
-											term.red(err.details + "\n");
+											term.red(error.err.details + "\n");
 										}
 										return;
 									}

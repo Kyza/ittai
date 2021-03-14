@@ -11,6 +11,7 @@ export { default as findInReactTree } from "./findInReactTree";
 
 export { default as getReactInstance } from "./getReactInstance";
 export { default as getOwnerInstance } from "./getOwnerInstance";
+export { default as testComponent } from "./testComponent";
 
 export { default as benchmark } from "./benchmark";
 export { default as multiBenchmark } from "./multiBenchmark";

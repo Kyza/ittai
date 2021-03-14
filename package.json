@@ -8,6 +8,7 @@
 	"bin": {
 		"ittai": "./builder/index.js"
 	},
+	"preferGlobal": true,
 	"sideEffects": false,
 	"repository": "https://github.com/NextDiscord/builder",
 	"author": "Kyza",

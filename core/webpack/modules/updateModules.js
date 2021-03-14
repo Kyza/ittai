@@ -3,6 +3,7 @@ import {
 	webpackCache,
 	webpackID,
 	cleanWebpackJsonp,
+	wpr,
 } from "../modules";
 
 export default /**
@@ -11,7 +12,7 @@ export default /**
  * @returns {Object} The module cache.
  */ function updateModules() {
 	if (!webpackCache) {
-		let __webpack_require__ = globalThis.webpackJsonp.push([
+		wpr = globalThis.webpackJsonp.push([
 			[],
 			{
 				[webpackID]: (module, exports, __webpack_require__) =>
@@ -19,9 +20,9 @@ export default /**
 			},
 			[[webpackID]],
 		]);
-		delete __webpack_require__.m[webpackID];
-		delete __webpack_require__.c[webpackID];
-		webpackCache = __webpack_require__.c;
+		delete wpr.m[webpackID];
+		delete wpr.c[webpackID];
+		webpackCache = wpr.c;
 		cleanWebpackJsonp();
 	}
 

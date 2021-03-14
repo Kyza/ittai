@@ -1,21 +1,13 @@
-import { React } from "../webpack/common";
-import { modules } from "../webpack";
-import * as logger from "../logger";
-
-const { connectStores } = modules.getByProps("connectStores");
+import { React, Flux } from "../webpack/common";
 
 export default function FluxWrapper(props) {
-	logger.log("gfndjksgbfjdhjirbfdsuk");
-	return (
-		<>
-			{connectStores(
-				props.stores ?? [],
-				props.createProps ??
-					((all) => {
-						logger.log("bgfhjsbgf", all);
-						return all;
-					})
-			)(props.children)}
-		</>
-	);
+	if (!props.children.displayName) props.children.displayName = "FluxProxy";
+	const ConnectedComponent = Flux.connectStores(
+		props.stores ? Object.values(props.stores) : [],
+		props.createProps ??
+			(() => {
+				return { [Math.random()]: Math.random() };
+			})
+	)(props.children);
+	return <ConnectedComponent {...props.stores} />;
 }

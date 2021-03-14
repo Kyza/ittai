@@ -5,6 +5,7 @@
 export const webpackID = "_ittai";
 export let _modules;
 export let webpackCache;
+export let wpr;
 
 export { default as wrapFilter } from "./wrapFilter";
 export { default as getByProps } from "./getByProps";

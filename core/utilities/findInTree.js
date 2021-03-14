@@ -8,6 +8,7 @@ export default /**
  * @param {string[]} [options.walkable=[]] Which node names are walkable.
  * @param {string[]} [options.exclude=[]] Which node names to not walk.
  * @param {boolean|string} [options.whileLoop=false] Whether or not to use a while loop instead of recursion. This is slower, but not prone to stack overflow.
+ * @param {boolean|string} [options.maxDepth=100] The maximum amount of layers deep to search the tree. `options.whileLoop=false` only.
  * @memberof module:utilities
  * @returns {object|null}
  */ function findInTree(
@@ -23,18 +24,18 @@ export default /**
 ) {
 	if (depth === maxDepth) return null;
 	if (tree === null || tree === undefined) return null;
-	if (!tree || typeof tree !== "object") {
-		return error(`The specified tree is not an object. Instead got:`, tree);
-	}
+	if (typeof tree !== "object") return null;
+
 	if (typeof filter === "string") return tree[filter];
+
 	if (whileLoop) {
 		const stack = [tree];
 		while (stack.length) {
-			if (depth === maxDepth) return null;
 			const node = stack[whileLoop === "reverse" ? "pop" : "shift"]();
 			try {
 				if (filter(node)) return node;
 			} catch {}
+			if (stack.length >= maxStack) continue;
 			if (Array.isArray(node)) {
 				stack.push(...node);
 			} else if (typeof node === "object" && node !== null) {
@@ -75,8 +76,8 @@ export default /**
 				if (returnValue) return returnValue;
 			}
 		}
-		walkable = walkable || Object.keys(tree);
-		for (const key of walkable) {
+		let keys = walkable.length > 0 ? walkable : Object.keys(tree);
+		for (const key of keys) {
 			if (!tree.hasOwnProperty(key) || exclude.includes(key)) continue;
 			returnValue = findInTree(tree[key], filter, {
 				walkable,
